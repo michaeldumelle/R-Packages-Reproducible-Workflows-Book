@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.8.6)  27 AUG 2021 11:24
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.8.6)  7 SEP 2021 14:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -990,27 +990,27 @@ Chapter 1.
 ]
 Chapter 2.
 
-Overfull \hbox (17.937pt too wide) in paragraph at lines 191--192
+Overfull \hbox (17.937pt too wide) in paragraph at lines 199--200
 []\TU/lmr/m/n/10 To label an un-numbered heading, use: \TU/lmtt/m/n/10 # Hello 
 world {-#nice-label}
  []
 
 
-Underfull \hbox (badness 2512) in paragraph at lines 194--195
+Underfull \hbox (badness 2512) in paragraph at lines 202--203
 []\TU/lmr/m/n/10 Next, reference the labeled heading anywhere in the text using
 
  []
 
 
-LaTeX Warning: Reference `fig:nice-fig' on page 9 undefined on input line 208.
+LaTeX Warning: Reference `fig:nice-fig' on page 9 undefined on input line 216.
 
 
-LaTeX Warning: Reference `tab:nice-tab' on page 9 undefined on input line 217.
+LaTeX Warning: Reference `tab:nice-tab' on page 9 undefined on input line 225.
 
 [9] [10]
 Chapter 3.
 
-Underfull \hbox (badness 1924) in paragraph at lines 235--236
+Underfull \hbox (badness 1924) in paragraph at lines 243--244
 []\TU/lmr/m/n/10 Add an unnumbered part: \TU/lmtt/m/n/10 # (PART\*) Act one {-}
  \TU/lmr/m/n/10 (followed by \TU/lmtt/m/n/10 # A
  []

@@ -143,13 +143,13 @@
 \chapter*{Overview}\label{overview}}
 \addcontentsline{toc}{chapter}{Overview}
 
-Welcome to the 2021 EPA R Workshop titled ``Using R Packages for Reproducible Workflows'' by me, Michael Dumelle -- I am glad to have you here! Before proceeding, let's download the companion R package
+Welcome to the 2021 EPA R Workshop titled ``Using R Packages for Reproducible Workflows'' by me, Michael Dumelle -- I am glad to have you here! Before proceeding, let's download \href{https://devtools.r-lib.org/}{devtools} and then the presentation's companion R package
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{) }\CommentTok{# if required}
-\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\DataTypeTok{repo =} \StringTok{"michaeldumelle/RPRWP"}\NormalTok{, }\DataTypeTok{ref =} \StringTok{"main"}\NormalTok{)}
-\KeywordTok{library}\NormalTok{(RPRWP)}
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\DataTypeTok{repo =} \StringTok{"michaeldumelle/RPRW"}\NormalTok{, }\DataTypeTok{ref =} \StringTok{"main"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(RPRW)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -157,15 +157,23 @@ Here are the sections we will work through today.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
-  \protect\hyperlink{a-research-compendia}{A Research Compendia} for an overview of an effective research compendia, as in \citet{marwick2018packaging}.
+  \protect\hyperlink{r-packages}{Building an R Package}
+\item
+  \protect\hyperlink{a-research-compendia}{A Research Compendia} for an overview of an effective research compendia
+\item
+  \protect\hyperlink{your-compendia}{Turning An R Package into a Reproducible Research Compendia}
+\item
+  \protect\hyperlink{extensions}{Extensions}
+\item
+  \protect\hyperlink{exercise-solutions}{Exercise Solutions}
 \end{enumerate}
 
 \hypertarget{a-research-compendia}{%
 \chapter{A Research Compendia}\label{a-research-compendia}}
 
 some text
+\citet{marwick2018packaging}.
 
 \hypertarget{cross}{%
 \chapter{Cross-references}\label{cross}}

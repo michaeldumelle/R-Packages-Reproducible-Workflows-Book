@@ -192,21 +192,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="overview" class="section level1 unnumbered">
 <h1>Overview</h1>
-<p>Welcome to the 2021 EPA R Workshop titled “Using R Packages for Reproducible Workflows” by me, Michael Dumelle – I am glad to have you here! Before proceeding, let’s download the companion R package</p>
+<p>Welcome to the 2021 EPA R Workshop titled “Using R Packages for Reproducible Workflows” by me, Michael Dumelle – I am glad to have you here! Before proceeding, let’s download <a href="https://devtools.r-lib.org/">devtools</a> and then the presentation’s companion R package</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>) <span class="co"># if required</span></span>
-<span id="cb1-2"><a href="index.html#cb1-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="dt">repo =</span> <span class="st">&quot;michaeldumelle/RPRWP&quot;</span>, <span class="dt">ref =</span> <span class="st">&quot;main&quot;</span>)</span>
-<span id="cb1-3"><a href="index.html#cb1-3"></a><span class="kw">library</span>(RPRWP)</span></code></pre></div>
+<span id="cb1-2"><a href="index.html#cb1-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="dt">repo =</span> <span class="st">&quot;michaeldumelle/RPRW&quot;</span>, <span class="dt">ref =</span> <span class="st">&quot;main&quot;</span>)</span>
+<span id="cb1-3"><a href="index.html#cb1-3"></a><span class="kw">library</span>(RPRW)</span></code></pre></div>
 <p>Here are the sections we will work through today.</p>
 <ol style="list-style-type: decimal">
-<li><a href="a-research-compendia.html#a-research-compendia">A Research Compendia</a> for an overview of an effective research compendia, as in <span class="citation">Marwick, Boettiger, and Mullen (<a href="#ref-marwick2018packaging" role="doc-biblioref">2018</a>)</span>.</li>
+<li><p><a href="#r-packages">Building an R Package</a></p></li>
+<li><p><a href="a-research-compendia.html#a-research-compendia">A Research Compendia</a> for an overview of an effective research compendia</p></li>
+<li><p><a href="#your-compendia">Turning An R Package into a Reproducible Research Compendia</a></p></li>
+<li><p><a href="#extensions">Extensions</a></p></li>
+<li><p><a href="#exercise-solutions">Exercise Solutions</a></p></li>
 </ol>
 
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-marwick2018packaging">
-<p>Marwick, Ben, Carl Boettiger, and Lincoln Mullen. 2018. “Packaging Data Analytical Work Reproducibly Using R (and Friends).” <em>The American Statistician</em> 72 (1): 80–88.</p>
-</div>
 </div>
             </section>
 

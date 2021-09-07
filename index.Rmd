@@ -30,20 +30,28 @@ knitr::opts_chunk$set(
 
 # Overview {-}
 
-Welcome to the 2021 EPA R Workshop titled "Using R Packages for Reproducible Workflows" by me, Michael Dumelle -- I am glad to have you here! Before proceeding, let's download the companion R package
+Welcome to the 2021 EPA R Workshop titled "Using R Packages for Reproducible Workflows" by me, Michael Dumelle -- I am glad to have you here! Before proceeding, let's download [devtools](https://devtools.r-lib.org/) and then the presentation's companion R package
 ```{r}
 install.packages("devtools") # if required
-devtools::install_github(repo = "michaeldumelle/RPRWP", ref = "main")
-library(RPRWP)
+devtools::install_github(repo = "michaeldumelle/RPRW", ref = "main")
+library(RPRW)
 ```
 
 Here are the sections we will work through today.
 
-1. [A Research Compendia](#a-research-compendia) for an overview of an effective research compendia, as in @marwick2018packaging.
+1. [Building an R Package](#r-packages)
 
-```{r, eval = TRUE, include=FALSE}
+2. [A Research Compendia](#a-research-compendia) for an overview of an effective research compendia
+
+```{r, eval = TRUE, include = FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'devtools'
 ), 'packages.bib')
 ```
+
+3. [Turning An R Package into a Reproducible Research Compendia](#your-compendia)
+
+4. [Extensions](#extensions)
+
+5. [Exercise Solutions](#exercise-solutions)

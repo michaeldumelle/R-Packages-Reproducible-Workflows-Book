@@ -1,3 +1,4 @@
-# A Research Compendia
+# A Research Compendia {#a-research-compendia}
 
 some text
+@marwick2018packaging.
