@@ -143,22 +143,29 @@
 \chapter*{Overview}\label{overview}}
 \addcontentsline{toc}{chapter}{Overview}
 
-Welcome to the 2021 EPA R Workshop titled ``Using R Packages for Reproducible Workflows'' by me, Michael Dumelle -- I am glad to have you here! Before proceeding, let's download \href{https://devtools.r-lib.org/}{devtools} and then the presentation's companion R package
+Welcome to the 2021 EPA R Workshop titled ``Using R Packages for Reproducible Workflows'' by me, Michael Dumelle -- I am glad to have you here! Before proceeding, let's first start up R and download the \href{https://devtools.r-lib.org/}{devtools} package.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{) }\CommentTok{# if required}
+\end{Highlighting}
+\end{Shaded}
+
+The workshop's companion R package (Using \textbf{R} \textbf{P}ackages for \textbf{R}eproducible \textbf{W}orkflows) is available for download via
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\DataTypeTok{repo =} \StringTok{"michaeldumelle/RPRW"}\NormalTok{, }\DataTypeTok{ref =} \StringTok{"main"}\NormalTok{)}
 \KeywordTok{library}\NormalTok{(RPRW)}
 \end{Highlighting}
 \end{Shaded}
 
-Here are the sections we will work through today.
+Here are the sections of this workshop:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \protect\hyperlink{r-packages}{Building an R Package}
+  \protect\hyperlink{r-package}{Building an R Package}
 \item
   \protect\hyperlink{a-research-compendia}{A Research Compendia} for an overview of an effective research compendia
 \item
@@ -169,11 +176,114 @@ Here are the sections we will work through today.
   \protect\hyperlink{exercise-solutions}{Exercise Solutions}
 \end{enumerate}
 
-\hypertarget{a-research-compendia}{%
-\chapter{A Research Compendia}\label{a-research-compendia}}
+\hypertarget{r-package}{%
+\chapter{Building an R Package}\label{r-package}}
 
-some text
-\citet{marwick2018packaging}.
+\hypertarget{what-is-an-r-package}{%
+\section{What is an R Package?}\label{what-is-an-r-package}}
+
+An R package is a collection of code, data, documentation, and tests with a particular structure that can be shared with others. R packages are commonly downloaded from the Comprehensive R Archive Network (\href{https://cran.r-project.org/}{CRAN}). You can install them from CRAN with \texttt{install.packages("package\_name")}, load them in your workspace with \texttt{library("package\_name")}, and get help by running (\texttt{help(package\ =\ "package\_name")}).
+
+One of the reasons R packages are so useful is because they are the fundamental way to share code in R. If your code is in a package, others can easily download and use it. If they are familiar with R packages, they likely will be familiar with how to use yours! But sharing R code is not the only benefit of creating R packages. Learning how to build an R package will provide several other benefits to future you!
+
+Future you will benefit from creating your own R packages because they enforce a particular structure. This structure
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Saves you time -- you don't need to think about how to organize your files, R packages have a template!
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This was especially helpful for me because before learning how to create R packages, I would save my R files in all sorts of locations on my computer with all sorts of names. This made it \emph{very challenging} to come back to my work later and find a particular file.
+  \end{itemize}
+\item
+  Gives you standardized tools -- people have created extremely useful tools that work with R packages, so take advantage of them!
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The R package devtools, which we downloaded earlier, contains many of these standarized tools.
+  \end{itemize}
+\item
+  Requires documentation -- This is especially helpful for future you.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Before I started using R packages, when I would come back my old code, I was convinced someone else wrote it -- I basically had to rewrite it all to understand it. R packages help prevent this.
+  \end{itemize}
+\item
+  Is reproducible -- R packages are built from R projects (see \href{https://r4ds.had.co.nz/workflow-projects.html}{here} and \href{https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects}{here}), so file paths are relative, not absolute!
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{read\_csv("a\_fun\_csv\_file.csv")} works on my machine -- and yours!
+  \item
+    While R projects are not the fundamental focus on today, I highly, highly recommend you use them for every data analysis project that you are not using an R package for.
+  \end{itemize}
+\item
+  Guides your data analysis -- We will talk about this today
+
+  \begin{itemize}
+  \tightlist
+  \item
+    See \citet{marwick2018packaging} for more!
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{exercises}{%
+\subsection{Exercises}\label{exercises}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  What are some of your favorite R packages?
+\item
+  Of those we have talked about so far, what benefits of R packages are most appealing to you?
+\end{enumerate}
+
+\hypertarget{creating-an-r-package}{%
+\section{Creating an R Package}\label{creating-an-r-package}}
+
+\hypertarget{the-motivating-dataset}{%
+\subsection{The Motivating Dataset}\label{the-motivating-dataset}}
+
+Suppose we want to build an R package that summarizes length (in kilometers) and discharge (meters per second cubed) of North American rivers based on the names of the rivers. Below is our data of interest
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rivers <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{Missouri =} \KeywordTok{c}\NormalTok{(}\DecValTok{3768}\NormalTok{, }\DecValTok{1956}\NormalTok{),}
+  \DataTypeTok{Mississippi =} \KeywordTok{c}\NormalTok{(}\DecValTok{3544}\NormalTok{, }\DecValTok{18400}\NormalTok{),}
+  \DataTypeTok{Yukon =} \KeywordTok{c}\NormalTok{(}\DecValTok{3190}\NormalTok{, }\DecValTok{6340}\NormalTok{),}
+  \DataTypeTok{Colorado =} \KeywordTok{c}\NormalTok{(}\DecValTok{2330}\NormalTok{, }\DecValTok{40}\NormalTok{),}
+  \DataTypeTok{Arkansas =} \KeywordTok{c}\NormalTok{(}\DecValTok{2322}\NormalTok{, }\DecValTok{1004}\NormalTok{),}
+  \DataTypeTok{Columbia =} \KeywordTok{c}\NormalTok{(}\DecValTok{2000}\NormalTok{, }\DecValTok{7730}\NormalTok{),}
+  \DataTypeTok{Red =} \KeywordTok{c}\NormalTok{(}\DecValTok{1811}\NormalTok{, }\DecValTok{852}\NormalTok{),}
+  \DataTypeTok{Canadian =} \KeywordTok{c}\NormalTok{(}\DecValTok{1458}\NormalTok{, }\DecValTok{174}\NormalTok{)}
+\NormalTok{) }
+\KeywordTok{rownames}\NormalTok{(rivers) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"length"}\NormalTok{, }\StringTok{"discharge"}\NormalTok{)}
+\NormalTok{rivers}
+\CommentTok{#>           Missouri Mississippi Yukon Colorado Arkansas Columbia  Red Canadian}
+\CommentTok{#> length        3768        3544  3190     2330     2322     2000 1811     1458}
+\CommentTok{#> discharge     1956       18400  6340       40     1004     7730  852      174}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{additional-resources}{%
+\section{Additional Resources}\label{additional-resources}}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://r-pkgs.org/index.html}{R Packages} by \href{http://hadley.nz/}{Hadley Wickham} and \href{https://jennybryan.org/}{Jenny Bryan}
+\item
+  \href{https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/}{Writing an R package from scratch} by \href{https://hilaryparker.com/}{Hilary Parker}
+\end{itemize}
 
 \hypertarget{cross}{%
 \chapter{Cross-references}\label{cross}}

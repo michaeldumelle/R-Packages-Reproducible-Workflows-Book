@@ -1,0 +1,57 @@
+# Building an R Package {#r-package}
+
+## What is an R Package?
+
+An R package is a collection of code, data, documentation, and tests with a particular structure that can be shared with others. R packages are commonly downloaded from the Comprehensive R Archive Network ([CRAN](https://cran.r-project.org/)). You can install them from CRAN with `install.packages("package_name")`, load them in your workspace with `library("package_name")`, and get help by running (`help(package = "package_name")`).
+
+One of the reasons R packages are so useful is because they are the fundamental way to share code in R. If your code is in a package, others can easily download and use it. If they are familiar with R packages, they likely will be familiar with how to use yours! But sharing R code is not the only benefit of creating R packages. Learning how to build an R package will provide several other benefits to future you!
+
+Future you will benefit from creating your own R packages because they enforce a particular structure. This structure
+
+1. Saves you time -- you don't need to think about how to organize your files, R packages have a template! 
+    * This was especially helpful for me because before learning how to create R packages, I would save my R files in all sorts of locations on my computer with all sorts of names. This made it *very challenging* to come back to my work later and find a particular file.
+
+2. Gives you standardized tools -- people have created extremely useful tools that work with R packages, so take advantage of them! 
+    * The R package devtools, which we downloaded earlier, contains many of these standarized tools.
+
+3. Requires documentation -- This is especially helpful for future you. 
+    * Before I started using R packages, when I would come back my old code, I was convinced someone else wrote it -- I basically had to rewrite it all to understand it. R packages help prevent this.
+
+4. Is reproducible -- R packages are built from R projects (see [here](https://r4ds.had.co.nz/workflow-projects.html) and [here](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)), so file paths are relative, not absolute!
+    * `read_csv("a_fun_csv_file.csv")` works on my machine -- and yours!
+    * While R projects are not the fundamental focus on today, I highly, highly recommend you use them for every data analysis project that you are not using an R package for.
+
+5. Guides your data analysis -- We will talk about this today
+    * See @marwick2018packaging for more!
+
+
+### Exercises
+
+1. What are some of your favorite R packages?
+
+2. Of those we have talked about so far, what benefits of R packages are most appealing to you?
+
+## Creating an R Package
+
+### The Motivating Dataset
+
+Suppose we want to build an R package that summarizes length (in kilometers) and discharge (meters per second cubed) of North American rivers based on the names of the rivers. Below is our data of interest
+```{r, eval = TRUE}
+rivers <- data.frame(
+  Missouri = c(3768, 1956),
+  Mississippi = c(3544, 18400),
+  Yukon = c(3190, 6340),
+  Colorado = c(2330, 40),
+  Arkansas = c(2322, 1004),
+  Columbia = c(2000, 7730),
+  Red = c(1811, 852),
+  Canadian = c(1458, 174)
+) 
+rownames(rivers) <- c("length", "discharge")
+rivers
+```
+
+## Additional Resources
+
+* [R Packages](https://r-pkgs.org/index.html) by [Hadley Wickham](http://hadley.nz/) and [Jenny Bryan](https://jennybryan.org/)
+* [Writing an R package from scratch](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/) by [Hilary Parker](https://hilaryparker.com/)

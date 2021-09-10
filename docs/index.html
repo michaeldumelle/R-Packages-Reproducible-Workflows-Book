@@ -38,7 +38,7 @@ set in the _output.yml file.</p>" />
   
   
 
-<link rel="next" href="a-research-compendia.html"/>
+<link rel="next" href="r-package.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -144,7 +144,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
-<li class="chapter" data-level="1" data-path="a-research-compendia.html"><a href="a-research-compendia.html"><i class="fa fa-check"></i><b>1</b> A Research Compendia</a></li>
+<li class="chapter" data-level="1" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1</b> Building an R Package</a><ul>
+<li class="chapter" data-level="1.1" data-path="r-package.html"><a href="r-package.html#what-is-an-r-package"><i class="fa fa-check"></i><b>1.1</b> What is an R Package?</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="r-package.html"><a href="r-package.html#exercises"><i class="fa fa-check"></i><b>1.1.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="r-package.html"><a href="r-package.html#creating-an-r-package"><i class="fa fa-check"></i><b>1.2</b> Creating an R Package</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="r-package.html"><a href="r-package.html#the-motivating-dataset"><i class="fa fa-check"></i><b>1.2.1</b> The Motivating Dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="r-package.html"><a href="r-package.html#additional-resources"><i class="fa fa-check"></i><b>1.3</b> Additional Resources</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>2</b> Cross-references</a><ul>
 <li class="chapter" data-level="2.1" data-path="cross.html"><a href="cross.html#chapters-and-sub-chapters"><i class="fa fa-check"></i><b>2.1</b> Chapters and sub-chapters</a></li>
 <li class="chapter" data-level="2.2" data-path="cross.html"><a href="cross.html#captioned-figures-and-tables"><i class="fa fa-check"></i><b>2.2</b> Captioned figures and tables</a></li>
@@ -192,14 +200,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="overview" class="section level1 unnumbered">
 <h1>Overview</h1>
-<p>Welcome to the 2021 EPA R Workshop titled “Using R Packages for Reproducible Workflows” by me, Michael Dumelle – I am glad to have you here! Before proceeding, let’s download <a href="https://devtools.r-lib.org/">devtools</a> and then the presentation’s companion R package</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>) <span class="co"># if required</span></span>
-<span id="cb1-2"><a href="index.html#cb1-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="dt">repo =</span> <span class="st">&quot;michaeldumelle/RPRW&quot;</span>, <span class="dt">ref =</span> <span class="st">&quot;main&quot;</span>)</span>
-<span id="cb1-3"><a href="index.html#cb1-3"></a><span class="kw">library</span>(RPRW)</span></code></pre></div>
-<p>Here are the sections we will work through today.</p>
+<p>Welcome to the 2021 EPA R Workshop titled “Using R Packages for Reproducible Workflows” by me, Michael Dumelle – I am glad to have you here! Before proceeding, let’s first start up R and download the <a href="https://devtools.r-lib.org/">devtools</a> package.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>) <span class="co"># if required</span></span></code></pre></div>
+<p>The workshop’s companion R package (Using <strong>R</strong> <strong>P</strong>ackages for <strong>R</strong>eproducible <strong>W</strong>orkflows) is available for download via</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="dt">repo =</span> <span class="st">&quot;michaeldumelle/RPRW&quot;</span>, <span class="dt">ref =</span> <span class="st">&quot;main&quot;</span>)</span>
+<span id="cb2-2"><a href="index.html#cb2-2"></a><span class="kw">library</span>(RPRW)</span></code></pre></div>
+<p>Here are the sections of this workshop:</p>
 <ol style="list-style-type: decimal">
-<li><p><a href="#r-packages">Building an R Package</a></p></li>
-<li><p><a href="a-research-compendia.html#a-research-compendia">A Research Compendia</a> for an overview of an effective research compendia</p></li>
+<li><p><a href="r-package.html#r-package">Building an R Package</a></p></li>
+<li><p><a href="#a-research-compendia">A Research Compendia</a> for an overview of an effective research compendia</p></li>
 <li><p><a href="#your-compendia">Turning An R Package into a Reproducible Research Compendia</a></p></li>
 <li><p><a href="#extensions">Extensions</a></p></li>
 <li><p><a href="#exercise-solutions">Exercise Solutions</a></p></li>
@@ -212,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 
-<a href="a-research-compendia.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="r-package.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

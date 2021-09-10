@@ -1,5 +1,10 @@
 eq:binom
-a-research-compendia
+r-package
+what-is-an-r-package
+exercises
+creating-an-r-package
+the-motivating-dataset
+additional-resources
 cross
 chapters-and-sub-chapters
 captioned-figures-and-tables

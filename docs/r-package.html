@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Footnotes and citations | Using R Packages for Reproducible Workflows</title>
+  <title>Chapter 1 Building an R Package | Using R Packages for Reproducible Workflows</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Footnotes and citations | Using R Packages for Reproducible Workflows" />
+  <meta property="og:title" content="Chapter 1 Building an R Package | Using R Packages for Reproducible Workflows" />
   <meta property="og:type" content="book" />
   
   
@@ -20,7 +20,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="michaeldumelle/R-Packages-Reproducible-Workflows-Book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Footnotes and citations | Using R Packages for Reproducible Workflows" />
+  <meta name="twitter:title" content="Chapter 1 Building an R Package | Using R Packages for Reproducible Workflows" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -37,8 +37,8 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="parts.html"/>
-<link rel="next" href="blocks.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="cross.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -193,43 +193,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="footnotes-and-citations" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Footnotes and citations</h1>
-<div id="footnotes" class="section level2">
-<h2><span class="header-section-number">4.1</span> Footnotes</h2>
-<p>Footnotes are put inside the square brackets after a caret <code>^[]</code>. Like this one.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<div id="r-package" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Building an R Package</h1>
+<div id="what-is-an-r-package" class="section level2">
+<h2><span class="header-section-number">1.1</span> What is an R Package?</h2>
+<p>An R package is a collection of code, data, documentation, and tests with a particular structure that can be shared with others. R packages are commonly downloaded from the Comprehensive R Archive Network (<a href="https://cran.r-project.org/">CRAN</a>). You can install them from CRAN with <code>install.packages("package_name")</code>, load them in your workspace with <code>library("package_name")</code>, and get help by running (<code>help(package = "package_name")</code>).</p>
+<p>One of the reasons R packages are so useful is because they are the fundamental way to share code in R. If your code is in a package, others can easily download and use it. If they are familiar with R packages, they likely will be familiar with how to use yours! But sharing R code is not the only benefit of creating R packages. Learning how to build an R package will provide several other benefits to future you!</p>
+<p>Future you will benefit from creating your own R packages because they enforce a particular structure. This structure</p>
+<ol style="list-style-type: decimal">
+<li>Saves you time – you don’t need to think about how to organize your files, R packages have a template!
+<ul>
+<li>This was especially helpful for me because before learning how to create R packages, I would save my R files in all sorts of locations on my computer with all sorts of names. This made it <em>very challenging</em> to come back to my work later and find a particular file.</li>
+</ul></li>
+<li>Gives you standardized tools – people have created extremely useful tools that work with R packages, so take advantage of them!
+<ul>
+<li>The R package devtools, which we downloaded earlier, contains many of these standarized tools.</li>
+</ul></li>
+<li>Requires documentation – This is especially helpful for future you.
+<ul>
+<li>Before I started using R packages, when I would come back my old code, I was convinced someone else wrote it – I basically had to rewrite it all to understand it. R packages help prevent this.</li>
+</ul></li>
+<li>Is reproducible – R packages are built from R projects (see <a href="https://r4ds.had.co.nz/workflow-projects.html">here</a> and <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">here</a>), so file paths are relative, not absolute!
+<ul>
+<li><code>read_csv("a_fun_csv_file.csv")</code> works on my machine – and yours!</li>
+<li>While R projects are not the fundamental focus on today, I highly, highly recommend you use them for every data analysis project that you are not using an R package for.</li>
+</ul></li>
+<li>Guides your data analysis – We will talk about this today
+<ul>
+<li>See <span class="citation">Marwick, Boettiger, and Mullen (<a href="#ref-marwick2018packaging" role="doc-biblioref">2018</a>)</span> for more!</li>
+</ul></li>
+</ol>
+<div id="exercises" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li><p>What are some of your favorite R packages?</p></li>
+<li><p>Of those we have talked about so far, what benefits of R packages are most appealing to you?</p></li>
+</ol>
 </div>
-<div id="citations" class="section level2">
-<h2><span class="header-section-number">4.2</span> Citations</h2>
-<p>Reference items in your bibliography file(s) using <code>@key</code>.</p>
-<p>For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2021</a>)</span> (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span> (this citation was added manually in an external file book.bib).
-Note that the <code>.bib</code> files need to be listed in the index.Rmd with the YAML <code>bibliography</code> key.</p>
-<p>The RStudio Visual Markdown Editor can also make it easier to insert citations: <a href="https://rstudio.github.io/visual-markdown-editing/#/citations" class="uri">https://rstudio.github.io/visual-markdown-editing/#/citations</a></p>
+</div>
+<div id="creating-an-r-package" class="section level2">
+<h2><span class="header-section-number">1.2</span> Creating an R Package</h2>
+<div id="the-motivating-dataset" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> The Motivating Dataset</h3>
+<p>Suppose we want to build an R package that summarizes length (in kilometers) and discharge (meters per second cubed) of North American rivers based on the names of the rivers. Below is our data of interest</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="r-package.html#cb3-1"></a>rivers &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb3-2"><a href="r-package.html#cb3-2"></a>  <span class="dt">Missouri =</span> <span class="kw">c</span>(<span class="dv">3768</span>, <span class="dv">1956</span>),</span>
+<span id="cb3-3"><a href="r-package.html#cb3-3"></a>  <span class="dt">Mississippi =</span> <span class="kw">c</span>(<span class="dv">3544</span>, <span class="dv">18400</span>),</span>
+<span id="cb3-4"><a href="r-package.html#cb3-4"></a>  <span class="dt">Yukon =</span> <span class="kw">c</span>(<span class="dv">3190</span>, <span class="dv">6340</span>),</span>
+<span id="cb3-5"><a href="r-package.html#cb3-5"></a>  <span class="dt">Colorado =</span> <span class="kw">c</span>(<span class="dv">2330</span>, <span class="dv">40</span>),</span>
+<span id="cb3-6"><a href="r-package.html#cb3-6"></a>  <span class="dt">Arkansas =</span> <span class="kw">c</span>(<span class="dv">2322</span>, <span class="dv">1004</span>),</span>
+<span id="cb3-7"><a href="r-package.html#cb3-7"></a>  <span class="dt">Columbia =</span> <span class="kw">c</span>(<span class="dv">2000</span>, <span class="dv">7730</span>),</span>
+<span id="cb3-8"><a href="r-package.html#cb3-8"></a>  <span class="dt">Red =</span> <span class="kw">c</span>(<span class="dv">1811</span>, <span class="dv">852</span>),</span>
+<span id="cb3-9"><a href="r-package.html#cb3-9"></a>  <span class="dt">Canadian =</span> <span class="kw">c</span>(<span class="dv">1458</span>, <span class="dv">174</span>)</span>
+<span id="cb3-10"><a href="r-package.html#cb3-10"></a>) </span>
+<span id="cb3-11"><a href="r-package.html#cb3-11"></a><span class="kw">rownames</span>(rivers) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;length&quot;</span>, <span class="st">&quot;discharge&quot;</span>)</span>
+<span id="cb3-12"><a href="r-package.html#cb3-12"></a>rivers</span>
+<span id="cb3-13"><a href="r-package.html#cb3-13"></a><span class="co">#&gt;           Missouri Mississippi Yukon Colorado Arkansas Columbia  Red Canadian</span></span>
+<span id="cb3-14"><a href="r-package.html#cb3-14"></a><span class="co">#&gt; length        3768        3544  3190     2330     2322     2000 1811     1458</span></span>
+<span id="cb3-15"><a href="r-package.html#cb3-15"></a><span class="co">#&gt; discharge     1956       18400  6340       40     1004     7730  852      174</span></span></code></pre></div>
+</div>
+</div>
+<div id="additional-resources" class="section level2">
+<h2><span class="header-section-number">1.3</span> Additional Resources</h2>
+<ul>
+<li><a href="https://r-pkgs.org/index.html">R Packages</a> by <a href="http://hadley.nz/">Hadley Wickham</a> and <a href="https://jennybryan.org/">Jenny Bryan</a></li>
+<li><a href="https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/">Writing an R package from scratch</a> by <a href="https://hilaryparker.com/">Hilary Parker</a></li>
+</ul>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-xie2015">
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.</p>
+<div id="ref-marwick2018packaging">
+<p>Marwick, Ben, Carl Boettiger, and Lincoln Mullen. 2018. “Packaging Data Analytical Work Reproducibly Using R (and Friends).” <em>The American Statistician</em> 72 (1): 80–88.</p>
 </div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2021. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>This is a footnote.<a href="footnotes-and-citations.html#fnref1" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="parts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="blocks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cross.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -261,7 +306,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-citations.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-r-package.Rmd",
 "text": "Edit"
 },
 "history": {
