@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Using R Packages for Reproducible Workflows</title>
+  <title>Chapter 5 Exercise Solutions | Using R Packages for Reproducible Workflows</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Using R Packages for Reproducible Workflows" />
+  <meta property="og:title" content="Chapter 5 Exercise Solutions | Using R Packages for Reproducible Workflows" />
   <meta property="og:type" content="book" />
   
   
@@ -20,7 +20,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="michaeldumelle/R-Packages-Reproducible-Workflows-Book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Using R Packages for Reproducible Workflows" />
+  <meta name="twitter:title" content="Chapter 5 Exercise Solutions | Using R Packages for Reproducible Workflows" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -37,8 +37,8 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="exercise-solutions.html"/>
-
+<link rel="prev" href="extensions.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -191,22 +191,87 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="exercise-solutions" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Exercise Solutions</h1>
+<p><em>Q</em> 1. What are some of your favorite R packages?</p>
+<p><em>A</em> 1. This is for you to answer! Though a few of my favorites include devtools, styler, rticles, rlang, and purrr.</p>
+<p><em>Q</em> 1. Of those ew have talked about so far, what benefits of R packages are most appealing to you?</p>
+<p><em>A</em> 1. This is also for you to answer. My answer is “all of them!”, though if I had to pick one, it is saving time by enforcing a structure – future me appreciates when past me does this.</p>
+<p><em>Q</em> 1. How many functions does <code>river_means()</code> call within the body of the function? What package are these functions in?</p>
+<p><em>A</em> 1. There are five functions: <code>&lt;-</code>, <code>grep()</code>, <code>names()</code>, <code>[</code>, and <code>rowMeans()</code>. They are all in the “base” package, which can been seen in each function’s documentation</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exercise-solutions.html#cb27-1"></a>?<span class="st">`</span><span class="dt">&lt;-</span><span class="st">`</span></span>
+<span id="cb27-2"><a href="exercise-solutions.html#cb27-2"></a>?grep</span>
+<span id="cb27-3"><a href="exercise-solutions.html#cb27-3"></a>?names</span>
+<span id="cb27-4"><a href="exercise-solutions.html#cb27-4"></a>?<span class="st">`</span><span class="dt">[</span><span class="st">`</span></span>
+<span id="cb27-5"><a href="exercise-solutions.html#cb27-5"></a>?rowMeans</span></code></pre></div>
+<p><em>Q</em> 1. Write a new function, <code>river_stat()</code>, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder so that a user may insert their own function as an argument.</p>
+<p><em>A</em> 1.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="exercise-solutions.html#cb28-1"></a><span class="co">#&#39; Summary statistics of river lengths and discharges</span></span>
+<span id="cb28-2"><a href="exercise-solutions.html#cb28-2"></a><span class="co">#&#39;</span></span>
+<span id="cb28-3"><a href="exercise-solutions.html#cb28-3"></a><span class="co">#&#39; @param data A data frame with two rows. The first row indicates river length and</span></span>
+<span id="cb28-4"><a href="exercise-solutions.html#cb28-4"></a><span class="co">#&#39;   second row indicates river discharge. The columns of data indicate river names.</span></span>
+<span id="cb28-5"><a href="exercise-solutions.html#cb28-5"></a><span class="co">#&#39; @param pattern A pattern by which to include only particular rivers</span></span>
+<span id="cb28-6"><a href="exercise-solutions.html#cb28-6"></a><span class="co">#&#39; @param FUN A function to summarize the rivers</span></span>
+<span id="cb28-7"><a href="exercise-solutions.html#cb28-7"></a><span class="co">#&#39;</span></span>
+<span id="cb28-8"><a href="exercise-solutions.html#cb28-8"></a><span class="co">#&#39; @return The summarized river length and mean river discharge for the desired rivers</span></span>
+<span id="cb28-9"><a href="exercise-solutions.html#cb28-9"></a><span class="co">#&#39; @export</span></span>
+<span id="cb28-10"><a href="exercise-solutions.html#cb28-10"></a><span class="co">#&#39;</span></span>
+<span id="cb28-11"><a href="exercise-solutions.html#cb28-11"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb28-12"><a href="exercise-solutions.html#cb28-12"></a><span class="co">#&#39; data(&quot;rivers&quot;)</span></span>
+<span id="cb28-13"><a href="exercise-solutions.html#cb28-13"></a><span class="co">#&#39; river_stat(rivers, &quot;Mi&quot;, min)</span></span>
+<span id="cb28-14"><a href="exercise-solutions.html#cb28-14"></a>river_stat &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern, FUN) {</span>
+<span id="cb28-15"><a href="exercise-solutions.html#cb28-15"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
+<span id="cb28-16"><a href="exercise-solutions.html#cb28-16"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span>
+<span id="cb28-17"><a href="exercise-solutions.html#cb28-17"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, FUN)</span>
+<span id="cb28-18"><a href="exercise-solutions.html#cb28-18"></a>}</span>
+<span id="cb28-19"><a href="exercise-solutions.html#cb28-19"></a><span class="kw">river_stat</span>(rivers, <span class="st">&quot;Mi&quot;</span>, min)</span>
+<span id="cb28-20"><a href="exercise-solutions.html#cb28-20"></a><span class="co">#&gt;    length discharge </span></span>
+<span id="cb28-21"><a href="exercise-solutions.html#cb28-21"></a><span class="co">#&gt;      3544      1956</span></span>
+<span id="cb28-22"><a href="exercise-solutions.html#cb28-22"></a><span class="kw">river_stat</span>(rivers, <span class="st">&quot;Mi&quot;</span>, max)</span>
+<span id="cb28-23"><a href="exercise-solutions.html#cb28-23"></a><span class="co">#&gt;    length discharge </span></span>
+<span id="cb28-24"><a href="exercise-solutions.html#cb28-24"></a><span class="co">#&gt;      3768     18400</span></span>
+<span id="cb28-25"><a href="exercise-solutions.html#cb28-25"></a><span class="kw">river_stat</span>(rivers, <span class="st">&quot;Mi&quot;</span>, mean)</span>
+<span id="cb28-26"><a href="exercise-solutions.html#cb28-26"></a><span class="co">#&gt;    length discharge </span></span>
+<span id="cb28-27"><a href="exercise-solutions.html#cb28-27"></a><span class="co">#&gt;      3656     10178</span></span>
+<span id="cb28-28"><a href="exercise-solutions.html#cb28-28"></a><span class="kw">river_stat</span>(rivers, <span class="st">&quot;Mi&quot;</span>, stats<span class="op">::</span>median)</span>
+<span id="cb28-29"><a href="exercise-solutions.html#cb28-29"></a><span class="co">#&gt;    length discharge </span></span>
+<span id="cb28-30"><a href="exercise-solutions.html#cb28-30"></a><span class="co">#&gt;      3656     10178</span></span></code></pre></div>
+<p><em>Q</em> 1. Rewrite <code>river_stat()</code> so that it also takes additional arguments to the summarizing function (hint: use <code>...</code> as an argument)</p>
+<p><em>A</em> 1.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="exercise-solutions.html#cb29-1"></a><span class="co">#&#39; Summary statistics of river lengths and discharges</span></span>
+<span id="cb29-2"><a href="exercise-solutions.html#cb29-2"></a><span class="co">#&#39;</span></span>
+<span id="cb29-3"><a href="exercise-solutions.html#cb29-3"></a><span class="co">#&#39; @param data A data frame with two rows. The first row indicates river length and</span></span>
+<span id="cb29-4"><a href="exercise-solutions.html#cb29-4"></a><span class="co">#&#39;   second row indicates river discharge. The columns of data indicate river names.</span></span>
+<span id="cb29-5"><a href="exercise-solutions.html#cb29-5"></a><span class="co">#&#39; @param pattern A pattern by which to include only particular rivers</span></span>
+<span id="cb29-6"><a href="exercise-solutions.html#cb29-6"></a><span class="co">#&#39; @param FUN A function to summarize the rivers</span></span>
+<span id="cb29-7"><a href="exercise-solutions.html#cb29-7"></a><span class="co">#&#39; @param ... Additional arguments to pass to \code{FUN}</span></span>
+<span id="cb29-8"><a href="exercise-solutions.html#cb29-8"></a><span class="co">#&#39;</span></span>
+<span id="cb29-9"><a href="exercise-solutions.html#cb29-9"></a><span class="co">#&#39; @return The summarized river length and mean river discharge for the desired rivers</span></span>
+<span id="cb29-10"><a href="exercise-solutions.html#cb29-10"></a><span class="co">#&#39; @export</span></span>
+<span id="cb29-11"><a href="exercise-solutions.html#cb29-11"></a><span class="co">#&#39;</span></span>
+<span id="cb29-12"><a href="exercise-solutions.html#cb29-12"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb29-13"><a href="exercise-solutions.html#cb29-13"></a><span class="co">#&#39; data(&quot;rivers&quot;)</span></span>
+<span id="cb29-14"><a href="exercise-solutions.html#cb29-14"></a><span class="co">#&#39; river_stat(rivers, &quot;Mi|C&quot;, mean, trim = 0.5)</span></span>
+<span id="cb29-15"><a href="exercise-solutions.html#cb29-15"></a>river_stat &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern, FUN, ...) {</span>
+<span id="cb29-16"><a href="exercise-solutions.html#cb29-16"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
+<span id="cb29-17"><a href="exercise-solutions.html#cb29-17"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span>
+<span id="cb29-18"><a href="exercise-solutions.html#cb29-18"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, FUN, ...)</span>
+<span id="cb29-19"><a href="exercise-solutions.html#cb29-19"></a>}</span>
+<span id="cb29-20"><a href="exercise-solutions.html#cb29-20"></a><span class="kw">river_stat</span>(rivers, <span class="st">&quot;Mi|C&quot;</span>, mean, <span class="dt">trim =</span> <span class="dv">0</span>)</span>
+<span id="cb29-21"><a href="exercise-solutions.html#cb29-21"></a><span class="co">#&gt;    length discharge </span></span>
+<span id="cb29-22"><a href="exercise-solutions.html#cb29-22"></a><span class="co">#&gt;      2620      5660</span></span>
+<span id="cb29-23"><a href="exercise-solutions.html#cb29-23"></a><span class="kw">river_stat</span>(rivers, <span class="st">&quot;Mi|C&quot;</span>, mean, <span class="dt">trim =</span> <span class="fl">0.5</span>)</span>
+<span id="cb29-24"><a href="exercise-solutions.html#cb29-24"></a><span class="co">#&gt;    length discharge </span></span>
+<span id="cb29-25"><a href="exercise-solutions.html#cb29-25"></a><span class="co">#&gt;      2330      1956</span></span></code></pre></div>
 
-<div id="refs" class="references">
-<div>
-<p>Marwick, Ben, Carl Boettiger, and Lincoln Mullen. 2018. “Packaging Data Analytical Work Reproducibly Using R (and Friends).” <em>The American Statistician</em> 72 (1): 80–88.</p>
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="exercise-solutions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="extensions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -238,7 +303,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-references.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-exercise-solutions.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -33,6 +33,8 @@ Future you will benefit from creating your own R packages because they enforce a
 
 ## Creating an R Package
 
+Together, we will create the companion package for this workshop! If this is your first R package, then an extra special congratulations to you -- this is a big milestone! The name of the package is 
+
 ### The Motivating Dataset
 
 Suppose we want to build an R package that summarizes length (in kilometers) and discharge (meters per second cubed) of North American rivers based on the names of the rivers. Below is our data of interest
@@ -51,7 +53,311 @@ rownames(rivers) <- c("length", "discharge")
 rivers
 ```
 
+### The First Step
+
+```{r}
+devtools::create_package("path_to_RPRW_package/RPRW")
+```
+
+```{r}
+√ Creating 'path_to_RPRW_package/RPRW/'
+√ Setting active project to 'path_to_RPRW_package/RPRW'
+√ Creating 'R/'
+√ Writing 'DESCRIPTION'
+Package: RPRW
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre] (YOUR-ORCID-ID)
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+√ Writing 'NAMESPACE'
+√ Writing 'RPRW.Rproj'
+√ Adding '^RPRW\\.Rproj$' to '.Rbuildignore'
+√ Adding '.Rproj.user' to '.gitignore'
+√ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
+√ Opening 'path_to_RPRW_package/RPRW/' in new RStudio session
+√ Setting active project to '<no active project>'
+√ Setting active project to 'path_to_RPRW_package/RPRW'
+```
+
+In the "Files" pane of RStudio (bottom right corner), you will see that your folder has been populated with a few new files and a new folder.
+```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("images/newrpack_files.PNG")
+```
+We will focus on some of these next.
+
+You will also notice that the "Environment" pane of RStudio (top right corner) now has a "Build" tab -- this tab contains some useful tools for your R package.
+
+* R (folder): Where functions in your R package are stored
+* Description: This contains metadata for your package
+* Namespace: Information about 1) functions from other packages your package uses and 2) what functions in your package you make available to others
+
+### The First Function
+
+The R folder is where functions in your R package are stored. Let's create our first function, called `river_medians()`, which finds the median of river length and discharge of desired rivers. Generally, the name of your file should match the name of the function, and you should use separate files for separate functions. More experienced users, it is okay to break this rule every once in a while in certain contexts. To create an R file in the R folder, run
+```{r}
+use_r("river_means")
+```
+
+You will see some output in the console
+```{r}
+* Modify 'R/river_means.R'
+* Call `use_test()` to create a matching test file 
+```
+and the appropriate file now in your R folder.
+```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("images/newrpack_function.PNG")
+```
+
+Now let's write our function. We want this function to take the mean length and discharge of all rivers whose names have a common pattern.
+```{r, eval = TRUE}
+river_means <- function(data, pattern) {
+  desired_rivers <- grep(pattern, names(data))
+  new_data <- data[, desired_rivers]
+  rowMeans(new_data)
+}
+```
+
+The first line of code finds the variables in the data whose names match the pattern. The second line of code subsets the data to include only the desired variables. The third line of code finds and returns the mean length and mean discharge of the desired variables. If you would like, you can leave comments in the code (using `#`) to remind yourself what each line of code does. This is usually good practice, as it can help others (and future you) understand the intent of your code line-by-line.
+
+### `load_all()`
+
+So we have written this function, how should we try it out? Well you *could* 
+run the function or source it (`source("R/river_means.R")`), but this puts it in our global workspace, and if you are not careful, global workspaces can get messy. The devtools
+function `load_all()` emulates the process of building, installing, and loading our R package, making all of your functions available via a single line of code. As your package becomes more complicated, it is much easier to try our your functions using `load_all()` than navigating the global workspace.
+```{r}
+load_all()
+```
+
+Now let's try out our function! What if we want our summary for the rivers starting with "Mi" (Missiouri and Mississippi)?
+```{r, eval = TRUE}
+river_means(rivers, "Mi")
+```
+Or what if we want our summary for rivers starting with "Y" (Yukon) or "R" (Red)?
+```{r, eval = TRUE}
+river_means(rivers, "Y|R")
+```
+
+Hooray -- our function works! Give yourself a congratulations :)!
+
+#### Exercises
+
+1. How many functions does `river_means()` call within the body of the function? What package are these functions in?
+
+### Creating Package Data
+
+So far we have used the `rivers` data from our global workspace. But what if we want this to be data that is included as part of the R packages so that others (or future you) have easy access to it? This is the place for `use_data()`
+```{r}
+use_data(rivers)
+```
+
+```{r}
+√ Creating 'data/'
+√ Saving 'rivers' to 'data/rivers.rda'
+```
+
+You will see that at the root of your R package, there is a folder called "data", and in that folder is a file called rivers.rda, which contains the rivers data. For illustration, let's remove rivers from our global workspace and then load it like we would data from any other package
+```{r}
+rm(rivers) # remove the rivers data from our global workspace
+load_all() # emulate package building process
+data("rivers") # load the rivers data
+rivers
+```
+
+
+### roxygen Comments
+
+Now that you have written your function, it is time to thoroughly document your function so that others (or future you) can understand how to use it. The documentation for R functions uses special types of comments called *roxygen* comments. The comments use `#'` and have special "tags" associated with them. To insert a template of roxygen comments into `river_means()`, put your cursor somewhere in the `river_means()` function and either 
+
+1. In the upper-left toolbar, go to Code -> Insert Roxygen Skeleton
+2. Press Ctrl/Cmd + Alt + Shift + R
+
+You will see `river_means()` now looks like
+```{r}
+#' Title
+#'
+#' @param data 
+#' @param pattern 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+river_means <- function(data, pattern) {
+  desired_rivers <- grep(pattern, names(data))
+  new_data <- data[, desired_rivers]
+  rowMeans(new_data)
+}
+```
+
+The `@` indicates a particular "tag" that controls how functions are documented. 
+
+* `@param`: for documenting arguments to a function
+* `@return`: for documenting the function output
+* `@export`: for making this function available to others downloading your package
+* `@examples`: to give examples for how to use the package
+
+Let's fill these in.
+```{r}
+#' Means of river lengths and discharges
+#'
+#' @param data A data frame with two rows. The first row indicates river length and
+#'   second row indicates river discharge. The columns of data indicate river names.
+#' @param pattern A pattern by which to include only particular rivers
+#'
+#' @return The mean river length and mean river discharge for the desired rivers
+#' @export
+#'
+#' @examples
+#' data("rivers")
+#' river_means(rivers, pattern = "Mi")
+river_means <- function(data, pattern) {
+  desired_rivers <- grep(pattern, names(data))
+  new_data <- data[, desired_rivers]
+  rowMeans(new_data)
+}
+```
+
+To view this documentation as you would any other package's function documentation, first run
+```{r}
+document()
+```
+
+```{r}
+i Updating RPRW documentation
+i Loading RPRW
+Writing NAMESPACE
+Writing river_means.Rd
+```
+
+You will notice that there is a new folder at the root of the package, called "man", which contains a file called `river_means.Rd`.
+```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("images/newrpack_files2.PNG")
+```
+
+The contents of the file here are not too important, as this file is automatically created using `document()`. The important point is that after running `document()`, you can view the documentation of your function! 
+```{r}
+?river_means
+```
+
+```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("images/newrpack_example.PNG")
+```
+
+There are several other tags available to customize your documentation -- for more information about these tags and documenting data (which is different than documentation function; the rivers data is documented in the RPRW package hosted on GitHub), see [here](https://r-pkgs.org/man.html#man). Though we skip it here, the RPRW package source does document the rivers data and can be viewed using `?rivers` after loading `RPRW`.
+
+### The Second Function
+
+In `river_means()`, we used a few functions: `<-`, `grep()`, `names()`, `[`, and `rowMeans()`. These functions are all from the base package, which is a special package in the way that it operates with R packages. If you use functions from the base package in your package, you don't have to give R any warning. If you use a function from another package, however, you do need to let R know where that function is coming from. Next we explore this.
+
+Suppose we want to create a function in our package that computes the mean instead of a mean. First we run
+```{r}
+use_r("river_medians")
+```
+
+Then we write the function. Note that there is no `rowMedians()` function, so we use `apply()` to summarize across rows (see `?apply` for more detail).
+```{r}
+river_medians <- function(data, pattern) {
+  desired_rivers <- grep(pattern, names(data))
+  new_data <- data[, desired_rivers]
+  apply(new_data, 1, median)
+}
+```
+
+But wait! You'll notice that the function `median()` is in the stats package, not the base package (run `?median` to check). So we need to let R know that we will be using a function from a package that is not the base package. To accomplish this, there are two steps to take. First, you need to tell R that you are using another package
+```{r}
+use_package("stats")
+```
+
+```{r}
+√ Adding 'stats' to Imports field in DESCRIPTION
+* Refer to functions with `stats::fun()`
+```
+You will notice that the package stats was added to the Imports field in the DESCRIPTION file -- we will get to DESCRIPTION later, but for now just remember that it contains metadata about your package. You only need to run `use_package("stats")` once per package. That is, if you are using a different function from stats, you don't need to run `use_package("stats")` again.  Second, you need to tell the `river_median()` function to use the `median()` function from the stats package. The best practice is to preface any function from outside the base package with `packagename::`. This adjustment to `river_median()` yields
+```{r}
+river_medians <- function(data, pattern) {
+  desired_rivers <- grep(pattern, names(data))
+  new_data <- data[, desired_rivers]
+  apply(new_data, 1, stats::median)
+}
+```
+
+Though this is the best practice, it does add some extra typing and can be cumbersome if you are using outside functions often. The `packagename::` prefix can be avoided if you import `median()` to `river_median()` using the roxygen tag `@importFrom`
+```{r}
+#' Medians of river lengths and discharges
+#'
+#' @param data A data frame with two rows. The first row indicates river length and
+#'   second row indicates river discharge. The columns of data indicate river names.
+#' @param pattern A pattern by which to include only particular rivers
+#'
+#' @return The median river length and mean river discharge for the desired rivers
+#' @importFrom stats median
+#' @export
+#'
+#' @examples
+#' data("rivers")
+#' river_medians(rivers, pattern = "Mi")
+river_medians <- function(data, pattern) {
+  desired_rivers <- grep(pattern, names(data))
+  new_data <- data[, desired_rivers]
+  apply(new_data, 1, median)
+}
+```
+
+If you are using several functions from stats, it may be easier to use the `@import` tag, which imports all functions from a package at once.
+```{r}
+#' Medians of river lengths and discharges
+#'
+#' @param data A data frame with two rows. The first row indicates river length and
+#'   second row indicates river discharge. The columns of data indicate river names.
+#' @param pattern A pattern by which to include only particular rivers
+#'
+#' @return The median river length and mean river discharge for the desired rivers
+#' @import stats
+#' @export
+#'
+#' @examples
+#' data("rivers")
+#' river_medians(rivers, pattern = "Mi")
+river_medians <- function(data, pattern) {
+  desired_rivers <- grep(pattern, names(data))
+  new_data <- data[, desired_rivers]
+  apply(new_data, 1, median)
+}
+```
+
+Be careful when using `@importFrom` or `@import` to ensure that two functions from different packages don't have the same name -- this is when using `packagename::` to prefix the function is crucial.
+
+#### Exercises
+
+These exercises are challenging, so if they don't make sense now, that is okay! Make sure to re-review the solutions after the workshop.
+
+1. Write a new function, `river_stat()`, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder so that a user may insert their own function as an argument.
+
+2. Rewrite `river_stat()` so that it also takes additional arguments to the summarizing function (hint: use `...` as an argument)
+
+### DESCRIPTION
+
+### NAMESPACE
+
+### testthat
+
+### License
+
+### `check()`
+
+### `install()`
+
+### Congratulations
+
 ## Additional Resources
 
 * [R Packages](https://r-pkgs.org/index.html) by [Hadley Wickham](http://hadley.nz/) and [Jenny Bryan](https://jennybryan.org/)
 * [Writing an R package from scratch](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/) by [Hilary Parker](https://hilaryparker.com/)
+* [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html) by CRAN (this resource is very technical)

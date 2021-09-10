@@ -150,6 +150,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="r-package.html"><a href="r-package.html#creating-an-r-package"><i class="fa fa-check"></i><b>1.2</b> Creating an R Package</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="r-package.html"><a href="r-package.html#the-motivating-dataset"><i class="fa fa-check"></i><b>1.2.1</b> The Motivating Dataset</a></li>
+<li class="chapter" data-level="1.2.2" data-path="r-package.html"><a href="r-package.html#the-first-step"><i class="fa fa-check"></i><b>1.2.2</b> The First Step</a></li>
+<li class="chapter" data-level="1.2.3" data-path="r-package.html"><a href="r-package.html#the-first-function"><i class="fa fa-check"></i><b>1.2.3</b> The First Function</a></li>
+<li class="chapter" data-level="1.2.4" data-path="r-package.html"><a href="r-package.html#load_all"><i class="fa fa-check"></i><b>1.2.4</b> <code>load_all()</code></a></li>
+<li class="chapter" data-level="1.2.5" data-path="r-package.html"><a href="r-package.html#creating-package-data"><i class="fa fa-check"></i><b>1.2.5</b> Creating Package Data</a></li>
+<li class="chapter" data-level="1.2.6" data-path="r-package.html"><a href="r-package.html#roxygen-comments"><i class="fa fa-check"></i><b>1.2.6</b> roxygen Comments</a></li>
+<li class="chapter" data-level="1.2.7" data-path="r-package.html"><a href="r-package.html#the-second-function"><i class="fa fa-check"></i><b>1.2.7</b> The Second Function</a></li>
+<li class="chapter" data-level="1.2.8" data-path="r-package.html"><a href="r-package.html#description"><i class="fa fa-check"></i><b>1.2.8</b> DESCRIPTION</a></li>
+<li class="chapter" data-level="1.2.9" data-path="r-package.html"><a href="r-package.html#namespace"><i class="fa fa-check"></i><b>1.2.9</b> NAMESPACE</a></li>
+<li class="chapter" data-level="1.2.10" data-path="r-package.html"><a href="r-package.html#testthat"><i class="fa fa-check"></i><b>1.2.10</b> testthat</a></li>
+<li class="chapter" data-level="1.2.11" data-path="r-package.html"><a href="r-package.html#license"><i class="fa fa-check"></i><b>1.2.11</b> License</a></li>
+<li class="chapter" data-level="1.2.12" data-path="r-package.html"><a href="r-package.html#check"><i class="fa fa-check"></i><b>1.2.12</b> <code>check()</code></a></li>
+<li class="chapter" data-level="1.2.13" data-path="r-package.html"><a href="r-package.html#install"><i class="fa fa-check"></i><b>1.2.13</b> <code>install()</code></a></li>
+<li class="chapter" data-level="1.2.14" data-path="r-package.html"><a href="r-package.html#congratulations"><i class="fa fa-check"></i><b>1.2.14</b> Congratulations</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="r-package.html"><a href="r-package.html#additional-resources"><i class="fa fa-check"></i><b>1.3</b> Additional Resources</a></li>
 </ul></li>
@@ -162,11 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>4.1</b> Footnotes</a></li>
 <li class="chapter" data-level="4.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>4.2</b> Citations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>5</b> Blocks</a><ul>
-<li class="chapter" data-level="5.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>5.1</b> Equations</a></li>
-<li class="chapter" data-level="5.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>5.2</b> Theorems and proofs</a></li>
-<li class="chapter" data-level="5.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>5.3</b> Callout blocks</a></li>
-</ul></li>
+<li class="chapter" data-level="5" data-path="exercise-solutions.html"><a href="exercise-solutions.html"><i class="fa fa-check"></i><b>5</b> Exercise Solutions</a></li>
 <li class="chapter" data-level="6" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>6</b> Sharing your book</a><ul>
 <li class="chapter" data-level="6.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>6.1</b> Publishing</a></li>
 <li class="chapter" data-level="6.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>6.2</b> 404 pages</a></li>
@@ -215,13 +224,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.2</span> Captioned figures and tables</h2>
 <p>Figures and tables <em>with captions</em> can also be cross-referenced from elsewhere in your book using <code>\@ref(fig:chunk-label)</code> and <code>\@ref(tag:chunk-label)</code>, respectively.</p>
 <p>See Figure <a href="#fig:nice-fig"><strong>??</strong></a>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="cross.html#cb4-1"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))</span>
-<span id="cb4-2"><a href="cross.html#cb4-2"></a><span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="cross.html#cb27-1"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))</span>
+<span id="cb27-2"><a href="cross.html#cb27-2"></a><span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
 <p>Don’t miss Table <a href="#tab:nice-tab"><strong>??</strong></a>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="cross.html#cb5-1"></a>knitr<span class="op">::</span><span class="kw">kable</span>(</span>
-<span id="cb5-2"><a href="cross.html#cb5-2"></a>  <span class="kw">head</span>(pressure, <span class="dv">10</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
-<span id="cb5-3"><a href="cross.html#cb5-3"></a>  <span class="dt">booktabs =</span> <span class="ot">TRUE</span></span>
-<span id="cb5-4"><a href="cross.html#cb5-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="cross.html#cb28-1"></a>knitr<span class="op">::</span><span class="kw">kable</span>(</span>
+<span id="cb28-2"><a href="cross.html#cb28-2"></a>  <span class="kw">head</span>(pressure, <span class="dv">10</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
+<span id="cb28-3"><a href="cross.html#cb28-3"></a>  <span class="dt">booktabs =</span> <span class="ot">TRUE</span></span>
+<span id="cb28-4"><a href="cross.html#cb28-4"></a>)</span></code></pre></div>
 
 </div>
 </div>
@@ -280,26 +289,12 @@ gitbook.start({
 "options": null
 },
 "toc": {
-"collapse": "subsection"
+"collapse": "section"
 }
 });
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

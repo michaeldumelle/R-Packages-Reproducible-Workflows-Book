@@ -115,23 +115,6 @@
 \author{Michael Dumelle}
 \date{September 22, 2021}
 
-\usepackage{amsthm}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
-\newtheorem{corollary}{Corollary}[chapter]
-\newtheorem{proposition}{Proposition}[chapter]
-\newtheorem{conjecture}{Conjecture}[chapter]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
-\theoremstyle{definition}
-\newtheorem{hypothesis}{Hypothesis}[chapter]
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
 
@@ -249,6 +232,8 @@ Future you will benefit from creating your own R packages because they enforce a
 \hypertarget{creating-an-r-package}{%
 \section{Creating an R Package}\label{creating-an-r-package}}
 
+Together, we will create the companion package for this workshop! If this is your first R package, then an extra special congratulations to you -- this is a big milestone! The name of the package is
+
 \hypertarget{the-motivating-dataset}{%
 \subsection{The Motivating Dataset}\label{the-motivating-dataset}}
 
@@ -274,6 +259,417 @@ Suppose we want to build an R package that summarizes length (in kilometers) and
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{the-first-step}{%
+\subsection{The First Step}\label{the-first-step}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{create_package}\NormalTok{(}\StringTok{"path_to_RPRW_package/RPRW"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{√ Creating }\StringTok{'path_to_RPRW_package/RPRW/'}
+\NormalTok{√ Setting active project to }\StringTok{'path_to_RPRW_package/RPRW'}
+\NormalTok{√ Creating }\StringTok{'R/'}
+\NormalTok{√ Writing }\StringTok{'DESCRIPTION'}
+\NormalTok{Package}\OperatorTok{:}\StringTok{ }\NormalTok{RPRW}
+\NormalTok{Title}\OperatorTok{:}\StringTok{ }\NormalTok{What the Package }\KeywordTok{Does}\NormalTok{ (One Line, Title Case)}
+\NormalTok{Version}\OperatorTok{:}\StringTok{ }\DecValTok{0}\NormalTok{.}\DecValTok{0}\NormalTok{.}\FloatTok{0.9000}
+\NormalTok{Authors}\OperatorTok{@}\KeywordTok{R}\NormalTok{ (parsed)}\OperatorTok{:}
+\StringTok{    }\ErrorTok{*}\StringTok{ }\NormalTok{First Last }\OperatorTok{<}\NormalTok{first.last}\OperatorTok{@}\NormalTok{example.com}\OperatorTok{>}\StringTok{ }\NormalTok{[aut, cre] (YOUR}\OperatorTok{-}\NormalTok{ORCID}\OperatorTok{-}\NormalTok{ID)}
+\NormalTok{Description}\OperatorTok{:}\StringTok{ }\NormalTok{What the package }\KeywordTok{does}\NormalTok{ (one paragraph).}
+\NormalTok{License}\OperatorTok{:}\StringTok{ `}\DataTypeTok{use_mit_license()}\StringTok{`}\NormalTok{, }\StringTok{`}\DataTypeTok{use_gpl3_license()}\StringTok{`}\NormalTok{ or friends to}
+\NormalTok{    pick a license}
+\NormalTok{Encoding}\OperatorTok{:}\StringTok{ }\NormalTok{UTF}\DecValTok{-8}
+\NormalTok{LazyData}\OperatorTok{:}\StringTok{ }\NormalTok{true}
+\NormalTok{Roxygen}\OperatorTok{:}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{markdown =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{RoxygenNote}\OperatorTok{:}\StringTok{ }\DecValTok{7}\NormalTok{.}\FloatTok{1.1}
+\NormalTok{√ Writing }\StringTok{'NAMESPACE'}
+\NormalTok{√ Writing }\StringTok{'RPRW.Rproj'}
+\NormalTok{√ Adding }\StringTok{'^RPRW}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.Rproj$'}\NormalTok{ to }\StringTok{'.Rbuildignore'}
+\NormalTok{√ Adding }\StringTok{'.Rproj.user'}\NormalTok{ to }\StringTok{'.gitignore'}
+\NormalTok{√ Adding }\StringTok{'^}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.Rproj}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.user$'}\NormalTok{ to }\StringTok{'.Rbuildignore'}
+\NormalTok{√ Opening }\StringTok{'path_to_RPRW_package/RPRW/'} \ControlFlowTok{in}\NormalTok{ new RStudio session}
+\NormalTok{√ Setting active project to }\StringTok{'<no active project>'}
+\NormalTok{√ Setting active project to }\StringTok{'path_to_RPRW_package/RPRW'}
+\end{Highlighting}
+\end{Shaded}
+
+In the ``Files'' pane of RStudio (bottom right corner), you will see that your folder has been populated with a few new files and a new folder.
+
+\includegraphics[width=1\linewidth]{images/newrpack_files}
+We will focus on some of these next.
+
+You will also notice that the ``Environment'' pane of RStudio (top right corner) now has a ``Build'' tab -- this tab contains some useful tools for your R package.
+
+\begin{itemize}
+\tightlist
+\item
+  R (folder): Where functions in your R package are stored
+\item
+  Description: This contains metadata for your package
+\item
+  Namespace: Information about 1) functions from other packages your package uses and 2) what functions in your package you make available to others
+\end{itemize}
+
+\hypertarget{the-first-function}{%
+\subsection{The First Function}\label{the-first-function}}
+
+The R folder is where functions in your R package are stored. Let's create our first function, called \texttt{river\_medians()}, which finds the median of river length and discharge of desired rivers. Generally, the name of your file should match the name of the function, and you should use separate files for separate functions. More experienced users, it is okay to break this rule every once in a while in certain contexts. To create an R file in the R folder, run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{use_r}\NormalTok{(}\StringTok{"river_means"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+You will see some output in the console
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{*}\StringTok{ }\NormalTok{Modify }\StringTok{'R/river_means.R'}
+\OperatorTok{*}\StringTok{ }\NormalTok{Call }\StringTok{`}\DataTypeTok{use_test()}\StringTok{`}\NormalTok{ to create a matching test file }
+\end{Highlighting}
+\end{Shaded}
+
+and the appropriate file now in your R folder.
+
+\includegraphics[width=1\linewidth]{images/newrpack_function}
+
+Now let's write our function. We want this function to take the mean length and discharge of all rivers whose names have a common pattern.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{river_means <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+  \KeywordTok{rowMeans}\NormalTok{(new_data)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The first line of code finds the variables in the data whose names match the pattern. The second line of code subsets the data to include only the desired variables. The third line of code finds and returns the mean length and mean discharge of the desired variables. If you would like, you can leave comments in the code (using \texttt{\#}) to remind yourself what each line of code does. This is usually good practice, as it can help others (and future you) understand the intent of your code line-by-line.
+
+\hypertarget{load_all}{%
+\subsection{\texorpdfstring{\texttt{load\_all()}}{load\_all()}}\label{load_all}}
+
+So we have written this function, how should we try it out? Well you \emph{could}
+run the function or source it (\texttt{source("R/river\_means.R")}), but this puts it in our global workspace, and if you are not careful, global workspaces can get messy. The devtools
+function \texttt{load\_all()} emulates the process of building, installing, and loading our R package, making all of your functions available via a single line of code. As your package becomes more complicated, it is much easier to try our your functions using \texttt{load\_all()} than navigating the global workspace.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{load_all}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Now let's try out our function! What if we want our summary for the rivers starting with ``Mi'' (Missiouri and Mississippi)?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{)}
+\CommentTok{#>    length discharge }
+\CommentTok{#>      3656     10178}
+\end{Highlighting}
+\end{Shaded}
+
+Or what if we want our summary for rivers starting with ``Y'' (Yukon) or ``R'' (Red)?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"Y|R"}\NormalTok{)}
+\CommentTok{#>    length discharge }
+\CommentTok{#>    2500.5    3596.0}
+\end{Highlighting}
+\end{Shaded}
+
+Hooray -- our function works! Give yourself a congratulations :)!
+
+\hypertarget{exercises-1}{%
+\subsubsection{Exercises}\label{exercises-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How many functions does \texttt{river\_means()} call within the body of the function? What package are these functions in?
+\end{enumerate}
+
+\hypertarget{creating-package-data}{%
+\subsection{Creating Package Data}\label{creating-package-data}}
+
+So far we have used the \texttt{rivers} data from our global workspace. But what if we want this to be data that is included as part of the R packages so that others (or future you) have easy access to it? This is the place for \texttt{use\_data()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{use_data}\NormalTok{(rivers)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{√ Creating }\StringTok{'data/'}
+\NormalTok{√ Saving }\StringTok{'rivers'}\NormalTok{ to }\StringTok{'data/rivers.rda'}
+\end{Highlighting}
+\end{Shaded}
+
+You will see that at the root of your R package, there is a folder called ``data'', and in that folder is a file called rivers.rda, which contains the rivers data. For illustration, let's remove rivers from our global workspace and then load it like we would data from any other package
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(rivers) }\CommentTok{# remove the rivers data from our global workspace}
+\KeywordTok{load_all}\NormalTok{() }\CommentTok{# emulate package building process}
+\KeywordTok{data}\NormalTok{(}\StringTok{"rivers"}\NormalTok{) }\CommentTok{# load the rivers data}
+\NormalTok{rivers}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{roxygen-comments}{%
+\subsection{roxygen Comments}\label{roxygen-comments}}
+
+Now that you have written your function, it is time to thoroughly document your function so that others (or future you) can understand how to use it. The documentation for R functions uses special types of comments called \emph{roxygen} comments. The comments use \texttt{\#\textquotesingle{}} and have special ``tags'' associated with them. To insert a template of roxygen comments into \texttt{river\_means()}, put your cursor somewhere in the \texttt{river\_means()} function and either
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In the upper-left toolbar, go to Code -\textgreater{} Insert Roxygen Skeleton
+\item
+  Press Ctrl/Cmd + Alt + Shift + R
+\end{enumerate}
+
+You will see \texttt{river\_means()} now looks like
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#' Title}
+\CommentTok{#'}
+\CommentTok{#' @param data }
+\CommentTok{#' @param pattern }
+\CommentTok{#'}
+\CommentTok{#' @return}
+\CommentTok{#' @export}
+\CommentTok{#'}
+\CommentTok{#' @examples}
+\NormalTok{river_means <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+  \KeywordTok{rowMeans}\NormalTok{(new_data)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{@} indicates a particular ``tag'' that controls how functions are documented.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{@param}: for documenting arguments to a function
+\item
+  \texttt{@return}: for documenting the function output
+\item
+  \texttt{@export}: for making this function available to others downloading your package
+\item
+  \texttt{@examples}: to give examples for how to use the package
+\end{itemize}
+
+Let's fill these in.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#' Means of river lengths and discharges}
+\CommentTok{#'}
+\CommentTok{#' @param data A data frame with two rows. The first row indicates river length and}
+\CommentTok{#'   second row indicates river discharge. The columns of data indicate river names.}
+\CommentTok{#' @param pattern A pattern by which to include only particular rivers}
+\CommentTok{#'}
+\CommentTok{#' @return The mean river length and mean river discharge for the desired rivers}
+\CommentTok{#' @export}
+\CommentTok{#'}
+\CommentTok{#' @examples}
+\CommentTok{#' data("rivers")}
+\CommentTok{#' river_means(rivers, pattern = "Mi")}
+\NormalTok{river_means <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+  \KeywordTok{rowMeans}\NormalTok{(new_data)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+To view this documentation as you would any other package's function documentation, first run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{document}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i Updating RPRW documentation}
+\NormalTok{i Loading RPRW}
+\NormalTok{Writing NAMESPACE}
+\NormalTok{Writing river_means.Rd}
+\end{Highlighting}
+\end{Shaded}
+
+You will notice that there is a new folder at the root of the package, called ``man'', which contains a file called \texttt{river\_means.Rd}.
+
+\includegraphics[width=1\linewidth]{images/newrpack_files2}
+
+The contents of the file here are not too important, as this file is automatically created using \texttt{document()}. The important point is that after running \texttt{document()}, you can view the documentation of your function!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?river_means}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=1\linewidth]{images/newrpack_example}
+
+There are several other tags available to customize your documentation -- for more information about these tags and documenting data (which is different than documentation function; the rivers data is documented in the RPRW package hosted on GitHub), see \href{https://r-pkgs.org/man.html\#man}{here}. Though we skip it here, the RPRW package source does document the rivers data and can be viewed using \texttt{?rivers} after loading \texttt{RPRW}.
+
+\hypertarget{the-second-function}{%
+\subsection{The Second Function}\label{the-second-function}}
+
+In \texttt{river\_means()}, we used a few functions: \texttt{\textless{}-}, \texttt{grep()}, \texttt{names()}, \texttt{{[}}, and \texttt{rowMeans()}. These functions are all from the base package, which is a special package in the way that it operates with R packages. If you use functions from the base package in your package, you don't have to give R any warning. If you use a function from another package, however, you do need to let R know where that function is coming from. Next we explore this.
+
+Suppose we want to create a function in our package that computes the mean instead of a mean. First we run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{use_r}\NormalTok{(}\StringTok{"river_medians"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Then we write the function. Note that there is no \texttt{rowMedians()} function, so we use \texttt{apply()} to summarize across rows (see \texttt{?apply} for more detail).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{river_medians <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+  \KeywordTok{apply}\NormalTok{(new_data, }\DecValTok{1}\NormalTok{, median)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+But wait! You'll notice that the function \texttt{median()} is in the stats package, not the base package (run \texttt{?median} to check). So we need to let R know that we will be using a function from a package that is not the base package. To accomplish this, there are two steps to take. First, you need to tell R that you are using another package
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{use_package}\NormalTok{(}\StringTok{"stats"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{√ Adding }\StringTok{'stats'}\NormalTok{ to Imports field }\ControlFlowTok{in}\NormalTok{ DESCRIPTION}
+\OperatorTok{*}\StringTok{ }\NormalTok{Refer to functions with }\StringTok{`}\DataTypeTok{stats::fun()}\StringTok{`}
+\end{Highlighting}
+\end{Shaded}
+
+You will notice that the package stats was added to the Imports field in the DESCRIPTION file -- we will get to DESCRIPTION later, but for now just remember that it contains metadata about your package. You only need to run \texttt{use\_package("stats")} once per package. That is, if you are using a different function from stats, you don't need to run \texttt{use\_package("stats")} again. Second, you need to tell the \texttt{river\_median()} function to use the \texttt{median()} function from the stats package. The best practice is to preface any function from outside the base package with \texttt{packagename::}. This adjustment to \texttt{river\_median()} yields
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{river_medians <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+  \KeywordTok{apply}\NormalTok{(new_data, }\DecValTok{1}\NormalTok{, stats}\OperatorTok{::}\NormalTok{median)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Though this is the best practice, it does add some extra typing and can be cumbersome if you are using outside functions often. The \texttt{packagename::} prefix can be avoided if you import \texttt{median()} to \texttt{river\_median()} using the roxygen tag \texttt{@importFrom}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#' Medians of river lengths and discharges}
+\CommentTok{#'}
+\CommentTok{#' @param data A data frame with two rows. The first row indicates river length and}
+\CommentTok{#'   second row indicates river discharge. The columns of data indicate river names.}
+\CommentTok{#' @param pattern A pattern by which to include only particular rivers}
+\CommentTok{#'}
+\CommentTok{#' @return The median river length and mean river discharge for the desired rivers}
+\CommentTok{#' @importFrom stats median}
+\CommentTok{#' @export}
+\CommentTok{#'}
+\CommentTok{#' @examples}
+\CommentTok{#' data("rivers")}
+\CommentTok{#' river_medians(rivers, pattern = "Mi")}
+\NormalTok{river_medians <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+  \KeywordTok{apply}\NormalTok{(new_data, }\DecValTok{1}\NormalTok{, median)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+If you are using several functions from stats, it may be easier to use the \texttt{@import} tag, which imports all functions from a package at once.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#' Medians of river lengths and discharges}
+\CommentTok{#'}
+\CommentTok{#' @param data A data frame with two rows. The first row indicates river length and}
+\CommentTok{#'   second row indicates river discharge. The columns of data indicate river names.}
+\CommentTok{#' @param pattern A pattern by which to include only particular rivers}
+\CommentTok{#'}
+\CommentTok{#' @return The median river length and mean river discharge for the desired rivers}
+\CommentTok{#' @import stats}
+\CommentTok{#' @export}
+\CommentTok{#'}
+\CommentTok{#' @examples}
+\CommentTok{#' data("rivers")}
+\CommentTok{#' river_medians(rivers, pattern = "Mi")}
+\NormalTok{river_medians <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+  \KeywordTok{apply}\NormalTok{(new_data, }\DecValTok{1}\NormalTok{, median)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Be careful when using \texttt{@importFrom} or \texttt{@import} to ensure that two functions from different packages don't have the same name -- this is when using \texttt{packagename::} to prefix the function is crucial.
+
+\hypertarget{exercises-2}{%
+\subsubsection{Exercises}\label{exercises-2}}
+
+These exercises are challenging, so if they don't make sense now, that is okay! Make sure to re-review the solutions after the workshop.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Write a new function, \texttt{river\_stat()}, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder so that a user may insert their own function as an argument.
+\item
+  Rewrite \texttt{river\_stat()} so that it also takes additional arguments to the summarizing function (hint: use \texttt{...} as an argument)
+\end{enumerate}
+
+\hypertarget{description}{%
+\subsection{DESCRIPTION}\label{description}}
+
+\hypertarget{namespace}{%
+\subsection{NAMESPACE}\label{namespace}}
+
+\hypertarget{testthat}{%
+\subsection{testthat}\label{testthat}}
+
+\hypertarget{license}{%
+\subsection{License}\label{license}}
+
+\hypertarget{check}{%
+\subsection{\texorpdfstring{\texttt{check()}}{check()}}\label{check}}
+
+\hypertarget{install}{%
+\subsection{\texorpdfstring{\texttt{install()}}{install()}}\label{install}}
+
+\hypertarget{congratulations}{%
+\subsection{Congratulations}\label{congratulations}}
+
 \hypertarget{additional-resources}{%
 \section{Additional Resources}\label{additional-resources}}
 
@@ -283,159 +679,116 @@ Suppose we want to build an R package that summarizes length (in kilometers) and
   \href{https://r-pkgs.org/index.html}{R Packages} by \href{http://hadley.nz/}{Hadley Wickham} and \href{https://jennybryan.org/}{Jenny Bryan}
 \item
   \href{https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/}{Writing an R package from scratch} by \href{https://hilaryparker.com/}{Hilary Parker}
+\item
+  \href{https://cran.r-project.org/doc/manuals/r-release/R-exts.html}{Writing R Extensions} by CRAN (this resource is very technical)
 \end{itemize}
 
-\hypertarget{cross}{%
-\chapter{Cross-references}\label{cross}}
+\hypertarget{a-research-compendia}{%
+\chapter{A Research Compendia}\label{a-research-compendia}}
 
-Cross-references make it easier for your readers to find and link to elements in your book.
+Placeholder
 
-\hypertarget{chapters-and-sub-chapters}{%
-\section{Chapters and sub-chapters}\label{chapters-and-sub-chapters}}
+\hypertarget{your-compendia}{%
+\chapter{Turning An R Package into a Reproducible Research Compendia}\label{your-compendia}}
 
-There are two steps to cross-reference any heading:
+\hypertarget{extensions}{%
+\chapter{Extensions}\label{extensions}}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Label the heading: \texttt{\#\ Hello\ world\ \{\#nice-label\}}.
+\hypertarget{exercise-solutions}{%
+\chapter{Exercise Solutions}\label{exercise-solutions}}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Leave the label off if you like the automated heading generated based on your heading title: for example, \texttt{\#\ Hello\ world} = \texttt{\#\ Hello\ world\ \{\#hello-world\}}.
-  \item
-    To label an un-numbered heading, use: \texttt{\#\ Hello\ world\ \{-\#nice-label\}} or \texttt{\{\#\ Hello\ world\ .unnumbered\}}.
-  \end{itemize}
-\item
-  Next, reference the labeled heading anywhere in the text using \texttt{\textbackslash{}@ref(nice-label)}; for example, please see Chapter \ref{cross}.
+\emph{Q} 1. What are some of your favorite R packages?
 
-  \begin{itemize}
-  \tightlist
-  \item
-    If you prefer text as the link instead of a numbered reference use: \protect\hyperlink{cross}{any text you want can go here}.
-  \end{itemize}
-\end{enumerate}
+\emph{A} 1. This is for you to answer! Though a few of my favorites include devtools, styler, rticles, rlang, and purrr.
 
-\hypertarget{captioned-figures-and-tables}{%
-\section{Captioned figures and tables}\label{captioned-figures-and-tables}}
+\emph{Q} 1. Of those ew have talked about so far, what benefits of R packages are most appealing to you?
 
-Figures and tables \emph{with captions} can also be cross-referenced from elsewhere in your book using \texttt{\textbackslash{}@ref(fig:chunk-label)} and \texttt{\textbackslash{}@ref(tag:chunk-label)}, respectively.
+\emph{A} 1. This is also for you to answer. My answer is ``all of them!'', though if I had to pick one, it is saving time by enforcing a structure -- future me appreciates when past me does this.
 
-See Figure \ref{fig:nice-fig}.
+\emph{Q} 1. How many functions does \texttt{river\_means()} call within the body of the function? What package are these functions in?
+
+\emph{A} 1. There are five functions: \texttt{\textless{}-}, \texttt{grep()}, \texttt{names()}, \texttt{{[}}, and \texttt{rowMeans()}. They are all in the ``base'' package, which can been seen in each function's documentation
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{.1}\NormalTok{, }\FloatTok{.1}\NormalTok{))}
-\KeywordTok{plot}\NormalTok{(pressure, }\DataTypeTok{type =} \StringTok{'b'}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{)}
+\NormalTok{?}\StringTok{`}\DataTypeTok{<-}\StringTok{`}
+\NormalTok{?grep}
+\NormalTok{?names}
+\NormalTok{?}\StringTok{`}\DataTypeTok{[}\StringTok{`}
+\NormalTok{?rowMeans}
 \end{Highlighting}
 \end{Shaded}
 
-Don't miss Table \ref{tab:nice-tab}.
+\emph{Q} 1. Write a new function, \texttt{river\_stat()}, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder so that a user may insert their own function as an argument.
+
+\emph{A} 1.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}
-  \KeywordTok{head}\NormalTok{(pressure, }\DecValTok{10}\NormalTok{), }\DataTypeTok{caption =} \StringTok{'Here is a nice table!'}\NormalTok{,}
-  \DataTypeTok{booktabs =} \OtherTok{TRUE}
-\NormalTok{)}
+\CommentTok{#' Summary statistics of river lengths and discharges}
+\CommentTok{#'}
+\CommentTok{#' @param data A data frame with two rows. The first row indicates river length and}
+\CommentTok{#'   second row indicates river discharge. The columns of data indicate river names.}
+\CommentTok{#' @param pattern A pattern by which to include only particular rivers}
+\CommentTok{#' @param FUN A function to summarize the rivers}
+\CommentTok{#'}
+\CommentTok{#' @return The summarized river length and mean river discharge for the desired rivers}
+\CommentTok{#' @export}
+\CommentTok{#'}
+\CommentTok{#' @examples}
+\CommentTok{#' data("rivers")}
+\CommentTok{#' river_stat(rivers, "Mi", min)}
+\NormalTok{river_stat <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern, FUN) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+  \KeywordTok{apply}\NormalTok{(new_data, }\DecValTok{1}\NormalTok{, FUN)}
+\NormalTok{\}}
+\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, min)}
+\CommentTok{#>    length discharge }
+\CommentTok{#>      3544      1956}
+\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, max)}
+\CommentTok{#>    length discharge }
+\CommentTok{#>      3768     18400}
+\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, mean)}
+\CommentTok{#>    length discharge }
+\CommentTok{#>      3656     10178}
+\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, stats}\OperatorTok{::}\NormalTok{median)}
+\CommentTok{#>    length discharge }
+\CommentTok{#>      3656     10178}
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{parts}{%
-\chapter{Parts}\label{parts}}
+\emph{Q} 1. Rewrite \texttt{river\_stat()} so that it also takes additional arguments to the summarizing function (hint: use \texttt{...} as an argument)
 
-You can add parts to organize one or more book chapters together. Parts can be inserted at the top of an .Rmd file, before the first-level chapter heading in that same file.
-
-Add a numbered part: \texttt{\#\ (PART)\ Act\ one\ \{-\}} (followed by \texttt{\#\ A\ chapter})
-
-Add an unnumbered part: \texttt{\#\ (PART\textbackslash{}*)\ Act\ one\ \{-\}} (followed by \texttt{\#\ A\ chapter})
-
-Add an appendix as a special kind of un-numbered part: \texttt{\#\ (APPENDIX)\ Other\ stuff\ \{-\}} (followed by \texttt{\#\ A\ chapter}). Chapters in an appendix are prepended with letters instead of numbers.
-
-\hypertarget{footnotes-and-citations}{%
-\chapter{Footnotes and citations}\label{footnotes-and-citations}}
-
-\hypertarget{footnotes}{%
-\section{Footnotes}\label{footnotes}}
-
-Footnotes are put inside the square brackets after a caret \texttt{\^{}{[}{]}}. Like this one \footnote{This is a footnote.}.
-
-\hypertarget{citations}{%
-\section{Citations}\label{citations}}
-
-Reference items in your bibliography file(s) using \texttt{@key}.
-
-For example, we are using the \textbf{bookdown} package \citep{R-bookdown} (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and \textbf{knitr} \citep{xie2015} (this citation was added manually in an external file book.bib).
-Note that the \texttt{.bib} files need to be listed in the index.Rmd with the YAML \texttt{bibliography} key.
-
-The RStudio Visual Markdown Editor can also make it easier to insert citations: \url{https://rstudio.github.io/visual-markdown-editing/\#/citations}
-
-\hypertarget{blocks}{%
-\chapter{Blocks}\label{blocks}}
-
-\hypertarget{equations}{%
-\section{Equations}\label{equations}}
-
-Here is an equation.
-
-\begin{equation} 
-  f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k}
-  \label{eq:binom}
-\end{equation}
-
-You may refer to using \texttt{\textbackslash{}@ref(eq:binom)}, like see Equation \eqref{eq:binom}.
-
-\hypertarget{theorems-and-proofs}{%
-\section{Theorems and proofs}\label{theorems-and-proofs}}
-
-Labeled theorems can be referenced in text using \texttt{\textbackslash{}@ref(thm:tri)}, for example, check out this smart theorem \ref{thm:tri}.
-
-\begin{theorem}
-\protect\hypertarget{thm:tri}{}\label{thm:tri}For a right triangle, if \(c\) denotes the \emph{length} of the hypotenuse
-and \(a\) and \(b\) denote the lengths of the \textbf{other} two sides, we have
-\[a^2 + b^2 = c^2\]
-\end{theorem}
-
-Read more here \url{https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html}.
-
-\hypertarget{callout-blocks}{%
-\section{Callout blocks}\label{callout-blocks}}
-
-The R Markdown Cookbook provides more help on how to use custom blocks to design your own callouts: \url{https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html}
-
-\hypertarget{sharing-your-book}{%
-\chapter{Sharing your book}\label{sharing-your-book}}
-
-\hypertarget{publishing}{%
-\section{Publishing}\label{publishing}}
-
-HTML books can be published online, see: \url{https://bookdown.org/yihui/bookdown/publishing.html}
-
-\hypertarget{pages}{%
-\section{404 pages}\label{pages}}
-
-By default, users will be directed to a 404 page if they try to access a webpage that cannot be found. If you'd like to customize your 404 page instead of using the default, you may add either a \texttt{\_404.Rmd} or \texttt{\_404.md} file to your project root and use code and/or Markdown syntax.
-
-\hypertarget{metadata-for-sharing}{%
-\section{Metadata for sharing}\label{metadata-for-sharing}}
-
-Bookdown HTML books will provide HTML metadata for social sharing on platforms like Twitter, Facebook, and LinkedIn, using information you provide in the \texttt{index.Rmd} YAML. To setup, set the \texttt{url} for your book and the path to your \texttt{cover-image} file. Your book's \texttt{title} and \texttt{description} are also used.
-
-This \texttt{gitbook} uses the same social sharing data across all chapters in your book- all links shared will look the same.
-
-Specify your book's source repository on GitHub using the \texttt{edit} key under the configuration options in the \texttt{\_output.yml} file, which allows users to suggest an edit by linking to a chapter's source file.
-
-Read more about the features of this output format here:
-
-\url{https://pkgs.rstudio.com/bookdown/reference/gitbook.html}
-
-Or use:
+\emph{A} 1.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{?bookdown}\OperatorTok{::}\NormalTok{gitbook}
+\CommentTok{#' Summary statistics of river lengths and discharges}
+\CommentTok{#'}
+\CommentTok{#' @param data A data frame with two rows. The first row indicates river length and}
+\CommentTok{#'   second row indicates river discharge. The columns of data indicate river names.}
+\CommentTok{#' @param pattern A pattern by which to include only particular rivers}
+\CommentTok{#' @param FUN A function to summarize the rivers}
+\CommentTok{#' @param ... Additional arguments to pass to \textbackslash{}code\{FUN\}}
+\CommentTok{#'}
+\CommentTok{#' @return The summarized river length and mean river discharge for the desired rivers}
+\CommentTok{#' @export}
+\CommentTok{#'}
+\CommentTok{#' @examples}
+\CommentTok{#' data("rivers")}
+\CommentTok{#' river_stat(rivers, "Mi|C", mean, trim = 0.5)}
+\NormalTok{river_stat <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern, FUN, ...) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+  \KeywordTok{apply}\NormalTok{(new_data, }\DecValTok{1}\NormalTok{, FUN, ...)}
+\NormalTok{\}}
+\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi|C"}\NormalTok{, mean, }\DataTypeTok{trim =} \DecValTok{0}\NormalTok{)}
+\CommentTok{#>    length discharge }
+\CommentTok{#>      2620      5660}
+\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi|C"}\NormalTok{, mean, }\DataTypeTok{trim =} \FloatTok{0.5}\NormalTok{)}
+\CommentTok{#>    length discharge }
+\CommentTok{#>      2330      1956}
 \end{Highlighting}
 \end{Shaded}
 

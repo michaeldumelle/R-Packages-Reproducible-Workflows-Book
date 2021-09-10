@@ -1,0 +1,79 @@
+# Exercise Solutions {#exercise-solutions}
+
+*Q* 1. What are some of your favorite R packages?
+
+*A* 1. This is for you to answer! Though a few of my favorites include devtools, styler, rticles, rlang, and purrr.
+
+*Q* 1. Of those ew have talked about so far, what benefits of R packages are most appealing to you?
+
+*A* 1. This is also for you to answer. My answer is "all of them!", though if I had to pick one, it is saving time by enforcing a structure -- future me appreciates when past me does this.
+
+*Q* 1. How many functions does `river_means()` call within the body of the function? What package are these functions in?
+
+*A* 1. There are five functions: `<-`, `grep()`, `names()`, `[`, and `rowMeans()`. They are all in the "base" package, which can been seen in each function's documentation
+```{r}
+?`<-`
+?grep
+?names
+?`[`
+?rowMeans
+```
+
+*Q* 1. Write a new function, `river_stat()`, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder so that a user may insert their own function as an argument.
+
+*A* 1. 
+
+```{r, eval = TRUE}
+#' Summary statistics of river lengths and discharges
+#'
+#' @param data A data frame with two rows. The first row indicates river length and
+#'   second row indicates river discharge. The columns of data indicate river names.
+#' @param pattern A pattern by which to include only particular rivers
+#' @param FUN A function to summarize the rivers
+#'
+#' @return The summarized river length and mean river discharge for the desired rivers
+#' @export
+#'
+#' @examples
+#' data("rivers")
+#' river_stat(rivers, "Mi", min)
+river_stat <- function(data, pattern, FUN) {
+  desired_rivers <- grep(pattern, names(data))
+  new_data <- data[, desired_rivers]
+  apply(new_data, 1, FUN)
+}
+river_stat(rivers, "Mi", min)
+river_stat(rivers, "Mi", max)
+river_stat(rivers, "Mi", mean)
+river_stat(rivers, "Mi", stats::median)
+```
+
+
+
+*Q* 1. Rewrite `river_stat()` so that it also takes additional arguments to the summarizing function (hint: use `...` as an argument)
+
+*A* 1. 
+```{r, eval = TRUE}
+#' Summary statistics of river lengths and discharges
+#'
+#' @param data A data frame with two rows. The first row indicates river length and
+#'   second row indicates river discharge. The columns of data indicate river names.
+#' @param pattern A pattern by which to include only particular rivers
+#' @param FUN A function to summarize the rivers
+#' @param ... Additional arguments to pass to \code{FUN}
+#'
+#' @return The summarized river length and mean river discharge for the desired rivers
+#' @export
+#'
+#' @examples
+#' data("rivers")
+#' river_stat(rivers, "Mi|C", mean, trim = 0.5)
+river_stat <- function(data, pattern, FUN, ...) {
+  desired_rivers <- grep(pattern, names(data))
+  new_data <- data[, desired_rivers]
+  apply(new_data, 1, FUN, ...)
+}
+river_stat(rivers, "Mi|C", mean, trim = 0)
+river_stat(rivers, "Mi|C", mean, trim = 0.5)
+```
+
