@@ -1,8 +1,16 @@
 # Exercise Solutions {#exercise-solutions}
 
-*Q* 1. What are some of your favorite R packages?
+```{r, eval = TRUE, echo = FALSE}
+river_means <- function(data, pattern) {
+  desired_rivers <- grep(pattern, names(data))
+  new_data <- data[, desired_rivers]
+  rowMeans(new_data)
+}
+```
 
-*A* 1. This is for you to answer! Though a few of my favorites include devtools, styler, rticles, rlang, and purrr.
+**Q** 1. What are some of your favorite R packages?
+
+**A** 1. This is for you to answer! Though a few of my favorites include devtools, styler, rticles, rlang, and purrr.
 
 *Q* 1. Of those ew have talked about so far, what benefits of R packages are most appealing to you?
 
@@ -18,6 +26,20 @@
 ?`[`
 ?rowMeans
 ```
+
+*Q* 1. Play around with using these functions for some new patterns -- do you notice anything strange?
+
+*A* 1. If zero matches or one match occur for a pattern, there is some unexpected behavior. If there are zero matches, you get `NaN` for an answer (which stands for not a number).
+```{r}
+river_means(rivers, "ZZZ")
+```
+
+2. If there is one match, you get a mysterious error -- more on this later.
+```{r}
+river_means(rivers, "Red")
+```
+
+
 
 *Q* 1. Write a new function, `river_stat()`, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder so that a user may insert their own function as an argument.
 
@@ -77,3 +99,86 @@ river_stat(rivers, "Mi|C", mean, trim = 0)
 river_stat(rivers, "Mi|C", mean, trim = 0.5)
 ```
 
+*Q* 1. Write similar tests for `river_means()` (discharge), `river_medians()` (length), and `river_medians()` (length)
+
+*A* 1.
+
+```{r, eval = TRUE}
+test_that("the mean discharge is calculated correctly in a test case", {
+  
+  # calculate values required for the test for discharge
+
+  ## calculate the means from the function
+  river_means_val <- river_means(rivers, "Missouri|Mississippi")
+  river_means_discharge <- river_means_val[[2]]
+
+  ## calculate the means "by hand"
+  raw_vec_discharge <- unlist(rivers["discharge", c("Missouri", "Mississippi")])
+  raw_means_discharge <- mean(raw_vec_discharge)
+  
+  # perform the actual test for discharge
+
+  ## check that the function and "by hand" output matches
+  expect_equal(river_means_discharge, raw_means_discharge)
+})
+```
+
+```{r, eval = TRUE}
+test_that("the median length is calculated correctly in a test case", {
+  
+  # calculate values required for the test for length
+
+  ## calculate the medians from the function
+  river_medians_val <- river_medians(rivers, "Missouri|Mississippi")
+  river_medians_length <- river_medians_val[[1]]
+
+  ## calculate the medians "by hand"
+  raw_vec_length <- unlist(rivers["length", c("Missouri", "Mississippi")])
+  raw_medians_length <- median(raw_vec_length)
+  
+  # perform the actual test for length
+
+  ## check that the function and "by hand" output matches
+  expect_equal(river_medians_length, raw_medians_length)
+})
+```
+
+
+
+```{r, eval = TRUE}
+test_that("the mean discharge is calculated correctly in a test case", {
+  
+  # calculate values required for the test for discharge
+
+  ## calculate the medians from the function
+  river_medians_val <- river_medians(rivers, "Missouri|Mississippi")
+  river_medians_discharge <- river_medians_val[[2]]
+
+  ## calculate the medians "by hand"
+  raw_vec_discharge <- unlist(rivers["discharge", c("Missouri", "Mississippi")])
+  raw_medians_discharge <- median(raw_vec_discharge)
+  
+  # perform the actual test for discharge
+
+  ## check that the function and "by hand" output matches
+  expect_equal(river_medians_discharge, raw_medians_discharge)
+})
+```
+
+*Q* 1. Rewrite `river_medians()` so that it stops when no patterns are matched and returns an informative error message. 
+
+*A* 1. 
+
+```{r, eval = TRUE}
+river_medians <- function(data, pattern) {
+  desired_rivers <- grep(pattern, names(data))
+  if (length(desired_rivers) == 0) {
+    stop("The pattern provided does not match any rivers in the data provided")
+  }
+  new_data <- data[, desired_rivers, drop = FALSE]
+  rowMeans(new_data)
+}
+river_medians(rivers, "ZZZ")
+```
+
+The error messages in the `RPRW` package are more informative but more difficult to code.

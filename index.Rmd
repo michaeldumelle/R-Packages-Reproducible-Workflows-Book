@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
   error = TRUE,
   eval = FALSE,
   comment = "#>",
-  collapse = TRUE
+  collapse = FALSE
 )
 ```
 
@@ -61,3 +61,7 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'devtools'
 ), 'packages.bib')
 ```
+
+## Acknowledgements {-}
+
+I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me hold this workshop.

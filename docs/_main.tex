@@ -159,6 +159,12 @@ Here are the sections of this workshop:
   \protect\hyperlink{exercise-solutions}{Exercise Solutions}
 \end{enumerate}
 
+\hypertarget{acknowledgements}{%
+\section*{Acknowledgements}\label{acknowledgements}}
+\addcontentsline{toc}{section}{Acknowledgements}
+
+I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me hold this workshop.
+
 \hypertarget{r-package}{%
 \chapter{Building an R Package}\label{r-package}}
 
@@ -253,11 +259,14 @@ Suppose we want to build an R package that summarizes length (in kilometers) and
 \NormalTok{) }
 \KeywordTok{rownames}\NormalTok{(rivers) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"length"}\NormalTok{, }\StringTok{"discharge"}\NormalTok{)}
 \NormalTok{rivers}
-\CommentTok{#>           Missouri Mississippi Yukon Colorado Arkansas Columbia  Red Canadian}
-\CommentTok{#> length        3768        3544  3190     2330     2322     2000 1811     1458}
-\CommentTok{#> discharge     1956       18400  6340       40     1004     7730  852      174}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+#>           Missouri Mississippi Yukon Colorado Arkansas Columbia  Red Canadian
+#> length        3768        3544  3190     2330     2322     2000 1811     1458
+#> discharge     1956       18400  6340       40     1004     7730  852      174
+\end{verbatim}
 
 \hypertarget{the-first-step}{%
 \subsection{The First Step}\label{the-first-step}}
@@ -268,34 +277,32 @@ Suppose we want to build an R package that summarizes length (in kilometers) and
 \end{Highlighting}
 \end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{√ Creating }\StringTok{'path_to_RPRW_package/RPRW/'}
-\NormalTok{√ Setting active project to }\StringTok{'path_to_RPRW_package/RPRW'}
-\NormalTok{√ Creating }\StringTok{'R/'}
-\NormalTok{√ Writing }\StringTok{'DESCRIPTION'}
-\NormalTok{Package}\OperatorTok{:}\StringTok{ }\NormalTok{RPRW}
-\NormalTok{Title}\OperatorTok{:}\StringTok{ }\NormalTok{What the Package }\KeywordTok{Does}\NormalTok{ (One Line, Title Case)}
-\NormalTok{Version}\OperatorTok{:}\StringTok{ }\DecValTok{0}\NormalTok{.}\DecValTok{0}\NormalTok{.}\FloatTok{0.9000}
-\NormalTok{Authors}\OperatorTok{@}\KeywordTok{R}\NormalTok{ (parsed)}\OperatorTok{:}
-\StringTok{    }\ErrorTok{*}\StringTok{ }\NormalTok{First Last }\OperatorTok{<}\NormalTok{first.last}\OperatorTok{@}\NormalTok{example.com}\OperatorTok{>}\StringTok{ }\NormalTok{[aut, cre] (YOUR}\OperatorTok{-}\NormalTok{ORCID}\OperatorTok{-}\NormalTok{ID)}
-\NormalTok{Description}\OperatorTok{:}\StringTok{ }\NormalTok{What the package }\KeywordTok{does}\NormalTok{ (one paragraph).}
-\NormalTok{License}\OperatorTok{:}\StringTok{ `}\DataTypeTok{use_mit_license()}\StringTok{`}\NormalTok{, }\StringTok{`}\DataTypeTok{use_gpl3_license()}\StringTok{`}\NormalTok{ or friends to}
-\NormalTok{    pick a license}
-\NormalTok{Encoding}\OperatorTok{:}\StringTok{ }\NormalTok{UTF}\DecValTok{-8}
-\NormalTok{LazyData}\OperatorTok{:}\StringTok{ }\NormalTok{true}
-\NormalTok{Roxygen}\OperatorTok{:}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{markdown =} \OtherTok{TRUE}\NormalTok{)}
-\NormalTok{RoxygenNote}\OperatorTok{:}\StringTok{ }\DecValTok{7}\NormalTok{.}\FloatTok{1.1}
-\NormalTok{√ Writing }\StringTok{'NAMESPACE'}
-\NormalTok{√ Writing }\StringTok{'RPRW.Rproj'}
-\NormalTok{√ Adding }\StringTok{'^RPRW}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.Rproj$'}\NormalTok{ to }\StringTok{'.Rbuildignore'}
-\NormalTok{√ Adding }\StringTok{'.Rproj.user'}\NormalTok{ to }\StringTok{'.gitignore'}
-\NormalTok{√ Adding }\StringTok{'^}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.Rproj}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.user$'}\NormalTok{ to }\StringTok{'.Rbuildignore'}
-\NormalTok{√ Opening }\StringTok{'path_to_RPRW_package/RPRW/'} \ControlFlowTok{in}\NormalTok{ new RStudio session}
-\NormalTok{√ Setting active project to }\StringTok{'<no active project>'}
-\NormalTok{√ Setting active project to }\StringTok{'path_to_RPRW_package/RPRW'}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+√ Creating 'path_to_RPRW_package/RPRW/'
+√ Setting active project to 'path_to_RPRW_package/RPRW'
+√ Creating 'R/'
+√ Writing 'DESCRIPTION'
+Package: RPRW
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre] (YOUR-ORCID-ID)
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+√ Writing 'NAMESPACE'
+√ Writing 'RPRW.Rproj'
+√ Adding '^RPRW\\.Rproj$' to '.Rbuildignore'
+√ Adding '.Rproj.user' to '.gitignore'
+√ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
+√ Opening 'path_to_RPRW_package/RPRW/' in new RStudio session
+√ Setting active project to '<no active project>'
+√ Setting active project to 'path_to_RPRW_package/RPRW'
+\end{verbatim}
 
 In the ``Files'' pane of RStudio (bottom right corner), you will see that your folder has been populated with a few new files and a new folder.
 
@@ -327,12 +334,10 @@ The R folder is where functions in your R package are stored. Let's create our f
 
 You will see some output in the console
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\OperatorTok{*}\StringTok{ }\NormalTok{Modify }\StringTok{'R/river_means.R'}
-\OperatorTok{*}\StringTok{ }\NormalTok{Call }\StringTok{`}\DataTypeTok{use_test()}\StringTok{`}\NormalTok{ to create a matching test file }
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+* Modify 'R/river_means.R'
+* Call `use_test()` to create a matching test file 
+\end{verbatim}
 
 and the appropriate file now in your R folder.
 
@@ -370,20 +375,26 @@ Now let's try out our function! What if we want our summary for the rivers start
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{)}
-\CommentTok{#>    length discharge }
-\CommentTok{#>      3656     10178}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+#>    length discharge 
+#>      3656     10178
+\end{verbatim}
 
 Or what if we want our summary for rivers starting with ``Y'' (Yukon) or ``R'' (Red)?
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"Y|R"}\NormalTok{)}
-\CommentTok{#>    length discharge }
-\CommentTok{#>    2500.5    3596.0}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+#>    length discharge 
+#>    2500.5    3596.0
+\end{verbatim}
 
 Hooray -- our function works! Give yourself a congratulations :)!
 
@@ -408,12 +419,10 @@ So far we have used the \texttt{rivers} data from our global workspace. But what
 \end{Highlighting}
 \end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{√ Creating }\StringTok{'data/'}
-\NormalTok{√ Saving }\StringTok{'rivers'}\NormalTok{ to }\StringTok{'data/rivers.rda'}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+√ Creating 'data/'
+√ Saving 'rivers' to 'data/rivers.rda'
+\end{verbatim}
 
 You will see that at the root of your R package, there is a folder called ``data'', and in that folder is a file called rivers.rda, which contains the rivers data. For illustration, let's remove rivers from our global workspace and then load it like we would data from any other package
 
@@ -507,14 +516,12 @@ To view this documentation as you would any other package's function documentati
 \end{Highlighting}
 \end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{i Updating RPRW documentation}
-\NormalTok{i Loading RPRW}
-\NormalTok{Writing NAMESPACE}
-\NormalTok{Writing river_means.Rd}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+i Updating RPRW documentation
+i Loading RPRW
+Writing NAMESPACE
+Writing river_means.Rd
+\end{verbatim}
 
 You will notice that there is a new folder at the root of the package, called ``man'', which contains a file called \texttt{river\_means.Rd}.
 
@@ -565,12 +572,10 @@ But wait! You'll notice that the function \texttt{median()} is in the stats pack
 \end{Highlighting}
 \end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{√ Adding }\StringTok{'stats'}\NormalTok{ to Imports field }\ControlFlowTok{in}\NormalTok{ DESCRIPTION}
-\OperatorTok{*}\StringTok{ }\NormalTok{Refer to functions with }\StringTok{`}\DataTypeTok{stats::fun()}\StringTok{`}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+√ Adding 'stats' to Imports field in DESCRIPTION
+* Refer to functions with `stats::fun()`
+\end{verbatim}
 
 You will notice that the package stats was added to the Imports field in the DESCRIPTION file -- we will get to DESCRIPTION later, but for now just remember that it contains metadata about your package. You only need to run \texttt{use\_package("stats")} once per package. That is, if you are using a different function from stats, you don't need to run \texttt{use\_package("stats")} again. Second, you need to tell the \texttt{river\_median()} function to use the \texttt{median()} function from the stats package. The best practice is to preface any function from outside the base package with \texttt{packagename::}. This adjustment to \texttt{river\_median()} yields
 
@@ -639,10 +644,18 @@ Be careful when using \texttt{@importFrom} or \texttt{@import} to ensure that tw
 \hypertarget{exercises-2}{%
 \subsubsection{Exercises}\label{exercises-2}}
 
-These exercises are challenging, so if they don't make sense now, that is okay! Make sure to re-review the solutions after the workshop.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Play around with using these functions for some new patterns -- do you notice anything strange?
+\end{enumerate}
+
+These exercises are more challenging, so if they don't make sense now, that is okay! Make sure to re-review the solutions after the workshop.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
 \item
   Write a new function, \texttt{river\_stat()}, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder so that a user may insert their own function as an argument.
 \item
@@ -652,23 +665,579 @@ These exercises are challenging, so if they don't make sense now, that is okay! 
 \hypertarget{description}{%
 \subsection{DESCRIPTION}\label{description}}
 
+The DESCRIPTION file is automatically added while creating an R package and contains the R package's metadata.
+
+\begin{verbatim}
+Package: RPRW
+Title: R Packages for Reproducible Workflows
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Michael",
+           family = "Dumelle",
+           role = c("aut", "cre"),
+           email = "first.last@example.com")
+Description: A companion R package for "Using R Packages for Reproducible Workflows"
+    at the 2021 EPA R Workshop.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)
+Imports: 
+    stats
+\end{verbatim}
+
+The DESCRIPTION file is where you track version numbers, authorship, and additional R packages that your R package uses. Two fields in DESCRIPTION do most of the communication regarding how your R package uses additional R packages:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Imports: Packages here must be installed in order for your package to work. As a result, any package listed in \texttt{Imports} will be installed alongside your package. Packages in \texttt{Imports} help build the foundation of your package.
+\item
+  Suggests: Packages here enhance your package but are not required for your package to work. You might use suggested packages for enhanced plotting, additional data sets, or more. Packages in \texttt{Suggests} can add finishing touches to your package, but they are not part of your package's foundation.
+\end{enumerate}
+
+Other fields used to communicate how your R package uses additional R packages are \texttt{Depends}, \texttt{LinkingTo}, and \texttt{Enhances}. The difference between \texttt{Depends} and \texttt{Imports} is subtle -- the general advice is to use \texttt{Imports} instead of \texttt{Depends}.
+
 \hypertarget{namespace}{%
 \subsection{NAMESPACE}\label{namespace}}
+
+While the DESCRIPTION file communicates what packages your package \emph{uses}, the NAMESPACE file communicates \emph{how} your package uses these packages. More specifically, the NAMESPACE file controls which functions your package exports (makes available to others) and what functions from what packages must be available for your exported functions to work. This file is automatically generated by devtools and should not be edited by hand.
+
+In \texttt{river\_median()}, if you called \texttt{median} using \texttt{stats::median}, your NAMESPACE file will look like
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Generated by roxygen2: do not edit by hand}
+
+\KeywordTok{export}\NormalTok{(river_means)}
+\KeywordTok{export}\NormalTok{(river_medians)}
+\end{Highlighting}
+\end{Shaded}
+
+If you used the \texttt{@importFrom\ stats\ median} approach, your NAMESPACE will look like
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Generated by roxygen2: do not edit by hand}
+
+\KeywordTok{export}\NormalTok{(river_means)}
+\KeywordTok{export}\NormalTok{(river_medians)}
+\KeywordTok{importFrom}\NormalTok{(stats,median)}
+\end{Highlighting}
+\end{Shaded}
+
+If you used the \texttt{@import\ stats} approach, your NAMESPACE will look like
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Generated by roxygen2: do not edit by hand}
+
+\KeywordTok{export}\NormalTok{(river_means)}
+\KeywordTok{export}\NormalTok{(river_medians)}
+\KeywordTok{import}\NormalTok{(stats)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{testthat}{%
 \subsection{testthat}\label{testthat}}
 
+Testing your code to make sure that it performs as intended is an important step in the package building process. Though upfront, it may seem like extra work, implementing a rigorous testing procedure for your package will provide several benefits: \href{https://r-pkgs.org/tests.html}{fewer bugs, better code structure, easier restarts, and robust code}. In R, testing is incorporated into your package through the \href{https://testthat.r-lib.org/}{testthat} package. To begin using testthat, run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{use_testthat}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+√ Adding 'testthat' to Suggests field in DESCRIPTION
+√ Setting Config/testthat/edition field in DESCRIPTION to '3'
+√ Creating 'tests/testthat/'
+√ Writing 'tests/testthat.R'
+\end{verbatim}
+
+The root of your package directory shoudl look like
+
+\includegraphics[width=1\linewidth]{images/newrpack_files3}
+
+The tests folder should look like
+
+\includegraphics[width=1\linewidth]{images/newrpack_files4}
+
+Tests are generally written on a function-by-function basis. All tests for a function are contained in an R script titled \texttt{test-function\_name}. For example, to start testing \texttt{river\_means()}, run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{use_test}\NormalTok{(}\StringTok{"river_means"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+√ Writing 'tests/testthat/test-river_means.R'
+* Modify 'tests/testthat/test-river_means.R'
+\end{verbatim}
+
+Your \texttt{testthat} folder should look like
+
+\includegraphics[width=1\linewidth]{images/newrpack_files5}
+
+Tests can be fairly detailed and cover many components of a function (such as input types, output types, function output, etc.). Here we write a simple test that calculates whether our function, \texttt{river\_means()}, yields output that we would expect if we calculated the means ``by hand'' for an example scenario where our pattern includes Missouri and Mississippi.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{test_that}\NormalTok{(}\StringTok{"the mean length is calculated correctly in a test case"}\NormalTok{, \{}
+  
+  \CommentTok{# calculate values required for the test for length}
+
+  \CommentTok{## calculate the means from the function}
+\NormalTok{  river_means_val <-}\StringTok{ }\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"Missouri|Mississippi"}\NormalTok{)}
+\NormalTok{  river_means_length <-}\StringTok{ }\NormalTok{river_means_val[[}\DecValTok{1}\NormalTok{]]}
+
+  \CommentTok{## calculate the means "by hand"}
+\NormalTok{  raw_vec_length <-}\StringTok{ }\KeywordTok{unlist}\NormalTok{(rivers[}\StringTok{"length"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"Missouri"}\NormalTok{, }\StringTok{"Mississippi"}\NormalTok{)])}
+\NormalTok{  raw_means_length <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(raw_vec_length)}
+  
+  \CommentTok{# perform the actual test for length}
+
+  \CommentTok{## check that the function and "by hand" output matches}
+  \KeywordTok{expect_equal}\NormalTok{(river_means_length, raw_means_length)}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in test_that("the mean length is calculated correctly in a test case", : could not find function "test_that"
+\end{verbatim}
+
+The tests in testthat are prefixed with \texttt{expect\_}. If you have many tests, the \texttt{test()} function runs all of them in the \texttt{testthat} folder:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{test}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+i Loading RPRW
+i Testing RPRW
+√ |  OK F W S | Context
+√ |   1       | river_means                                                     
+                                               
+== Results =========================================================================
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ]
+\end{verbatim}
+
+We can write a similar test for discharge and then repeat the process for \texttt{river\_meadians()}. Then \texttt{test()} returns
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{test}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+i Loading RPRW
+i Testing RPRW
+√ |  OK F W S | Context
+√ |   2       | river_means                                                         
+√ |   2       | river_medians                                                       
+
+== Results =========================================================================
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 4 ]
+\end{verbatim}
+
+All tests pass -- hooray! I want to again emphasize how important testing is. I know that it seems like an extra chore, but in my experience, writing careful tests has always paid off\ldots with interest.
+
+\hypertarget{exercises-3}{%
+\subsubsection{Exercises}\label{exercises-3}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Write similar tests for \texttt{river\_means()} (discharge), \texttt{river\_medians()} (length), and \texttt{river\_medians()} (length)
+\end{enumerate}
+
 \hypertarget{license}{%
 \subsection{License}\label{license}}
+
+At some point, your package needs a license. The license places restrictions on how your package can be shared with others. Licensing can be complicated quickly, so I refer you \href{https://r-pkgs.org/license.html}{here} for more information. For illustration purposes, we will use a GPL-3 license for this package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{use_gpl_license}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+√ Setting active project to 'path_to_RPRW_package/RPRW'
+√ Setting License field in DESCRIPTION to 'GPL (>= 3)'
+√ Writing 'LICENSE.md'
+√ Adding '^LICENSE\\.md$' to '.Rbuildignore'
+\end{verbatim}
+
+The licensing update will be reflected in the DESCRIPTION file.
+
+\hypertarget{vignettes}{%
+\subsection{Vignettes}\label{vignettes}}
+
+Vignettes act as high-level user guides for your package. A vignette acts as the glue that binds together all the documentation from the individual functions to solve a particular problem. Typically, they guide the user through a typical workflow one would experience while using your package. The \href{https://ggplot2.tidyverse.org/}{ggplot2} package is a popular package for visualizing data. After installing ggplot2
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+you can view its available vignettes by running
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{vignette}\NormalTok{(}\DataTypeTok{package =} \StringTok{"ggplot2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A file will pop up alongside your R scripts with the contents
+
+\includegraphics[width=1\linewidth]{images/newrpack_files6}
+Then to view a specific vignette, run \texttt{vignette(topic,\ package)}. For example, to view the vignette regarding \textbf{aes}thetic specifications, run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{vignette}\NormalTok{(}\StringTok{"ggplot2-specs"}\NormalTok{, }\StringTok{"ggplot2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+You will then see the vignette in the bottom-right hand pane of RStudio. Vignettes are also available on a package's CRAN page -- for the ggplot2 aesthetic specifications vignette, see \href{https://cran.r-project.org/web/packages/ggplot2/vignettes/ggplot2-specs.html}{here}.
+
+To include vignettes in your R package, first run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{use_vignette}\NormalTok{(}\StringTok{"river-statistics"}\NormalTok{, }\StringTok{"River Statistics"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+√ Adding 'knitr' to Suggests field in DESCRIPTION
+√ Setting VignetteBuilder field in DESCRIPTION to 'knitr'
+√ Adding 'inst/doc' to '.gitignore'
+√ Creating 'vignettes/'
+√ Adding '*.html', '*.R' to 'vignettes/.gitignore'
+√ Adding 'rmarkdown' to Suggests field in DESCRIPTION
+√ Writing 'vignettes/river-statistics.Rmd'
+* Modify 'vignettes/river-statistics.Rmd'
+\end{verbatim}
+
+A few things happen after running \texttt{use\_vignette()}: your DESCRIPTION file is edited, a vignettes folder is inserted into the root of your directory, and a \texttt{.Rmd} file is added to the vignettes folder. The \texttt{.Rmd} file extension indicates that the vignette is an RMarkdown document. RMarkdown documents provide a convenient way to create \emph{dynamic} documents. Dynamic documents combine code and text and form the foundation for reproducible report writing in R. More on RMarkdown is available \href{https://rmarkdown.rstudio.com/}{here}, \href{https://bookdown.org/yihui/rmarkdown/}{here} and \href{https://bookdown.org/yihui/rmarkdown-cookbook/}{here}. I highly recommend you get some experience with it, as its tools are quite powerful.
+
+While we won't create a vignette for our package during the workshop, I have added a vignette to the companion R package. After installation, it can be viewed by running
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{vignette}\NormalTok{(river}\OperatorTok{-}\NormalTok{statistics, }\StringTok{"RPRW"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{check}{%
 \subsection{\texorpdfstring{\texttt{check()}}{check()}}\label{check}}
 
+So now we have built our R package and are ready to share it with the world! But we should probably check to make sure we did not make any small mistakes? This is what \texttt{check()} does -- it runs through a series of checks on your package to make sure it can be properly installed and shared. \texttt{check()} takes a few minutes to run, but it will return errors, warnings, and notes associated with your package. Though the warnings and notes are important, it is most crucial to address the errors immediately.
+Hopefully your output after running \texttt{check()} looks like
+
+\begin{verbatim}
+-- R CMD check results ---------- RPRW 0.0.0.9000 ----
+Duration: 34.4s
+
+0 errors √ | 0 warnings √ | 0 notes √
+\end{verbatim}
+
 \hypertarget{install}{%
 \subsection{\texorpdfstring{\texttt{install()}}{install()}}\label{install}}
 
+After \texttt{check()} returns zero errors (and hopefully zero warnings and notes), you can install your package by running
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+After installation, you can use \texttt{library()} to load your package (like you do any other R package).
+
 \hypertarget{congratulations}{%
 \subsection{Congratulations}\label{congratulations}}
+
+Congratulations on building an R package!
+
+\includegraphics[width=0.5\linewidth]{images/you_did_it}
+
+\hypertarget{debugging}{%
+\section{Debugging}\label{debugging}}
+
+Even the best of programmers write code that may fail in unintended ways. This is referred to as a ``bug,'' and the process of fixing the ``bug'' is known as ``debugging''. Don't expect to always write perfect code -- do expect to have the tools necessary to track down bugs and remedy them. Though we went through a rigorous documentation and testing procedure when creating \texttt{river\_means()} and \texttt{river\_medians()}, there are still bugs present in these functions.
+
+\hypertarget{a-mysterious-error-message}{%
+\subsection{A Mysterious Error Message}\label{a-mysterious-error-message}}
+
+We have used \texttt{river\_means()} and \texttt{river\_medians()} to successfully find means and medians for all sorts of river combinations. But running
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"R"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in rowMeans(new_data): 'x' must be an array of at least two dimensions
+\end{verbatim}
+
+yields a mystifying error. Something is wrong -- and we need to figure out what. A good first step is to copy and paste the error into a Google search engine and see if anyone has solved the problem yet. If you are lucky, this will help you find the bug. If not, you need to use another approach. Fortunately, R has tools to help isolate bugs.
+
+\hypertarget{traceback}{%
+\subsection{\texorpdfstring{\texttt{traceback()}}{traceback()}}\label{traceback}}
+
+The \texttt{traceback()} function is run after code generating an error and it identifies where the error occurred.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{traceback}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> No traceback available
+\end{verbatim}
+
+Locating the source of bugs goes a long way towards removing them. Here, we see that the function failed at the \texttt{rowMeans()} step of \texttt{river\_means()}. While useful, we still don't exactly know why the error is occurring.
+
+\hypertarget{browser}{%
+\subsection{\texorpdfstring{\texttt{browser()}}{browser()}}\label{browser}}
+
+Before I learned about \texttt{browser()}, I would try to debug by storing my arguments locally (so that they were in the global environment) and then sequentially running each line of the function one-at-a-time. Perhaps some of you have done this too. Unfortunately, for many reasons (which we don't discuss in detail today), its an inferior method of debugging compared to \texttt{browser()}. The \texttt{browser()} method involves inserting \texttt{browser()} into the body of your function. Running your function with \texttt{browser()} inside of it then let's you interactively step into the function at \texttt{browser()}. No more storing arguments and running code line-by-line! Let's try this out with \texttt{river\_means()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{river_means <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+  \KeywordTok{browser}\NormalTok{()}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+  \KeywordTok{rowMeans}\NormalTok{(new_data)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now when running \texttt{river\_means()}, you will step into the function. For example,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"R"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+will open a new file that looks like
+
+\includegraphics[width=1\linewidth]{images/newrpack_files7}
+
+In your new interactive context, you will see a few buttons in the R console (lower left-hand window)
+
+\includegraphics[width=1\linewidth]{images/newrpack_files8}
+
+These are five buttons to type into the console and evaluate (\texttt{Enter/Return}) that let you navigate the interactive context. In order (left to right), they are
+
+\begin{itemize}
+\tightlist
+\item
+  Next (\texttt{n}) executes the next line of the code
+\item
+  Step (\texttt{s}) steps into the function called by the current line of code
+\item
+  Finish (\texttt{f}) finishes execution of the current function
+\item
+  Continue (\texttt{c}) leaves the interactive context and continues execution of the function
+\item
+  Stop (\texttt{Q}) leaves the interactive context and terminates execution of the function
+\end{itemize}
+
+In the interactive context of \texttt{river\_means()}, we see \texttt{data} and \texttt{pattern} are defined:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#>           Missouri Mississippi Yukon Colorado Arkansas Columbia  Red Canadian
+#> length        3768        3544  3190     2330     2322     2000 1811     1458
+#> discharge     1956       18400  6340       40     1004     7730  852      174
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(pattern)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> [1] "R"
+\end{verbatim}
+
+Pressing \texttt{n} executes \texttt{browser()}. Pressing \texttt{n} again executes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\end{Highlighting}
+\end{Shaded}
+
+Inspecting \texttt{desired\_rivers}, we see
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(desired_rivers)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> [1] 7
+\end{verbatim}
+
+This seems correct, so the error does not appear to be here. Let's press \texttt{n} to evaluate the next line
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers]}
+\end{Highlighting}
+\end{Shaded}
+
+Inspecting \texttt{new\_data}, we see
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> [1] 1811  852
+\end{verbatim}
+
+Well this seems weird -- it does not look like a data frame. Let's inspect the structure
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(new_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#>  num [1:2] 1811 852
+\end{verbatim}
+
+It is not a data frame, but rather a numeric vector. Because \texttt{rowMeans()} requires an array of two or more dimensions (e.g.~matrix or data frame), the next line of code fails. Pressing \texttt{n} again returns the error and removes you from the interactive context
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rowMeans}\NormalTok{(new_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in rowMeans(new_data): 'x' must be an array of at least two dimensions
+\end{verbatim}
+
+A similar error occurs within \texttt{river\_medians()} when running \texttt{apply()}
+
+So what is happening here? We know the code works when the pattern yields at least two matches in \texttt{rivers}, and we know the code behaves oddly when the pattern only has one match. Looking at the documentation of \texttt{{[}} we see a \texttt{drop} argument, which coerces to the lowest possible dimension when equal to \texttt{TRUE}. When subsetting data frames, \texttt{drop} is \texttt{TRUE} by default. So when subsetting a data frame using a single column, the data frame structure is only preserved when \texttt{drop\ =\ FALSE}. Accommodating this change in \texttt{river\_means()} and \texttt{river\_medians()} yields functions whose bodies looks like
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{river_means <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers, drop =}\StringTok{ }\OtherTok{FALSE}\NormalTok{]}
+  \KeywordTok{rowMeans}\NormalTok{(new_data)}
+\NormalTok{\}}
+
+\NormalTok{river_medians <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers, drop =}\StringTok{ }\OtherTok{FALSE}\NormalTok{]}
+  \KeywordTok{apply}\NormalTok{(new_data, }\DecValTok{1}\NormalTok{, median)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Running these functions with \texttt{pattern\ =\ "R"} behaves as intended
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"R"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#>    length discharge 
+#>      1811       852
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_medians}\NormalTok{(rivers, }\StringTok{"R"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#>    length discharge 
+#>      1811       852
+\end{verbatim}
+
+For more information about debugging in R, \href{https://www.youtube.com/watch?v=vgYS-F8opgE}{watch} or \href{https://adv-r.hadley.nz/debugging.html}{read}.
+
+\hypertarget{another-error-no-mysterious-message}{%
+\subsection{Another Error -- No Mysterious Message}\label{another-error-no-mysterious-message}}
+
+We received and fixed an error message that occurred when the pattern only matched one river. But what happens when it matches zero rivers?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"ZZZ"}\NormalTok{)}
+\KeywordTok{river_medians}\NormalTok{(rivers, }\StringTok{"ZZZ"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+These types of bugs are especially pernicious because there is no error message associated with them. Whenever the output is unexpected, use \texttt{browser()} to diagnose the problem. In this context, \texttt{desired\_rivers} is a length-zero vector, which causes problems in the remaining parts of the function. To guard against these types of bugs, program defensively and force the function to return an error message early.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{river_means <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+  \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{length}\NormalTok{(desired_rivers) }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
+    \KeywordTok{stop}\NormalTok{(}\StringTok{"This is an error message that stops the function"}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers, drop =}\StringTok{ }\OtherTok{FALSE}\NormalTok{]}
+  \KeywordTok{rowMeans}\NormalTok{(new_data)}
+\NormalTok{\}}
+\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"ZZZ"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in river_means(rivers, "ZZZ"): This is an error message that stops the function
+\end{verbatim}
+
+\hypertarget{exercises-4}{%
+\subsubsection{Exercises}\label{exercises-4}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Rewrite \texttt{river\_medians()} so that it stops when no patterns are matched and returns an informative error message.
+\end{enumerate}
 
 \hypertarget{additional-resources}{%
 \section{Additional Resources}\label{additional-resources}}
@@ -694,12 +1263,18 @@ Placeholder
 \hypertarget{extensions}{%
 \chapter{Extensions}\label{extensions}}
 
+\hypertarget{rmarkdown}{%
+\section{RMarkdown}\label{rmarkdown}}
+
+\hypertarget{github}{%
+\section{GitHub}\label{github}}
+
 \hypertarget{exercise-solutions}{%
 \chapter{Exercise Solutions}\label{exercise-solutions}}
 
-\emph{Q} 1. What are some of your favorite R packages?
+\textbf{Q} 1. What are some of your favorite R packages?
 
-\emph{A} 1. This is for you to answer! Though a few of my favorites include devtools, styler, rticles, rlang, and purrr.
+\textbf{A} 1. This is for you to answer! Though a few of my favorites include devtools, styler, rticles, rlang, and purrr.
 
 \emph{Q} 1. Of those ew have talked about so far, what benefits of R packages are most appealing to you?
 
@@ -716,6 +1291,30 @@ Placeholder
 \NormalTok{?names}
 \NormalTok{?}\StringTok{`}\DataTypeTok{[}\StringTok{`}
 \NormalTok{?rowMeans}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Q} 1. Play around with using these functions for some new patterns -- do you notice anything strange?
+
+\emph{A} 1. If zero matches or one match occur for a pattern, there is some unexpected behavior. If there are zero matches, you get \texttt{NaN} for an answer (which stands for not a number).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"ZZZ"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  If there is one match, you get a mysterious error -- more on this later.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"Red"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -744,19 +1343,46 @@ Placeholder
   \KeywordTok{apply}\NormalTok{(new_data, }\DecValTok{1}\NormalTok{, FUN)}
 \NormalTok{\}}
 \KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, min)}
-\CommentTok{#>    length discharge }
-\CommentTok{#>      3544      1956}
-\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, max)}
-\CommentTok{#>    length discharge }
-\CommentTok{#>      3768     18400}
-\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, mean)}
-\CommentTok{#>    length discharge }
-\CommentTok{#>      3656     10178}
-\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, stats}\OperatorTok{::}\NormalTok{median)}
-\CommentTok{#>    length discharge }
-\CommentTok{#>      3656     10178}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+#>    length discharge 
+#>      3544      1956
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, max)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#>    length discharge 
+#>      3768     18400
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#>    length discharge 
+#>      3656     10178
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi"}\NormalTok{, stats}\OperatorTok{::}\NormalTok{median)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#>    length discharge 
+#>      3656     10178
+\end{verbatim}
 
 \emph{Q} 1. Rewrite \texttt{river\_stat()} so that it also takes additional arguments to the summarizing function (hint: use \texttt{...} as an argument)
 
@@ -784,13 +1410,130 @@ Placeholder
   \KeywordTok{apply}\NormalTok{(new_data, }\DecValTok{1}\NormalTok{, FUN, ...)}
 \NormalTok{\}}
 \KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi|C"}\NormalTok{, mean, }\DataTypeTok{trim =} \DecValTok{0}\NormalTok{)}
-\CommentTok{#>    length discharge }
-\CommentTok{#>      2620      5660}
-\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi|C"}\NormalTok{, mean, }\DataTypeTok{trim =} \FloatTok{0.5}\NormalTok{)}
-\CommentTok{#>    length discharge }
-\CommentTok{#>      2330      1956}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+#>    length discharge 
+#>      2620      5660
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{river_stat}\NormalTok{(rivers, }\StringTok{"Mi|C"}\NormalTok{, mean, }\DataTypeTok{trim =} \FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#>    length discharge 
+#>      2330      1956
+\end{verbatim}
+
+\emph{Q} 1. Write similar tests for \texttt{river\_means()} (discharge), \texttt{river\_medians()} (length), and \texttt{river\_medians()} (length)
+
+\emph{A} 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{test_that}\NormalTok{(}\StringTok{"the mean discharge is calculated correctly in a test case"}\NormalTok{, \{}
+  
+  \CommentTok{# calculate values required for the test for discharge}
+
+  \CommentTok{## calculate the means from the function}
+\NormalTok{  river_means_val <-}\StringTok{ }\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"Missouri|Mississippi"}\NormalTok{)}
+\NormalTok{  river_means_discharge <-}\StringTok{ }\NormalTok{river_means_val[[}\DecValTok{2}\NormalTok{]]}
+
+  \CommentTok{## calculate the means "by hand"}
+\NormalTok{  raw_vec_discharge <-}\StringTok{ }\KeywordTok{unlist}\NormalTok{(rivers[}\StringTok{"discharge"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"Missouri"}\NormalTok{, }\StringTok{"Mississippi"}\NormalTok{)])}
+\NormalTok{  raw_means_discharge <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(raw_vec_discharge)}
+  
+  \CommentTok{# perform the actual test for discharge}
+
+  \CommentTok{## check that the function and "by hand" output matches}
+  \KeywordTok{expect_equal}\NormalTok{(river_means_discharge, raw_means_discharge)}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in test_that("the mean discharge is calculated correctly in a test case", : could not find function "test_that"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{test_that}\NormalTok{(}\StringTok{"the median length is calculated correctly in a test case"}\NormalTok{, \{}
+  
+  \CommentTok{# calculate values required for the test for length}
+
+  \CommentTok{## calculate the medians from the function}
+\NormalTok{  river_medians_val <-}\StringTok{ }\KeywordTok{river_medians}\NormalTok{(rivers, }\StringTok{"Missouri|Mississippi"}\NormalTok{)}
+\NormalTok{  river_medians_length <-}\StringTok{ }\NormalTok{river_medians_val[[}\DecValTok{1}\NormalTok{]]}
+
+  \CommentTok{## calculate the medians "by hand"}
+\NormalTok{  raw_vec_length <-}\StringTok{ }\KeywordTok{unlist}\NormalTok{(rivers[}\StringTok{"length"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"Missouri"}\NormalTok{, }\StringTok{"Mississippi"}\NormalTok{)])}
+\NormalTok{  raw_medians_length <-}\StringTok{ }\KeywordTok{median}\NormalTok{(raw_vec_length)}
+  
+  \CommentTok{# perform the actual test for length}
+
+  \CommentTok{## check that the function and "by hand" output matches}
+  \KeywordTok{expect_equal}\NormalTok{(river_medians_length, raw_medians_length)}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in test_that("the median length is calculated correctly in a test case", : could not find function "test_that"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{test_that}\NormalTok{(}\StringTok{"the mean discharge is calculated correctly in a test case"}\NormalTok{, \{}
+  
+  \CommentTok{# calculate values required for the test for discharge}
+
+  \CommentTok{## calculate the medians from the function}
+\NormalTok{  river_medians_val <-}\StringTok{ }\KeywordTok{river_medians}\NormalTok{(rivers, }\StringTok{"Missouri|Mississippi"}\NormalTok{)}
+\NormalTok{  river_medians_discharge <-}\StringTok{ }\NormalTok{river_medians_val[[}\DecValTok{2}\NormalTok{]]}
+
+  \CommentTok{## calculate the medians "by hand"}
+\NormalTok{  raw_vec_discharge <-}\StringTok{ }\KeywordTok{unlist}\NormalTok{(rivers[}\StringTok{"discharge"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"Missouri"}\NormalTok{, }\StringTok{"Mississippi"}\NormalTok{)])}
+\NormalTok{  raw_medians_discharge <-}\StringTok{ }\KeywordTok{median}\NormalTok{(raw_vec_discharge)}
+  
+  \CommentTok{# perform the actual test for discharge}
+
+  \CommentTok{## check that the function and "by hand" output matches}
+  \KeywordTok{expect_equal}\NormalTok{(river_medians_discharge, raw_medians_discharge)}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in test_that("the mean discharge is calculated correctly in a test case", : could not find function "test_that"
+\end{verbatim}
+
+\emph{Q} 1. Rewrite \texttt{river\_medians()} so that it stops when no patterns are matched and returns an informative error message.
+
+\emph{A} 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{river_medians <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, pattern) \{}
+\NormalTok{  desired_rivers <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(pattern, }\KeywordTok{names}\NormalTok{(data))}
+  \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{length}\NormalTok{(desired_rivers) }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
+    \KeywordTok{stop}\NormalTok{(}\StringTok{"The pattern provided does not match any rivers in the data provided"}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers, drop =}\StringTok{ }\OtherTok{FALSE}\NormalTok{]}
+  \KeywordTok{rowMeans}\NormalTok{(new_data)}
+\NormalTok{\}}
+\KeywordTok{river_medians}\NormalTok{(rivers, }\StringTok{"ZZZ"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in river_medians(rivers, "ZZZ"): The pattern provided does not match any rivers in the data provided
+\end{verbatim}
+
+The error messages in the \texttt{RPRW} package are more informative but more difficult to code.
 
   \bibliography{book.bib,packages.bib}
 
