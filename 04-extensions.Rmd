@@ -1,5 +1,0 @@
-# Extensions {#extensions}
-
-## RMarkdown
-
-## GitHub

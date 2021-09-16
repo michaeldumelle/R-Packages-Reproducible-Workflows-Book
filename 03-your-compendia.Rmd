@@ -1,4 +1,0 @@
-# Turning An R Package into a Reproducible Research Compendia {#your-compendia}
-
-
-

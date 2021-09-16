@@ -39,7 +39,7 @@ Together, we will create the companion package for this workshop! If this is you
 
 Suppose we want to build an R package that summarizes length (in kilometers) and discharge (meters per second cubed) of North American rivers based on the names of the rivers. Below is our data of interest
 ```{r, eval = TRUE}
-rivers <- data.frame(
+river <- data.frame(
   Missouri = c(3768, 1956),
   Mississippi = c(3544, 18400),
   Yukon = c(3190, 6340),
@@ -49,8 +49,8 @@ rivers <- data.frame(
   Red = c(1811, 852),
   Canadian = c(1458, 174)
 ) 
-rownames(rivers) <- c("length", "discharge")
-rivers
+rownames(river) <- c("length", "discharge")
+river
 ```
 
 ### The First Step
@@ -137,11 +137,11 @@ load_all()
 
 Now let's try out our function! What if we want our summary for the rivers starting with "Mi" (Missiouri and Mississippi)?
 ```{r, eval = TRUE}
-river_means(rivers, "Mi")
+river_means(river, "Mi")
 ```
 Or what if we want our summary for rivers starting with "Y" (Yukon) or "R" (Red)?
 ```{r, eval = TRUE}
-river_means(rivers, "Y|R")
+river_means(river, "Y|R")
 ```
 
 Hooray -- our function works! Give yourself a congratulations :)!
@@ -152,22 +152,22 @@ Hooray -- our function works! Give yourself a congratulations :)!
 
 ### Creating Package Data
 
-So far we have used the `rivers` data from our global workspace. But what if we want this to be data that is included as part of the R packages so that others (or future you) have easy access to it? This is the place for `use_data()`
+So far we have used the `river` data from our global workspace. But what if we want this to be data that is included as part of the R packages so that others (or future you) have easy access to it? This is the place for `use_data()`
 ```{r}
-use_data(rivers)
+use_data(river)
 ```
 
 ```{}
 √ Creating 'data/'
-√ Saving 'rivers' to 'data/rivers.rda'
+√ Saving 'river' to 'data/river.rda'
 ```
 
 You will see that at the root of your R package, there is a folder called "data", and in that folder is a file called rivers.rda, which contains the rivers data. For illustration, let's remove rivers from our global workspace and then load it like we would data from any other package
 ```{r}
-rm(rivers) # remove the rivers data from our global workspace
+rm(river) # remove the river data from our global workspace
 load_all() # emulate package building process
-data("rivers") # load the rivers data
-rivers
+data("river") # load the river data
+river
 ```
 
 
@@ -453,11 +453,11 @@ test_that("the mean length is calculated correctly in a test case", {
   # calculate values required for the test for length
 
   ## calculate the means from the function
-  river_means_val <- river_means(rivers, "Missouri|Mississippi")
+  river_means_val <- river_means(river, "Missouri|Mississippi")
   river_means_length <- river_means_val[[1]]
 
   ## calculate the means "by hand"
-  raw_vec_length <- unlist(rivers["length", c("Missouri", "Mississippi")])
+  raw_vec_length <- unlist(river["length", c("Missouri", "Mississippi")])
   raw_means_length <- mean(raw_vec_length)
   
   # perform the actual test for length
@@ -609,12 +609,17 @@ yields a mystifying error. Something is wrong -- and we need to figure out what.
 ### `traceback()`
 
 The `traceback()` function is run after code generating an error and it identifies where the error occurred.
-```{r, eval = TRUE}
+```{r}
 traceback()
 ```
 
-Locating the source of bugs goes a long way towards removing them. Here, we see that the function failed at the `rowMeans()` step of `river_means()`. While useful, we still don't exactly know why the error is occurring.
+```{}
+3: stop("'x' must be an array of at least two dimensions")
+2: rowMeans(new_data) at #4
+1: river_means(rivers, "R")
+```
 
+Locating the source of bugs goes a long way towards removing them. Here, we see that the function failed at the `rowMeans()` step of `river_means()` (line `#4` of `river_means()`. While useful, we still don't exactly know why the error is occurring.
 
 ### `browser()`
 

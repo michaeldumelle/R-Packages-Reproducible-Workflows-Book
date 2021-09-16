@@ -47,13 +47,11 @@ Here are the sections of this workshop:
 
 1. [Building an R Package](#r-package)
 
-2. [A Research Compendia](#a-research-compendia) for an overview of an effective research compendia
+2. [Making an R Package a Research Compendium](#r-package-research-compendium)
 
-3. [Turning An R Package into a Reproducible Research Compendia](#your-compendia)
+3. [Extensions](#extensions)
 
-4. [Extensions](#extensions)
-
-5. [Exercise Solutions](#exercise-solutions)
+4. [Exercise Solutions](#exercise-solutions)
 
 ```{r, eval = TRUE, include = FALSE}
 # automatically create a bib database for R packages

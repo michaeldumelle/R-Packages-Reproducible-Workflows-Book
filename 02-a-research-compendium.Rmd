@@ -1,0 +1,170 @@
+# Making an R Package a Research Compendium {#r-package-research-compendium}
+
+## What is a Research Compendium?
+
+@marwick2018packaging state that the goal of a research compendium is to provide a standard and easily recognizable way to organize the digital materials of a project to enable others to inspect, reproduce, and extend the research. Three generic principles define research compendium:
+
+1. Files should be organized according to the prevailing conventions of a broader community. This helps members of the community recognize the structure of the project and make tools that utilize the structure.
+
+2. There should be a clear separation of data, methods, and output. For example, raw data should be kept separate from the code that cleans the data so that others can access the raw data.
+
+3. The computational environment for the methods should be clearly specified. At the most basic level, this means recording the names and version numbers of software. At the most detailed level, this means completely reproducing the computing environment
+
+### Exercises
+
+1. Can you identify any benefits to a research compendium?
+
+## Why a Research Compendium?
+
+@marwick2018packaging (and references therein) give several benefits of a research compendium:
+
+* A convenient way to publicly share data and code
+* Work with publicly available data sets may receive higher numbers of citations than work with private data sets (note that publicly available data sets also tend to be easier to clear through EPA platforms)
+* Data sharing is associated with higher publication productivity
+    * Of 7,040 NSF and NIH awards studied, the median number of publications associated with each research grant was five when the data were private and 10 when the data were public
+* Structured and simplified file management and workflows
+* More defense against errors
+* Easier to communicate with others (and future you)
+
+### Exercises
+
+1. Can you identify any benefits to a research compendium that are not already on this list?
+
+## Why an R Package for a Research Compendium?
+
+As previously mentioned, a research compendium requires a specific structure. Earlier in this workshop, we got some experience with something in R that also requires a specific structure............R packages! A research compendium can significantly benefit from adopting the structure of an R package. Organization is simpler (as you already have a structure), writing and documenting functions and data helps guard against errors in an analysis, and devtools have several development tools to help ensure your R package performs as intended. 
+
+We have previously discussed how to include data in an R package, but many of you may be wondering how we include additional pieces of a research compendium like analysis scripts, output, or a manuscript itself. If the structure of an R package is so rigid -- how do these pieces fit? We discuss one such approach next.
+
+## Turning RPRW Into A Research Compendium
+
+If a folder named `inst` is placed at the root of an R package's directory, all of its raw contents will be installed upon installation of the R package. This is where we can put the pieces of our research compendium that are not explicitly related to the previous implementation of our R package. We can use this approach to turn RPRW into a research compendium.
+
+Suppose we are using RPRW to supplement a manuscript about rivers. Let's first add the `inst` folder -- the root of your package's directory should look similar to 
+```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("images/newrpack_files9.PNG")
+```
+
+Let's add three folders to `inst`:
+
+1. `analysis` for our analysis scripts
+2. `output` for our analysis output
+3. `manuscript` for our manuscript
+```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("images/newrpack_files10.PNG")
+```
+
+Let's make an R script to put in `analysis` whose contents look like
+```{r}
+# find some summary statistics on rivers with pattern "C"
+library(RPRW)
+
+## find minimums
+river_min <- river_stats(river, "C", min)
+
+min_df <- data.frame(
+  data = "river",
+  pattern = "C",
+  length_min = river_min[[1]],
+  discharge_min = river_min[[2]]
+)
+
+write.csv(min_df, "inst/output/min_df", row.names = FALSE)
+```
+
+This R script loads RPRW and finds the minimum length and discharge for rivers whose names start with C. The script then saves the contents to a CSV file in the `output` folder. These contents are used when building the manuscript about rivers. The manuscript in the `manuscript` folder is an RMarkdown document that is completely reproducible. Though we won't discuss the details here unless we have time, the files can be viewed on your machine (after installing RPRW) at the location provided by
+```{r}
+system.file("manuscript", package = "RPRW")
+```
+
+A compiled PDF of the manuscript is available [here](https://github.com/michaeldumelle/RPRW/blob/main/inst/manuscript/manuscript.pdf). Let's talk about its structure for a few minutes.
+
+### Exercises
+
+1. There is a folder name within `inst` that should be avoided -- what is it?
+
+### Adding a Citation
+
+You can add a citation to your R package research compendium by running
+```{r}
+use_citation()
+```
+
+```{}
+√ Writing 'inst/CITATION'
+* Modify 'inst/CITATION'
+```
+
+The citation file is placed in the `inst` folder. It looks a little intimidating at first, but it automatically creates a text version and LaTeX version of your citation with relatively little ease. Here is raw code I used to create the citation in the RPRW package
+```{r}
+citHeader("To cite RPRW in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "Using R Packages for Reproducible Workflows",
+  author   = personList(as.person("Michael Dumelle")),
+  journal  = "EPA 2021 R Workshop",
+  url      = "https://github.com/michaeldumelle/R-Packages-Reproducible-Workflows-Book",
+  textVersion =
+  paste(
+    "Michael Dumelle.",
+    "(2021).",
+    "Using R Packages for Reproducible Workflows.",
+    "EPA 2021 R Workshop.",
+    "URL https://github.com/michaeldumelle/R-Packages-Reproducible-Workflows-Book."
+  )
+)
+```
+
+Then you can run
+```{r, eval = TRUE}
+citation(package = "RPRW")
+```
+
+Editing these citations in this way is most useful when you want to cite the manuscript in your reserach compendium -- not the R package itself. If left unedited, the package citation exist by default and look like
+```{}
+#> 
+#> To cite package 'RPRW' in publications use:
+#> 
+#>   Michael Dumelle (2021). RPRW: R Packages for Reproducible Workflows.
+#>   R package version 0.0.0.9000.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {RPRW: R Packages for Reproducible Workflows},
+#>     author = {Michael Dumelle},
+#>     year = {2021},
+#>     note = {R package version 0.0.0.9000},
+#>   }
+```
+
+
+### An Example R Package Reserach Compendium
+
+A recent journal article of mine used this R package research compendium structure -- you can view the GitHub repository [here](https://github.com/michaeldumelle/DumelleEtAl2021STLMM).
+
+## Sharing Your Research Compendium
+
+So now you have a research compendium that combines your R functions with your data, code, and manuscript to create a reproducible product that is easy to share with your colleagues. But how do we share it? Running
+```{r}
+devtools::build()
+```
+
+will build an R package for you. By default, the package will be located in the same folder as the folder containing your R package with name "package-name_version-number.tar.gz". Note that this is one level above the location of your R package's directory. For example, if folder "A" holds "RPRW", which is the folder containing all of the files associated with my R package, then using `devtools::build()` will install "RPRW_0.0.0.9000.tar.gz" in folder "A". 
+
+After building the package, you can send it to a colleague, they can save it on their machine, and then they can install it by running
+```{r}
+install.packages(path_to_package, repos = NULL, type = "source")
+```
+
+If your colleague doesn't remember where they saved the file, they can interactively search for it by running
+```{r}
+install.packages(file.choose(), repos = NULL, type = "source")
+```
+
+Because R packages leverage R projects, all file paths are relative (not absolute), and your colleague can immediately run any of your code on their machine!
+
+### Exercises
+
+1. Run `?devtools::build` to look at some additional arguments -- which seem useful to you?

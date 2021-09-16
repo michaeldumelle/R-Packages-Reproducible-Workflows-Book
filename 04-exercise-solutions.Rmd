@@ -182,3 +182,11 @@ river_medians(rivers, "ZZZ")
 ```
 
 The error messages in the `RPRW` package are more informative but more difficult to code.
+
+*Q* 2. Can you identify any benefits to a research compendium?
+
+*A* 2. Individual answer
+
+*Q* 2. Can you identify any benefits to a research compendium that are not already on this list?
+
+*A* 2. Individual answer

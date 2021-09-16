@@ -1,0 +1,13 @@
+# Extensions {#extensions}
+
+## R Projects
+
+## RMarkdown
+
+## Rticles
+
+## GitHub
+
+## renv
+
+## Continuous Integration
