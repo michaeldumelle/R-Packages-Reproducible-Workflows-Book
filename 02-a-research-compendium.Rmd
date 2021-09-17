@@ -139,6 +139,31 @@ Editing these citations in this way is most useful when you want to cite the man
 #>   }
 ```
 
+## Recap
+
+So what does our research compendium look like now?
+
+* data: folder containing data
+* DESCRIPTION: file containing metadata about our package
+* inst: folder containing auxiliary files to be downloaded alongside the package's installation
+    * analysis: folder containing R scripts that are separate from the R package but used as part of the research compendium
+    * CITATION: file containing citation information
+    * mamuscript: 
+    * output:
+* LICENSE.md: file containing metadata about our license (GPL-3)
+* man: folder containing R function documentation from the package
+* NAMESPACE: file containing exports and imports
+* R: folder containing R functions from the package
+* RPRW.Rproj: file containing R Project metadata
+* tests: folder containing R function testing
+* vignettes: folder containing the package vignette
+
+You can also add a README.md file to give a broad overview of your package. The README.md file in the RPRW package looks like
+```{}
+# RPRW
+Companion R package for "Using R Packages for Reproducible Workflows" at the 2021 EPA R Workshop
+
+```
 
 ### An Example R Package Reserach Compendium
 

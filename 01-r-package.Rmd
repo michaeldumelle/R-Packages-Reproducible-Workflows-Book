@@ -601,7 +601,7 @@ Even the best of programmers write code that may fail in unintended ways. This i
 
 We have used `river_means()` and `river_medians()` to successfully find means and medians for all sorts of river combinations. But running
 ```{r, eval = TRUE}
-river_means(rivers, "R")
+river_means(river, "R")
 ```
 
 yields a mystifying error. Something is wrong -- and we need to figure out what. A good first step is to copy and paste the error into a Google search engine and see if anyone has solved the problem yet. If you are lucky, this will help you find the bug. If not, you need to use another approach. Fortunately, R has tools to help isolate bugs.
@@ -636,16 +636,16 @@ river_means <- function(data, pattern) {
 
 Now when running `river_means()`, you will step into the function. For example,
 ```{r}
-river_means(rivers, "R")
+river_means(river, "R")
 ```
 
 will open a new file that looks like
-```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
+```{r, eval = TRUE, echo = FALSE, out.width = "75%"}
 knitr::include_graphics("images/newrpack_files7.PNG")
 ```
 
 In your new interactive context, you will see a few buttons in the R console (lower left-hand window)
-```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
+```{r, eval = TRUE, echo = FALSE, out.width = "75%"}
 knitr::include_graphics("images/newrpack_files8.PNG")
 ```
 
@@ -659,7 +659,7 @@ These are five buttons to type into the console and evaluate (`Enter/Return`) th
 
 In the interactive context of `river_means()`, we see `data` and `pattern` are defined:
 ```{r, eval = TRUE, echo = FALSE}
-data <- rivers
+data <- river
 pattern <- "R"
 ```
 
@@ -717,8 +717,8 @@ river_medians <- function(data, pattern) {
 
 Running these functions with `pattern = "R"` behaves as intended
 ```{r, eval = TRUE}
-river_means(rivers, "R")
-river_medians(rivers, "R")
+river_means(river, "R")
+river_medians(river, "R")
 ```
 
 For more information about debugging in R, [watch](https://www.youtube.com/watch?v=vgYS-F8opgE) or [read](https://adv-r.hadley.nz/debugging.html).
@@ -727,8 +727,8 @@ For more information about debugging in R, [watch](https://www.youtube.com/watch
 
 We received and fixed an error message that occurred when the pattern only matched one river. But what happens when it matches zero rivers?
 ```{r}
-river_means(rivers, "ZZZ")
-river_medians(rivers, "ZZZ")
+river_means(river, "ZZZ")
+river_medians(river, "ZZZ")
 ```
 
 These types of bugs are especially pernicious because there is no error message associated with them. Whenever the output is unexpected, use `browser()` to diagnose the problem. In this context, `desired_rivers` is a length-zero vector, which causes problems in the remaining parts of the function. To guard against these types of bugs, program defensively and force the function to return an error message early.

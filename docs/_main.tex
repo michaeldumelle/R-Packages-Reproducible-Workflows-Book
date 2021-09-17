@@ -986,12 +986,12 @@ We have used \texttt{river\_means()} and \texttt{river\_medians()} to successful
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"R"}\NormalTok{)}
+\KeywordTok{river_means}\NormalTok{(river, }\StringTok{"R"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-#> Error in data[, desired_rivers]: incorrect number of dimensions
+#> Error in rowMeans(new_data): 'x' must be an array of at least two dimensions
 \end{verbatim}
 
 yields a mystifying error. Something is wrong -- and we need to figure out what. A good first step is to copy and paste the error into a Google search engine and see if anyone has solved the problem yet. If you are lucky, this will help you find the bug. If not, you need to use another approach. Fortunately, R has tools to help isolate bugs.
@@ -1035,17 +1035,17 @@ Now when running \texttt{river\_means()}, you will step into the function. For e
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"R"}\NormalTok{)}
+\KeywordTok{river_means}\NormalTok{(river, }\StringTok{"R"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 will open a new file that looks like
 
-\includegraphics[width=1\linewidth]{images/newrpack_files7}
+\includegraphics[width=0.75\linewidth]{images/newrpack_files7}
 
 In your new interactive context, you will see a few buttons in the R console (lower left-hand window)
 
-\includegraphics[width=1\linewidth]{images/newrpack_files8}
+\includegraphics[width=0.75\linewidth]{images/newrpack_files8}
 
 These are five buttons to type into the console and evaluate (\texttt{Enter/Return}) that let you navigate the interactive context. In order (left to right), they are
 
@@ -1072,16 +1072,9 @@ In the interactive context of \texttt{river\_means()}, we see \texttt{data} and 
 \end{Shaded}
 
 \begin{verbatim}
-#>   [1]  735  320  325  392  524  450 1459  135  465  600  330  336  280  315  870
-#>  [16]  906  202  329  290 1000  600  505 1450  840 1243  890  350  407  286  280
-#>  [31]  525  720  390  250  327  230  265  850  210  630  260  230  360  730  600
-#>  [46]  306  390  420  291  710  340  217  281  352  259  250  470  680  570  350
-#>  [61]  300  560  900  625  332 2348 1171 3710 2315 2533  780  280  410  460  260
-#>  [76]  255  431  350  760  618  338  981 1306  500  696  605  250  411 1054  735
-#>  [91]  233  435  490  310  460  383  375 1270  545  445 1885  380  300  380  377
-#> [106]  425  276  210  800  420  350  360  538 1100 1205  314  237  610  360  540
-#> [121] 1038  424  310  300  444  301  268  620  215  652  900  525  246  360  529
-#> [136]  500  720  270  430  671 1770
+#>           Missouri Mississippi Yukon Colorado Arkansas Columbia  Red Canadian
+#> length        3768        3544  3190     2330     2322     2000 1811     1458
+#> discharge     1956       18400  6340       40     1004     7730  852      174
 \end{verbatim}
 
 \begin{Shaded}
@@ -1111,7 +1104,7 @@ Inspecting \texttt{desired\_rivers}, we see
 \end{Shaded}
 
 \begin{verbatim}
-#> integer(0)
+#> [1] 7
 \end{verbatim}
 
 This seems correct, so the error does not appear to be here. Let's press \texttt{n} to evaluate the next line
@@ -1122,10 +1115,6 @@ This seems correct, so the error does not appear to be here. Let's press \texttt
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-#> Error in data[, desired_rivers]: incorrect number of dimensions
-\end{verbatim}
-
 Inspecting \texttt{new\_data}, we see
 
 \begin{Shaded}
@@ -1135,7 +1124,7 @@ Inspecting \texttt{new\_data}, we see
 \end{Shaded}
 
 \begin{verbatim}
-#> Error in eval(expr, envir, enclos): object 'new_data' not found
+#> [1] 1811  852
 \end{verbatim}
 
 Well this seems weird -- it does not look like a data frame. Let's inspect the structure
@@ -1147,7 +1136,7 @@ Well this seems weird -- it does not look like a data frame. Let's inspect the s
 \end{Shaded}
 
 \begin{verbatim}
-#> Error in str(new_data): object 'new_data' not found
+#>  num [1:2] 1811 852
 \end{verbatim}
 
 It is not a data frame, but rather a numeric vector. Because \texttt{rowMeans()} requires an array of two or more dimensions (e.g.~matrix or data frame), the next line of code fails. Pressing \texttt{n} again returns the error and removes you from the interactive context
@@ -1159,7 +1148,7 @@ It is not a data frame, but rather a numeric vector. Because \texttt{rowMeans()}
 \end{Shaded}
 
 \begin{verbatim}
-#> Error in is.data.frame(x): object 'new_data' not found
+#> Error in rowMeans(new_data): 'x' must be an array of at least two dimensions
 \end{verbatim}
 
 A similar error occurs within \texttt{river\_medians()} when running \texttt{apply()}
@@ -1186,22 +1175,24 @@ Running these functions with \texttt{pattern\ =\ "R"} behaves as intended
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"R"}\NormalTok{)}
+\KeywordTok{river_means}\NormalTok{(river, }\StringTok{"R"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-#> Error in data[, desired_rivers, drop = FALSE]: incorrect number of dimensions
+#>    length discharge 
+#>      1811       852
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{river_medians}\NormalTok{(rivers, }\StringTok{"R"}\NormalTok{)}
+\KeywordTok{river_medians}\NormalTok{(river, }\StringTok{"R"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-#> Error in data[, desired_rivers, drop = FALSE]: incorrect number of dimensions
+#>    length discharge 
+#>      1811       852
 \end{verbatim}
 
 For more information about debugging in R, \href{https://www.youtube.com/watch?v=vgYS-F8opgE}{watch} or \href{https://adv-r.hadley.nz/debugging.html}{read}.
@@ -1213,8 +1204,8 @@ We received and fixed an error message that occurred when the pattern only match
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"ZZZ"}\NormalTok{)}
-\KeywordTok{river_medians}\NormalTok{(rivers, }\StringTok{"ZZZ"}\NormalTok{)}
+\KeywordTok{river_means}\NormalTok{(river, }\StringTok{"ZZZ"}\NormalTok{)}
+\KeywordTok{river_medians}\NormalTok{(river, }\StringTok{"ZZZ"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1483,6 +1474,54 @@ Editing these citations in this way is most useful when you want to cite the man
 #>   }
 \end{verbatim}
 
+\hypertarget{recap}{%
+\section{Recap}\label{recap}}
+
+So what does our research compendium look like now?
+
+\begin{itemize}
+\tightlist
+\item
+  data: folder containing data
+\item
+  DESCRIPTION: file containing metadata about our package
+\item
+  inst: folder containing auxiliary files to be downloaded alongside the package's installation
+
+  \begin{itemize}
+  \tightlist
+  \item
+    analysis: folder containing R scripts that are separate from the R package but used as part of the research compendium
+  \item
+    CITATION: file containing citation information
+  \item
+    mamuscript:
+  \item
+    output:
+  \end{itemize}
+\item
+  LICENSE.md: file containing metadata about our license (GPL-3)
+\item
+  man: folder containing R function documentation from the package
+\item
+  NAMESPACE: file containing exports and imports
+\item
+  R: folder containing R functions from the package
+\item
+  RPRW.Rproj: file containing R Project metadata
+\item
+  tests: folder containing R function testing
+\item
+  vignettes: folder containing the package vignette
+\end{itemize}
+
+You can also add a README.md file to give a broad overview of your package. The README.md file in the RPRW package looks like
+
+\begin{verbatim}
+# RPRW
+Companion R package for "Using R Packages for Reproducible Workflows" at the 2021 EPA R Workshop
+\end{verbatim}
+
 \hypertarget{an-example-r-package-reserach-compendium}{%
 \subsection{An Example R Package Reserach Compendium}\label{an-example-r-package-reserach-compendium}}
 
@@ -1535,20 +1574,200 @@ Because R packages leverage R projects, all file paths are relative (not absolut
 \hypertarget{r-projects}{%
 \section{R Projects}\label{r-projects}}
 
-\hypertarget{rmarkdown}{%
-\section{RMarkdown}\label{rmarkdown}}
+When I first started coding in R, I would try to share my code with others and encountered a problem -- my code would not work on their machine. This is because in my R scripts I would often read in files from different locations on my computer. The paths that point to the objects to read in were specific to my machine. Then when I colleague tried to run my script -- it failed! To get my code to work, they would have edit the file paths to point to the correct objects on their machine. Not only is this a lot to ask of someone, it also makes it incredibly easy to introduce errors. More often than not, I would have to meet with someone to get the code I sent them up and running. This was a waste of time for everyone involved.
 
-\hypertarget{rticles}{%
-\section{Rticles}\label{rticles}}
+R looks for files to load in a working directory. This is helpful because looking for files in a working directory prevents you from having to type out the full path to a file every time you want to load something. For example, you are not using a working directory and you have several files to load that live in \texttt{a/long/path/with/s\ p\ a\ c\ e\ s/or/weird/cH-a\_r-\/-aCt-er\$!!!}. To load \texttt{my\_cool\_file.csv} and \texttt{my\_other\_cool\_file.csv}, you have to run
 
-\hypertarget{github}{%
-\section{GitHub}\label{github}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{read.csv}\NormalTok{(}\StringTok{"a/long/path/with/s p a c e s/and/weird/cH-a_r--aCt-er$!!!/my_cool_file.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+and then retype (or copy/paste) the path to run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{read.csv}\NormalTok{(}\StringTok{"a/long/path/with/s p a c e s/and/weird/cH-a_r--aCt-er$!!!/my_other_cool_file.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This workflow is tedious and error-prone. If you set your working directory to \texttt{a/really/long/path/with/s\ p\ a\ c\ e\ s/or/weird/cH-a\_r-\/-aCt-er\$!!!}, then to load \texttt{my\_cool\_file.csv} and \texttt{my\_other\_cool\_file.csv}, you have to run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{read.csv}\NormalTok{(}\StringTok{"my_cool_file.csv"}\NormalTok{)}
+\KeywordTok{read.csv}\NormalTok{(}\StringTok{"my_other_cool_file.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+You can set working directories in R using \texttt{setwd()}, but this isn't really a good idea for various reasons (you get to discuss them in the exercises). There is a better way to control your working directory -- insert R projects to the rescue!
+
+R projects automatically set your working directory to live wherever the project is stored on your machine. So if I have \texttt{my\_cool\_file.csv} and \texttt{my\_other\_cool\_file.csv} in the root of my R project, I can load them by running
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{read.csv}\NormalTok{(}\StringTok{"my_cool_file.csv"}\NormalTok{)}
+\KeywordTok{read.csv}\NormalTok{(}\StringTok{"my_other_cool_file.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+while inside the R project. This is so powerful because that means I can bundle up my R project, send it to my colleague, and then the R project will set my colleagues working directory to live wherever they save the project. That means that they can load \texttt{my\_cool\_file.csv} and \texttt{my\_other\_cool\_file.csv} using the exact same code I used. No more file path problems -- this is a vastly improved workflow. It may not seem like a huge deal now, but learning how to use R projects can make a huge difference in your ability to share your work.
+
+Another benefit of R projects is that it provides a convenient structure to organize all the files associated with a particular task. To learn more about creating and maintaining R packages, check out \href{https://r4ds.had.co.nz/workflow-projects.html}{this} and \href{https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects}{this}.
+
+\hypertarget{exercises-9}{%
+\subsection{Exercises}\label{exercises-9}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  What are some drawbacks of running \texttt{setwd()} whenever you want to set a working directory?
+\item
+  Look into the \href{https://here.r-lib.org/}{here} package, designed to help solve working-directory problems (that can even occur within R Projects).
+\end{enumerate}
 
 \hypertarget{renv}{%
-\section{renv}\label{renv}}
+\subsection{renv}\label{renv}}
+
+\href{https://rstudio.github.io/renv/articles/renv.html}{renv} is an R package that brings R package version management to your projects. renv prevents code in your R project from returning separate results based on the version of the R packages installed. It works by saving the specific versions of the R packages in your project and then makes it easy for others to install those same versions before running code in the R project.
+
+\hypertarget{r-markdown}{%
+\section{R Markdown}\label{r-markdown}}
+
+R Markdown documents provide a convenient way to combine text, R code, and results into a fully reproducible document that compiles (knits) to one of several output types (HTLM, PDF, word, slide decks, etc.). An R Markdown document has file extension \texttt{.Rmd} and can be created in RStudio by clicking File -\textgreater{} New File -\textgreater{} R Markdown, which brings up the following options
+
+\includegraphics[width=1\linewidth]{images/rmark1}
+
+Pressing OK automatically opens a file with several contents
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{---}
+\NormalTok{title: "Untitled"}
+\NormalTok{author: "Michael Dumelle"}
+\NormalTok{date: "9/17/2021"}
+\NormalTok{output: html_document}
+\NormalTok{---}
+
+\BaseNTok{```\{r setup, include=FALSE\}}
+\BaseNTok{knitr::opts_chunk$set(echo = TRUE)}
+\BaseNTok{```}
+
+\FunctionTok{## R Markdown}
+
+\NormalTok{This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see }\OtherTok{<http://rmarkdown.rstudio.com>}\NormalTok{.}
+
+\NormalTok{When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:}
+
+\BaseNTok{```\{r cars\}}
+\BaseNTok{summary(cars)}
+\BaseNTok{```}
+
+\FunctionTok{## Including Plots}
+
+\NormalTok{You can also embed plots, for example:}
+
+\BaseNTok{```\{r pressure, echo=FALSE\}}
+\BaseNTok{plot(pressure)}
+\BaseNTok{```}
+
+\NormalTok{Note that the }\BaseNTok{`echo = FALSE`}\NormalTok{ parameter was added to the code chunk to prevent printing of the R code that generated the plot.}
+\end{Highlighting}
+\end{Shaded}
+
+The part surrounded by \texttt{-\/-\/-} is the YAML header, which contains metadata about your document -- big picture options are controlled here. The parts prefixed by \texttt{\#} are first-level (section-level) headers, and the parts prefixed by \texttt{\#\#} are second level (subsection-level) headers. The parts surrounded by \texttt{\textasciigrave{}\textasciigrave{}\textasciigrave{}} are code chunks -- these are the engine that powers R Markdown. Code chunks let you run and display R code and output in your document. More generally, code chunks look like
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BaseNTok{```\{r label, chunk_options\}}
+\BaseNTok{R code}
+\BaseNTok{```}
+\end{Highlighting}
+\end{Shaded}
+
+The line
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr::opts_chunk$set()}
+\end{Highlighting}
+\end{Shaded}
+
+lets you set default options for your code chunks. For example, \texttt{knitr::opts\_chunk\$set(echo\ =\ TRUE)} sets \texttt{echo\ =\ TRUE} for all all code chunks, unless a particular code chunk sets \texttt{echo\ =\ FALSE}. More information on available code chunk options is \href{https://yihui.org/knitr/options/}{here}. Finally, the rest of the document contains the body of the document -- the plain text.
+For more on the structure of R Markdown documents, see \href{https://bookdown.org/yihui/rmarkdown-cookbook/conceptual-overview.html}{this}.
+
+R Markdown documents are useful for a variety of reasons, two of which we will focus on next.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  R Markdown lets you create fully reproducible documents by combining R code and text. There is a slight change to the data? No problem, the tables or figures you are reproduced after changing the data. Suppose you want to knit to a new document style? No problem, just change \texttt{output:} This is very powerful.
+\item
+  This approach is less error-prone that remaking tables, figures, etc on your own and then inserting them ``by hand'' into your document.
+\end{enumerate}
+
+For much, much more on R Markdown, read \href{https://bookdown.org/yihui/rmarkdown/}{this} and \href{https://bookdown.org/yihui/rmarkdown-cookbook/}{this}.
+
+\hypertarget{exercises-10}{%
+\subsection{Exercises}\label{exercises-10}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Save the basic R Markdown template we just discussed and knit it to see its contents.
+\end{enumerate}
+
+\hypertarget{rticles}{%
+\section{rticles}\label{rticles}}
+
+The rticles is an extension of R Markdown designed to make adhering to journal style requirements easier. Some journal types rticles accommodates are Elsevier, PLOS, Sage, Springer, and Taylor \& Francis, among \href{https://github.com/rstudio/rticles}{many more}. After installing rticles (\texttt{install.packages("rticles")}), you can access article templates by starting a new R Markdown document and selecting the template tab
+
+\includegraphics[width=1\linewidth]{images/rmark2}
+
+The rticles templates have complicated YAML headers, but they generally have pretty clear inline instructions for how to edit them. The YAML headers change between templates. The body of the document is just standard R Markdown (potentially with some LaTeX). This is so nice because the body of the document is the same across templates (potentially with minor LaTeX discrepancies that are generally explained in the template's inline instructions). Decide you want to switch from an Elsevier journal to a Taylor \& Francis journal? No problem, just change the template type! For this reason, rticles is one my favorite R packages.
+
+\hypertarget{git-and-github}{%
+\section{Git and GitHub}\label{git-and-github}}
+
+I highly recommend you learn how to use Git and GitHub. Though intimidating, frustrating, and time-consuming at first, Git and GitHub are well worth the effort. \href{https://git-scm.com/}{Git} is a version control system. A version control system keeps track of all changes made to your code in a Git repository (which is a \texttt{.git/} folder somewhere in your code -- note the \texttt{.git/} folder is usually hidden). Git is useful on its own, but it benefits greatly from integration with GitHub. \href{https://github.com/}{GitHub} is a website that lets you easily share your code, collaborate with others, track changes to your code, and backup your code, among other features. Git and GitHub is by far the most popular version control system for R packages, and access to development versions of R packages is usually only available through GitHub.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"username/packagename"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Though we won't get into details of Git and GitHub here, luckily RStudio has many tools to enable R to communicate with Git and GitHub. For an intro to Git and GitHub through RStudio, visit \href{https://r-pkgs.org/git.html}{here}. For a thorough book about using Git and GitHub through RStudio, visit \href{https://happygitwithr.com/}{here}. For a video overview of using Git and GitHub through RStudio, watch (here){[}\url{https://www.rstudio.com/resources/rstudioconf-2017/happy-git-and-gihub-for-the-user-tutorial/}{]}.
 
 \hypertarget{continuous-integration}{%
 \section{Continuous Integration}\label{continuous-integration}}
+
+Continuous integration (often abbreviated CI) is the process of performing automated checks on code anytime it is updated. This may seem cumbersome, but it is a really good idea so that if an error is inserted in a new version of code, continuous integration helps identify that error. One option for continuous integration in your R package's GitHub repository is \href{https://github.com/features/actions}{GitHub actions}. devtools has several tools to help you set up GitHub actions. I recommend using their ``standard'' GitHub actions template, which can be added to your R project by running
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{use_github_action}\NormalTok{(}\DataTypeTok{name =} \StringTok{"check-standard"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+√ Creating '.github/'
+√ Adding '^\\.github$' to '.Rbuildignore'
+√ Adding '*.html' to '.github/.gitignore'
+√ Creating '.github/workflows/'
+√ Writing '.github/workflows/check-standard.yaml'
+* Learn more at <https://github.com/r-lib/actions/blob/master/examples/README.md>
+\end{verbatim}
+
+You will notice that this code created a new folder at the root of our package named \texttt{.github}. The .github folder may be hidden so you may need to enable the viewing of hidden files to look through its contents on your machine (in the files pane of R studio click more and check ``show hidden files''. Then every time you push to GitHub, GitHub actions will simulate \texttt{devtools::check()} on several operating systems and return the results. This setup can be viewed for the RPRW package \href{https://github.com/michaeldumelle/RPRW/actions}{here}. Another option for continuous integration is \href{https://travis-ci.org/}{Travis CI}.
+
+\hypertarget{extra}{%
+\section{Extra}\label{extra}}
+
+\href{https://www.rstudio.com/resources/cheatsheets/}{RStudio Cheat Sheets}
 
 \hypertarget{exercise-solutions}{%
 \chapter{Exercise Solutions}\label{exercise-solutions}}
