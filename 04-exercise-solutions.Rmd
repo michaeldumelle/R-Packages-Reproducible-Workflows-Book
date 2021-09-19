@@ -8,17 +8,19 @@ river_means <- function(data, pattern) {
 }
 ```
 
-**Q** 1. What are some of your favorite R packages?
+## Building an R Package {-}
 
-**A** 1. This is for you to answer! Though a few of my favorites include devtools, styler, rticles, rlang, and purrr.
+**[Exercise 1.1.1.1](#ex-set1)** What are some of your favorite R packages?
 
-*Q* 1. Of those ew have talked about so far, what benefits of R packages are most appealing to you?
+**Answer 1.1.1.1** This is for you to answer! I have many favorites, but a few are devtools, styler, rticles, rlang, and purrr.
 
-*A* 1. This is also for you to answer. My answer is "all of them!", though if I had to pick one, it is saving time by enforcing a structure -- future me appreciates when past me does this.
+**[Exercise 1.1.1.2](#ex-set1)** Of those we have talked about so far, what benefits of R packages are most appealing to you?
 
-*Q* 1. How many functions does `river_means()` call within the body of the function? What package are these functions in?
+**Answer 1.1.1.2** This is for you to answer! The most appealing benefit to me is the structure that helps keep me organized.
 
-*A* 1. There are five functions: `<-`, `grep()`, `names()`, `[`, and `rowMeans()`. They are all in the "base" package, which can been seen in each function's documentation
+**[Exercise 1.2.4.1.1](#ex-set2)** How many functions does `river_means()` call within the body of the function? What package are these functions in?
+
+**Answer 1.2.4.1.1** 1. There are five functions: `<-`, `grep()`, `names()`, `[`, and `rowMeans()`. They are all in the "base" package -- this fact be can seen in each function's documentation
 ```{r}
 ?`<-`
 ?grep
@@ -27,23 +29,25 @@ river_means <- function(data, pattern) {
 ?rowMeans
 ```
 
-*Q* 1. Play around with using these functions for some new patterns -- do you notice anything strange?
+**[Exercise 1.2.4.1.2](#ex-set2)** Try using `river_means()` with a few different patterns. Do you notice anything strange?
 
-*A* 1. If zero matches or one match occur for a pattern, there is some unexpected behavior. If there are zero matches, you get `NaN` for an answer (which stands for not a number).
-```{r}
-river_means(rivers, "ZZZ")
+**Answer 1.2.4.1.1** 
+
+Strange behavior occurs when the pattern matches only one river or zero rivers. If the pattern matches only one river, there is an error:
+```{r, eval = TRUE}
+river_means(river, "R")
 ```
 
-2. If there is one match, you get a mysterious error -- more on this later.
-```{r}
-river_means(rivers, "Red")
+If the pattern matches zero rivers, the mean is `NaN` (which stands for not a number)
+```{r, eval = TRUE}
+river_means(river, "ZZZ")
 ```
 
+These are both unintended and are discussed more in [Debugging](#debugging).
 
+**[Exercise 1.2.7.1.1](#ex-set3)** Write a new function, `river_stats()`, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder for a function a user inserts themselves.
 
-*Q* 1. Write a new function, `river_stat()`, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder so that a user may insert their own function as an argument.
-
-*A* 1. 
+**Answer 1.2.7.1.1**
 
 ```{r, eval = TRUE}
 #' Summary statistics of river lengths and discharges
@@ -57,24 +61,23 @@ river_means(rivers, "Red")
 #' @export
 #'
 #' @examples
-#' data("rivers")
-#' river_stat(rivers, "Mi", min)
-river_stat <- function(data, pattern, FUN) {
+#' data("river")
+#' river_stat(river, "Mi", min)
+river_stats <- function(data, pattern, FUN) {
   desired_rivers <- grep(pattern, names(data))
   new_data <- data[, desired_rivers]
   apply(new_data, 1, FUN)
 }
-river_stat(rivers, "Mi", min)
-river_stat(rivers, "Mi", max)
-river_stat(rivers, "Mi", mean)
-river_stat(rivers, "Mi", stats::median)
+river_stats(river, "Mi", min)
+river_stats(river, "Mi", max)
+river_stats(river, "Mi", mean)
+river_stats(river, "Mi", stats::median)
 ```
 
+**[Exercise 1.2.7.1.2](#ex-set3)** Rewrite `river_stats()` from the previous exercise so that `river_stats()` also takes additional arguments to the summarizing function (hint: use `...` as an argument)
 
-
-*Q* 1. Rewrite `river_stat()` so that it also takes additional arguments to the summarizing function (hint: use `...` as an argument)
-
-*A* 1. 
+**Answer 1.2.7.1.2**
+ 
 ```{r, eval = TRUE}
 #' Summary statistics of river lengths and discharges
 #'
@@ -88,32 +91,32 @@ river_stat(rivers, "Mi", stats::median)
 #' @export
 #'
 #' @examples
-#' data("rivers")
-#' river_stat(rivers, "Mi|C", mean, trim = 0.5)
-river_stat <- function(data, pattern, FUN, ...) {
+#' data("river")
+#' river_stat(river, "Mi|C", mean, trim = 0.5)
+river_stats <- function(data, pattern, FUN, ...) {
   desired_rivers <- grep(pattern, names(data))
   new_data <- data[, desired_rivers]
   apply(new_data, 1, FUN, ...)
 }
-river_stat(rivers, "Mi|C", mean, trim = 0)
-river_stat(rivers, "Mi|C", mean, trim = 0.5)
+river_stats(river, "Mi|C", mean, trim = 0)
+river_stats(river, "Mi|C", mean, trim = 0.5)
 ```
 
-*Q* 1. Write similar tests for `river_means()` (discharge), `river_medians()` (length), and `river_medians()` (length)
+**[Exercise 1.2.10.1](#ex-set4)** Write similar tests for `river_means()` (discharge), `river_medians()` (length), and `river_medians()` (discharge).
 
-*A* 1.
+**Answer 1.2.10.1** 
 
 ```{r, eval = TRUE}
-test_that("the mean discharge is calculated correctly in a test case", {
+testthat::test_that("the mean discharge is calculated correctly in a test case", {
   
   # calculate values required for the test for discharge
 
   ## calculate the means from the function
-  river_means_val <- river_means(rivers, "Missouri|Mississippi")
+  river_means_val <- river_means(river, "Missouri|Mississippi")
   river_means_discharge <- river_means_val[[2]]
 
   ## calculate the means "by hand"
-  raw_vec_discharge <- unlist(rivers["discharge", c("Missouri", "Mississippi")])
+  raw_vec_discharge <- unlist(river["discharge", c("Missouri", "Mississippi")])
   raw_means_discharge <- mean(raw_vec_discharge)
   
   # perform the actual test for discharge
@@ -124,16 +127,16 @@ test_that("the mean discharge is calculated correctly in a test case", {
 ```
 
 ```{r, eval = TRUE}
-test_that("the median length is calculated correctly in a test case", {
+testthat::test_that("the median length is calculated correctly in a test case", {
   
   # calculate values required for the test for length
 
   ## calculate the medians from the function
-  river_medians_val <- river_medians(rivers, "Missouri|Mississippi")
+  river_medians_val <- river_medians(river, "Missouri|Mississippi")
   river_medians_length <- river_medians_val[[1]]
 
   ## calculate the medians "by hand"
-  raw_vec_length <- unlist(rivers["length", c("Missouri", "Mississippi")])
+  raw_vec_length <- unlist(river["length", c("Missouri", "Mississippi")])
   raw_medians_length <- median(raw_vec_length)
   
   # perform the actual test for length
@@ -143,19 +146,17 @@ test_that("the median length is calculated correctly in a test case", {
 })
 ```
 
-
-
 ```{r, eval = TRUE}
-test_that("the mean discharge is calculated correctly in a test case", {
+testthat::test_that("the mean discharge is calculated correctly in a test case", {
   
   # calculate values required for the test for discharge
 
   ## calculate the medians from the function
-  river_medians_val <- river_medians(rivers, "Missouri|Mississippi")
+  river_medians_val <- river_medians(river, "Missouri|Mississippi")
   river_medians_discharge <- river_medians_val[[2]]
 
   ## calculate the medians "by hand"
-  raw_vec_discharge <- unlist(rivers["discharge", c("Missouri", "Mississippi")])
+  raw_vec_discharge <- unlist(river["discharge", c("Missouri", "Mississippi")])
   raw_medians_discharge <- median(raw_vec_discharge)
   
   # perform the actual test for discharge
@@ -165,15 +166,26 @@ test_that("the mean discharge is calculated correctly in a test case", {
 })
 ```
 
-*Q* 1. Rewrite `river_medians()` so that it stops when no patterns are matched and returns an informative error message. 
+**[Exercise 1.2.14.1.1](#ex-set5)**
+Find the argument to `devtools::install()` that identifies whether vignettes are built alongside installation. What is the default value of this argument?
 
-*A* 1. 
+**Answer 1.2.14.1.1** Running 
+```{r}
+?devtools_install
+```
+we see that `build_vignettes` controls whether vignettes are build alongside installation. The default arguent for `build_vignettes` is `FALSE`.
 
+
+
+**[Exercise 1.3.4.1.1](#ex-set6)**
+Rewrite `river_medians()` so that it stops and returns an informative error message when the pattern matches zero rivers.
+
+**Answer 1.3.4.1.1**
 ```{r, eval = TRUE}
 river_medians <- function(data, pattern) {
   desired_rivers <- grep(pattern, names(data))
   if (length(desired_rivers) == 0) {
-    stop("The pattern provided does not match any rivers in the data provided")
+    stop("The pattern provided does not match any rivers in the data provided.")
   }
   new_data <- data[, desired_rivers, drop = FALSE]
   rowMeans(new_data)
@@ -182,6 +194,8 @@ river_medians(rivers, "ZZZ")
 ```
 
 The error messages in the `RPRW` package are more informative but more difficult to code.
+
+## Making an R Package a Research Compendium {-}
 
 *Q* 2. Can you identify any benefits to a research compendium?
 

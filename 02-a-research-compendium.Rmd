@@ -1,6 +1,6 @@
-# Making an R Package a Research Compendium {#r-package-research-compendium}
+# Making an R Package a Research Compendium {#r-package-rc}
 
-## What is a Research Compendium?
+## What is a Research Compendium? {#what-is-a-rc}
 
 @marwick2018packaging state that the goal of a research compendium is to provide a standard and easily recognizable way to organize the digital materials of a project to enable others to inspect, reproduce, and extend the research. Three generic principles define research compendium:
 
@@ -10,11 +10,11 @@
 
 3. The computational environment for the methods should be clearly specified. At the most basic level, this means recording the names and version numbers of software. At the most detailed level, this means completely reproducing the computing environment
 
-### Exercises
+### Exercises {#ex-set6}
 
 1. Can you identify any benefits to a research compendium?
 
-## Why a Research Compendium?
+## Why a Research Compendium? {#why-a-rc}
 
 @marwick2018packaging (and references therein) give several benefits of a research compendium:
 
@@ -26,17 +26,17 @@
 * More defense against errors
 * Easier to communicate with others (and future you)
 
-### Exercises
+### Exercises {#ex-set7}
 
 1. Can you identify any benefits to a research compendium that are not already on this list?
 
-## Why an R Package for a Research Compendium?
+## Why an R Package for a Research Compendium? {#why-r-pack-for-rc}
 
 As previously mentioned, a research compendium requires a specific structure. Earlier in this workshop, we got some experience with something in R that also requires a specific structure............R packages! A research compendium can significantly benefit from adopting the structure of an R package. Organization is simpler (as you already have a structure), writing and documenting functions and data helps guard against errors in an analysis, and devtools have several development tools to help ensure your R package performs as intended. 
 
 We have previously discussed how to include data in an R package, but many of you may be wondering how we include additional pieces of a research compendium like analysis scripts, output, or a manuscript itself. If the structure of an R package is so rigid -- how do these pieces fit? We discuss one such approach next.
 
-## Turning RPRW Into A Research Compendium
+## Turning RPRW Into A Research Compendium {#rprw-to-rc}
 
 If a folder named `inst` is placed at the root of an R package's directory, all of its raw contents will be installed upon installation of the R package. This is where we can put the pieces of our research compendium that are not explicitly related to the previous implementation of our R package. We can use this approach to turn RPRW into a research compendium.
 
@@ -79,11 +79,11 @@ system.file("manuscript", package = "RPRW")
 
 A compiled PDF of the manuscript is available [here](https://github.com/michaeldumelle/RPRW/blob/main/inst/manuscript/manuscript.pdf). Let's talk about its structure for a few minutes.
 
-### Exercises
+### Exercises {#ex-set8}
 
 1. There is a folder name within `inst` that should be avoided -- what is it?
 
-### Adding a Citation
+### Adding a Citation {#citation}
 
 You can add a citation to your R package research compendium by running
 ```{r}
@@ -139,7 +139,7 @@ Editing these citations in this way is most useful when you want to cite the man
 #>   }
 ```
 
-## Recap
+## Research Compendium Recap {#rc-recap}
 
 So what does our research compendium look like now?
 
@@ -148,8 +148,8 @@ So what does our research compendium look like now?
 * inst: folder containing auxiliary files to be downloaded alongside the package's installation
     * analysis: folder containing R scripts that are separate from the R package but used as part of the research compendium
     * CITATION: file containing citation information
-    * mamuscript: 
-    * output:
+    * manuscript: file containing the manuscript and auxiliary files
+    * output: file containing the csv output
 * LICENSE.md: file containing metadata about our license (GPL-3)
 * man: folder containing R function documentation from the package
 * NAMESPACE: file containing exports and imports
@@ -165,11 +165,11 @@ Companion R package for "Using R Packages for Reproducible Workflows" at the 202
 
 ```
 
-### An Example R Package Reserach Compendium
+### An Example R Package Reserach Compendium {#ex-rc}
 
 A recent journal article of mine used this R package research compendium structure -- you can view the GitHub repository [here](https://github.com/michaeldumelle/DumelleEtAl2021STLMM).
 
-## Sharing Your Research Compendium
+## Sharing Your Research Compendium {#sharing-rc}
 
 So now you have a research compendium that combines your R functions with your data, code, and manuscript to create a reproducible product that is easy to share with your colleagues. But how do we share it? Running
 ```{r}
@@ -190,6 +190,6 @@ install.packages(file.choose(), repos = NULL, type = "source")
 
 Because R packages leverage R projects, all file paths are relative (not absolute), and your colleague can immediately run any of your code on their machine!
 
-### Exercises
+### Exercises {#ex-set9}
 
 1. Run `?devtools::build` to look at some additional arguments -- which seem useful to you?
