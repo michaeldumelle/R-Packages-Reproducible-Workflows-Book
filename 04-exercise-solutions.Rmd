@@ -173,7 +173,7 @@ Find the argument to `devtools::install()` that identifies whether vignettes are
 ```{r}
 ?devtools_install
 ```
-we see that `build_vignettes` controls whether vignettes are build alongside installation. The default arguent for `build_vignettes` is `FALSE`.
+we see that `build_vignettes` controls whether vignettes are build alongside installation. The default argument for `build_vignettes` is `FALSE`.
 
 
 
@@ -197,10 +197,111 @@ The error messages in the `RPRW` package are more informative but more difficult
 
 ## Making an R Package a Research Compendium {-}
 
-*Q* 2. Can you identify any benefits to a research compendium?
+[Exercise 2.1.1.1](#ex-set7)
+What principles of a research compendium seem most beneficial to you?
 
-*A* 2. Individual answer
+**Answer 2.1.1.1**
+This is for you to answer! To me, the file organization, file separation, and computational details all seem like wonderful principles!
 
-*Q* 2. Can you identify any benefits to a research compendium that are not already on this list?
+[Exercise 2.2.1.1](#ex-set8)
+Can you identify any benefits to a research compendium that are not already on this list?
 
-*A* 2. Individual answer
+**Answer 2.2.1.1**
+This is for you to answer! To me, another benefit is leveraging a structure that facilitates reproducibility.
+
+[Exercise 2.4.1.1](#ex-set9)
+There is a folder name within `inst` that should be avoided -- what is it?
+
+**Answer 2.4.1.1**
+You should not name a folder in `inst` named `doc`. The package building process automatically creates a folder named `doc` upon installation -- so putting a `doc` folder in `inst` creates conflicts. For those that use GitHub, `inst/doc` is automatically placed in `gitignore`.
+
+[Exercise 2.6.1.1](#ex-set10)
+Run `?devtools::build` to look at some additional arguments -- which seem useful to you?
+
+**Answer 2.6.1.1**
+This is for you to answer! But `vignettes` and `manual` seem important to be aware of.
+
+## Extensions {-}
+
+[Exercise 3.1.1.1](#ex-set11)
+What are some drawbacks of running `setwd()` whenever you want to set a working directory?
+
+**Answer 3.1.1.1**
+* You have to remember to run `setwd()` anytime you want to re-run a script
+* It is easy to run `setwd()` and point to the wrong working directory
+* It means that your code is harder to share because someone else will have to change the line of code calling `setwd()`
+* Can you think of more?
+
+[Exercise 3.1.1.2](#ex-set11)
+Look into the here ([external link](https://here.r-lib.org/)) package, designed to help solve working directory problems (that can even occur within R Projects).
+
+**Answer 3.1.1.1**
+NA
+
+[Exercise 3.2.1.1](#ex-set12)
+What benefits do you see to R Markdown documents?
+
+**Answer 3.1.1.1**
+This is for you to answer! One of my favorite benefits is making reproducible figures, tables, and output within the document.
+
+[Exercise 3.2.1.2](#ex-set12)
+Save the basic R Markdown template we just discussed and knit it to see its contents.
+
+**Answer 3.1.1.1**
+Go to "File -> New File -> R Markdown" and create an R Markdown template. Then in the editor (upper-left) window, click "Knit". Save the file to a location and then the document will knit to an HTML document and pop up in a default viewer. To knit to other output types, click on the down arrow to the right of the "Knit" button.
+
+
+[Exercise 3.3.1.1](#ex-set13)
+Visit this ([external](https://github.com/rstudio/rticles)) to see all the journals that rticles has a template for.
+
+**Answer 3.1.1.1**
+NA
+
+[Exercise 3.7.1.1](#ex-set14)
+1. A data set is called "tidy" if it has three qualities: 1) each variable has its own column, 2) each observation has its own row, and 3) each value has its own cell. Is `river` tidy?
+
+**Answer 3.7.1.1**
+`river` is not tidy. The river names are spread across columns. One could also argue that `length` and `discharge` are both values of a `metric` argument. Then a tidy `river` data set would look like
+
+```{r, eval = TRUE, echo = FALSE}
+library(tibble)
+library(tidyr)
+library(dplyr)
+river_tidy <- river %>%
+  tibble::rownames_to_column(var = "metric") %>% 
+  tidyr::pivot_longer(Missouri:Canadian) %>%
+  dplyr::select(name, metric, value)
+```
+
+
+```{r, eval = TRUE}
+river_tidy
+```
+
+[Exercise 3.7.1.2](#ex-set14)
+Make `river` tidy
+
+**Answer 3.7.1.1**
+```{r}
+# approach 1 to loading packages
+library(tibble) # run install.packages("tibble") if needed
+library(tidyr) # run install.packages("tidyr") if needed
+library(dplyr) # # run install.packages("dplyr) if needed
+```
+
+```{r}
+# approach 2 to loading packages
+library(tidyverse) # run install.packages("tidyverse") if needed
+```
+
+```{r}
+river_tidy <- river %>%
+  tibble::rownames_to_column(var = "metric") %>% 
+  tidyr::pivot_longer(Missouri:Canadian) %>%
+  dplyr::select(name, metric, value)
+```
+
+```{r, eval = TRUE}
+river_tidy
+```
+

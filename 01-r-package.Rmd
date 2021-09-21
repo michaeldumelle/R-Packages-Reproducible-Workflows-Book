@@ -2,7 +2,7 @@
 
 ## What is an R Package? {#what-is-an-r-package}
 
-An R package is a collection of code, data, documentation, and tests with a particular structure that can be shared with others. R packages are commonly downloaded from the Comprehensive R Archive Network ([CRAN](https://cran.r-project.org/)). You can install them from CRAN by running
+An R package is a collection of code, data, documentation, and tests with a particular structure that can be shared with others. R packages are commonly downloaded from the Comprehensive R Archive Network (CRAN) ([external link](https://cran.r-project.org/)). You can install them from CRAN by running
 ```{r}
 install.packages("package_name")
 ```
@@ -28,11 +28,8 @@ One of the many reasons R packages are so useful is because they are the fundame
     
 4. guides your research compendium
 
-and
-
 5. can make your research compendium completely reproducible and easy to share
-    * This is because packages are built upon R projects (we discuss R projects in more detail in the [R Projects](#r-projects) section. more in the [](#) section)
-    * While R projects are not the fundamental focus for today, I highly, highly recommend you use them for every data analysis project that you are not already using an R package for.
+    * This is because packages are built upon R projects (we discuss R projects in more detail in the [R Projects](#r-projects) section).
 
 ### Exercises {#ex-set1}
 
@@ -42,7 +39,7 @@ and
 
 ## Creating an R Package
 
-Next we will create the RPRW package together! If this is your first R package, then an extra special congratulations to you -- this is a big milestone! For those interested in viewing the source code of the RPRW package, visit the GitHub repository [here](https://github.com/michaeldumelle/RPRW).
+Next we will create the RPRW package together! If this is your first R package, then an extra special congratulations to you -- this is a big milestone! For those interested in viewing the source code of the RPRW package, visit the GitHub repository here ([external link](https://github.com/michaeldumelle/RPRW)).
 
 ### The Motivating Dataset
 
@@ -61,6 +58,8 @@ river <- data.frame(
 rownames(river) <- c("length", "discharge")
 river
 ```
+
+If the structure of `river` is atypical to you, see [Exercise 3.7.1.1](#ex-set14).
 
 ### The First Step {#first-step}
 
@@ -135,7 +134,7 @@ river_means <- function(data, pattern) {
 There are two arguments in `river_means()`: 
 
 1. `data`: A data frame (whose rows represent length or discharge and whose columns represent rivers)
-    * Making `data` the first argument makes this function easily [pipeable](https://r4ds.had.co.nz/pipes.html)
+    * Making `data` the first argument makes this function easily pipeable ([external link](https://r4ds.had.co.nz/pipes.html))
 2. `pattern`: A character pattern by which to subset the rivers in `data` before calculating means
 
 There are three lines of code in `river_means()`:
@@ -148,7 +147,7 @@ The object evaluated by the last line of code in a function is returned by defau
 
 You can leave comments in your function (by prefixing a line with `#`) to communicate in a non-programming language what your code is doing. This is usually good practice because it helps others (including future you) understand the intent of each line of code.
 
-### `load_all()` {#load-all}
+### `devtools::load_all()` {#load-all}
 
 Now that we have written `river_means()` it is natural to want to try it out. One approach is to run `river_means()` (either in the "R/river_means.R" script or by copying and pasting `river_means()` into the console). Another approach is to load `river_means()` by running
 ```{r}
@@ -157,7 +156,7 @@ source("R/river_means.R")
 
 These approaches put `river_means()` in the global environment (look at the environment pane in the upper-right hand corner of RStudio). Unfortunately messing around too much in the global environment can easily introduce errors or unintended behavior of your functions.
 
-An alternative approach is to leverage devtools, since after all, you are bothering to create a package, so you may as well use the tools designed for them! The devtools function `load_all()` emulates the process of building, installing, and loading our R package. This has a few benefits. First, the functions are "sourced" into a better spot (not the global environment). Second, it makes all of your functions available through a single line of code -- rather than running and/or sourcing several functions separately. I highly recommend you practice using `load_all()` to load your functions rather than navigating the dangerous global environment. 
+An alternative approach is to leverage devtools, since after all, you are bothering to create a package, so you may as well use the tools designed for them! The devtools function `devtools::load_all()` emulates the process of building, installing, and loading our R package. This has a few benefits. First, the functions are "sourced" into a better spot (not the global environment). Second, it makes all of your functions available through a single line of code -- rather than running and/or sourcing several functions separately. I highly recommend you practice using `devtools::load_all()` to load your functions rather than navigating the dangerous global environment. 
 ```{r}
 devtools::load_all()
 ```
@@ -172,7 +171,7 @@ Next suppose we want to summarize rivers whose names start with "Y" (Yukon) or "
 river_means(river, "Y|R")
 ```
 
-Hooray -- our function works! Give yourself a congratulations :)! And for more on patterns and strings in R, visit [here](https://r4ds.had.co.nz/strings.html) and [here](https://bookdown.org/rdpeng/rprogdatascience/regular-expressions.html#sub-and-gsub).
+Hooray -- our function works! Give yourself a congratulations :)! And for more on patterns and strings in R, visit here ([external link](https://r4ds.had.co.nz/strings.html)) and ([external link](https://bookdown.org/rdpeng/rprogdatascience/regular-expressions.html#sub-and-gsub)).
 
 #### Exercises {#ex-set2}
 
@@ -192,7 +191,7 @@ usethis::use_data(river)
 √ Saving 'river' to 'data/river.rda'
 ```
 
-You will see that at the root of your R package (inside "path_to_RPRW_package/RPRW"), there is now a folder called `data`. In `data`, there is a file called `river.rda`. `river_rda` contains the rivers data and can now be loaded by running `data("river")`. For illustration, let's remove rivers from our global environment and then load it using `data("river")` (similar to how we load data from other packages):
+You will see that at the root of your R package (inside "path_to_RPRW_package/RPRW"), there is now a folder called `data`. In `data`, there is a file called `river.rda`. `river_rda` contains the `river` data and can now be loaded by running `data("river")`. For illustration, let's remove `river` from our global environment and then load it using `data("river")` (similar to how we load data from other packages):
 ```{r}
 rm(river) # remove the river data from our global environment
 load_all() # emulate the package building, installation, and loading process
@@ -206,10 +205,10 @@ river
 
 ### roxygen Comments {#roxygen}
 
-After writing `river_means()`, you should document it while its structure is fresh in your mind. This makes it easier for others (including future you) to understand how to use `river_means()`. Documenting R functions is a bit more complicated than leaving standard comments (`#`). Documenting R functions requires the use of a special type of comment -- *roxygen* comments (view the [roxygen2](https://roxygen2.r-lib.org/) package for more). Roxygen comments are prefixed with `#'` (instead of `#` like for standard comments) and have special **tags** associated with them. roxygen comment templates are available and can be inserted by putting your cursor somewhere in the body of a function and either 
+After writing `river_means()`, you should document it while its structure is fresh in your mind. This makes it easier for others (including future you) to understand how to use `river_means()`. Documenting R functions is a bit more complicated than leaving standard comments (`#`). Documenting R functions requires the use of a special type of comment -- *roxygen* comments (view the roxygen2 ([external link](https://roxygen2.r-lib.org/)) package for more). Roxygen comments are prefixed with `#'` (instead of `#` like for standard comments) and have special **tags** associated with them. roxygen comment templates are available and can be inserted by putting your cursor somewhere in the body of a function and either:
 
-1. In the upper-left toolbar, go to Code -> Insert Roxygen Skeleton
-2. Press Ctrl/Cmd + Alt + Shift + R
+1. In the upper-left toolbar, go to "Code -> Insert Roxygen Skeleton"
+2. Pressing `Ctrl/Cmd + Alt + Shift + R`
 
 Inserting this roxygen template into `river_means()` yields
 ```{r}
@@ -269,7 +268,7 @@ Writing NAMESPACE
 Writing river_means.Rd
 ```
 
-From now on I'll stop reminding you every time, but again, notice the benefits of leveraging tools that use the package structure. `devtools::document()` creates a new folder at the root of the package called `man` that now contains a file called `river_means.md`
+From now on I'll stop reminding you every time, but again, notice the benefits of leveraging tools that use the package structure. `devtools::document()` creates a new folder at the root of the package called `man` that now contains a file called `river_means.Rd`
 ```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
 knitr::include_graphics("images/newrpack_files2.PNG")
 ```
@@ -283,13 +282,13 @@ The `river_means.md` file is the result of transforming the roxygen comments to 
 knitr::include_graphics("images/newrpack_example.PNG")
 ```
 
-For more on documentation in R packages (including documenting data), visit [here](https://r-pkgs.org/man.html#man) and the vignettes [here](https://cran.r-project.org/web/packages/roxygen2/index.html). Though we skip documenting the river data here, the RPRW package available from GitHub does document it (the documentation can be viewed by running `?rivers` after `library(RPRW)`).
+For more on documentation in R packages (including documenting data), visit here ([external link](https://r-pkgs.org/man.html#man)) and the vignettes here ([external link](https://cran.r-project.org/web/packages/roxygen2/index.html)). Though we skip documenting the river data here, the RPRW package available from GitHub does document it (the documentation can be viewed by running `?river` after `library(RPRW)`).
 
 ### The Second Function {#second-function}
 
-You may be wondering how to tell your package to use functions from other packages. `river_means()`uses a few other functions available in R (see [Exercise 1.1.1.1](#ex-set1): `<-`, `grep()`, `names()`, `[`, and `rowMeans()`. How does R know how to use the right `names()` function when executing `river_means()`? These questions related to an package's [NAMESPACE](#namespace), which we discuss a bit later.
+You may be wondering how to tell your package to use functions from other packages. `river_means()`uses a few other functions available in R (see [Exercise 1.1.1.1](#ex-set1): `<-`, `grep()`, `names()`, `[`, and `rowMeans()`. How does R know how to use the right `names()` function when executing `river_means()`? These questions related to an package's NAMESPACE, which we discuss a bit later.
 
-The functions used in `river_means()` are all from the [base](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html) package in R (the base package is automatically installed alongside R). When using base functions in your R package, you don't have to give R any special warning. This is the only package that operates this way, however. When using functions from other packages in your package, you need to let R know what package that function comes from (this is true even for other packages automatically installed alongside R - stats, graphics, grDevices, utils, datasets, and methods). To illustrate this process, suppose we want to create a new function in our package called `river_medians()` that operates like `river_means()` but computes medians instead of means. First we create the script in our R folder by running
+The functions used in `river_means()` are all from the base package in R ([external link](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html)) (the base package is automatically installed alongside R). When using functions from the base package in your package, you don't have to give R any special warning. This is the only package that operates this way, however. When using functions from other packages in your package, you need to let R know what package that function comes from (this is true even for other packages automatically installed alongside R - stats, graphics, grDevices, utils, datasets, and methods). To illustrate this process, suppose we want to create a new function in our package called `river_medians()` that operates like `river_means()` but computes medians instead of means. First we create the script in our R folder by running
 ```{r}
 use_r("river_medians")
 ```
@@ -308,9 +307,9 @@ But wait! Run
 ?median
 ```
 
-See anything different? You'll notice that `median()` is in the [stats](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html) package, not the base package. We need to let R know that when `river_medians()` uses `median()`, the appropriate `median()` is from the stats package. To accomplish this, there are two steps to take. 
+See anything different? You'll notice that `median()` is in the stats package ([external link](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html)), not the base package. We need to let R know that when `river_medians()` uses `median()` from the stats package. To accomplish this, there are two steps to take. 
 
-The first step is to tell your package that somewhere, your package requires at least one function in the stats package by running
+The first step is to tell your package that at least one function stats is required somewhere by running
 ```{r}
 usethis::use_package("stats")
 ```
@@ -320,7 +319,7 @@ usethis::use_package("stats")
 * Refer to functions with `stats::fun()`
 ```
 
-The package stats was added to the Imports field in the [DESCRIPTION](#description) file at the root of your package. We will talk more about DESCRIPTION in a bit, but for now just remember that it contains metadata (high-level data) about your package. No matter how many times your package uses any function from stats, you only need to run `usethis::use_package("stats")` once.  
+The package stats was added to the Imports field in the DESCRIPTION file at the root of your package. We will talk more about DESCRIPTION in a bit, but for now just remember that it contains metadata (high-level data) about your package. No matter how many times your package uses any function from stats, you only need to run `usethis::use_package("stats")` once.  
 
 The second step is to tell `river_medians()` function to use the `median()` from stats. There are a few ways to do this. The way that is considered best practice is to preface any outside functions (aside from those in base) with `packagename::`. Incorporating this into `river_medians()` and inserting roxygen documentation yields
 ```{r}
@@ -435,7 +434,7 @@ We will talk about some of the remaining parts of DESCRIPTION later.
 
 ### NAMESPACE {#namespace}
 
-While the DESCRIPTION file communicates what packages your package *uses*, the NAMESPACE file communicates *how* your package uses these packages. More specifically, the NAMESPACE file controls which functions your package exports (making them available to others when your package in installed) and what functions from what packages must be available for your exported functions to work. The DESCRIPTION file is automatically updated while running `devtools::document()` and should not be edited by hand (in fact, there is a warning in the NAMESPACE file to warn against editing the file by hand)
+While the DESCRIPTION file communicates what packages your package *uses*, the NAMESPACE file communicates *how* your package uses these packages. More specifically, the NAMESPACE file controls which functions your package exports (making them available to others when your package is installed) and what functions from what packages must be available for your exported functions to work. The DESCRIPTION file is automatically updated while running `devtools::document()` and should not be edited by hand (in fact, there is a warning in the NAMESPACE file to warn against editing the file by hand)
 
 In `river_median()`, if you called `median` using `stats::median`, your NAMESPACE file will look like
 ```{r}
@@ -465,7 +464,7 @@ import(stats)
 
 ### testthat {#testthat}
 
-Testing your code to make sure that it performs as intended is an important step in the package building process. Though this may seem like extra work, implementing a rigorous testing procedure for your package will provide several benefits: [fewer bugs, better code structure, easier restarts, and robust code](https://r-pkgs.org/tests.html). In R, testing is incorporated into your package through the [testthat](https://testthat.r-lib.org/) package. To begin using testthat, run
+Testing your code to make sure that it performs as intended is an important step in the package building process. Though this may seem like extra work upfront, implementing a rigorous testing procedure for your package is essential. In R, testing is incorporated into your package through the testthat ([external link](https://testthat.r-lib.org/)) package. To begin using testthat, run
 ```{r}
 usethis::use_testthat()
 ```
@@ -504,6 +503,7 @@ knitr::include_graphics("images/newrpack_files5.PNG")
 
 Tests can be fairly detailed and cover many components of a function (such as input types, output types, function output, etc.). The tests in testthat are prefixed with `expect_`. Here we write a simple test that calculates whether our function, `river_means()`, yields output that we would expect if we calculated the means "by hand":
 ```{r, eval = TRUE}
+library(testthat) # testthat is installed with devtools but we must load it
 testthat::test_that("the mean length is calculated correctly in a test case", {
   
   # calculate values required for the test for length
@@ -562,7 +562,7 @@ All tests pass -- hooray! I want to again emphasize how important testing is. I 
 
 ### License {#license}
 
-At some point, your package needs a license. The license places restrictions on how your package can be shared with others. Licensing can be rather technical and complicated, so I refer you [here](https://r-pkgs.org/license.html) for more information. For illustration purposes, we will use a GPL-3 license for this package: 
+At some point, your package needs a license. The license places restrictions on how your package can be shared with others. Licensing can be rather technical and complicated, so I refer you here ([external link](https://r-pkgs.org/license.html)) for more information. For illustration purposes, we will use a GPL-3 license for this package: 
 ```{r}
 usethis::use_gpl_license()
 ```
@@ -577,9 +577,9 @@ usethis::use_gpl_license()
 
 ### Vignettes {#vignettes}
 
-Vignettes act as high-level user guides for your package. They are the glue that binds together several components of your package to illustrate how the package can be used to solve a particular problem. Vignettes tend to be [R Markdown]{#rmarkdown} documents. Though we cover R Markdown documents in more detail later, for now we note that they that dynamically interweave text and R code to form the foundation for fully reproducible documents created in R. R markdown documents have a `.Rmd` extension.
+Vignettes act as high-level user guides for your package. They are the glue that binds together several components of your package to illustrate how the package can be used to solve a particular problem. Vignettes tend to be R Markdown documents. Though we cover R Markdown documents in more detail later, for now we note that they that dynamically interweave text and R code to form the foundation for fully reproducible documents created in R. R markdown documents have a `.Rmd` extension.
 
-The [ggplot2](https://ggplot2.tidyverse.org/) package is a popular package for visualizing data. After installing ggplot2
+The ggplot2 ([external link](https://ggplot2.tidyverse.org/)) package is a popular package for visualizing data. After installing ggplot2
 ```{r}
 install.packages("ggplot2")
 ```
@@ -598,7 +598,7 @@ To then  view a specific vignette, run `vignette(topic, package)`. For example, 
 vignette("ggplot2-specs", "ggplot2")
 ```
 
-The vignette can be viewed in the bottom-right pane of RStudio. Vignettes are also available on a package's CRAN page -- for the ggplot2 aesthetic specifications vignette, see [here](https://cran.r-project.org/web/packages/ggplot2/vignettes/ggplot2-specs.html).
+The vignette can be viewed in the bottom-right pane of RStudio. Vignettes are also available on a package's CRAN page -- for the ggplot2 aesthetic specifications vignette, see here ([external link](https://cran.r-project.org/web/packages/ggplot2/vignettes/ggplot2-specs.html)).
 
 Suppose we want to include a vignette that shows how to use RPRW to compute river statistics. Running
 ```{r}
@@ -616,7 +616,7 @@ use_vignette("river-statistics", "River Statistics")
 * Modify 'vignettes/river-statistics.Rmd'
 ```
 
-does a few things. It alters your DESCRIPTION file, most notably adding the [knitr](https://yihui.org/knitr/) and rmarkdown packages to the `Suggests` field.  It also creates a vignette folder at the root of your package and adds to that folder an rmarkdown vignette (notice the `.Rmd` extension) named `river-statistics.Rmd` whose title is "River Statistics".
+does a few things. It alters your DESCRIPTION file, most notably adding the knitr ([external link](https://yihui.org/knitr/)) and rmarkdown packages to the `Suggests` field.  It also creates a vignette folder at the root of your package and adds to that folder an rmarkdown vignette (notice the `.Rmd` extension) named `river-statistics.Rmd` whose title is "River Statistics".
 
 While we won't create a vignette for our package during the workshop, I have added a vignette to the RPRW package. To view it (after installation), run
 ```{r}
@@ -673,7 +673,7 @@ Something is wrong -- and we need to figure out what. A good first step is to co
 
 ### `traceback()` {#traceback}
 
-The `traceback()` function is generally run in the console after receiving an error. `traceback()` identifies where the error occured in the previous function call. Here we run `traceback()` after `river_means(river, "R"):
+The `traceback()` function is generally run in the console after receiving an error. `traceback()` identifies where the error occured in the previous function call. Here we run `traceback()` after `river_means(river, "R")`:
 ```{r}
 traceback()
 ```
@@ -681,7 +681,7 @@ traceback()
 ```{}
 3: stop("'x' must be an array of at least two dimensions")
 2: rowMeans(new_data) at #4
-1: river_means(rivers, "R")
+1: river_means(river, "R")
 ```
 
 We now know that the error occurs in Line 4 of `river_means()` (the `rowMeans(new_data)` step). While this is very useful information, we still don't know exactky why the error occurs.
@@ -797,7 +797,7 @@ river_means(river, "R")
 river_medians(river, "R")
 ```
 
-For more information about debugging in R, watch [this](https://www.youtube.com/watch?v=vgYS-F8opgE) or read [this](https://adv-r.hadley.nz/debugging.html).
+For more information about debugging in R, watch this ([external link](https://www.rstudio.com/resources/rstudioconf-2020/object-of-type-closure-is-not-subsettable/)) and/or read this ([external link](https://adv-r.hadley.nz/debugging.html)).
 
 ### Another Error -- No Mysterious Message {#error-zeromatch}
 
@@ -825,6 +825,6 @@ river_means(rivers, "ZZZ")
 
 ## Additional Resources {#add-resources}
 
-* [R Packages](https://r-pkgs.org/index.html) by [Hadley Wickham](http://hadley.nz/) and [Jenny Bryan](https://jennybryan.org/) [@wickham2015r]
-* [Writing an R package from scratch](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/) by [Hilary Parker](https://hilaryparker.com/)
-* [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html) by CRAN (this resource is very technical)
+* R Packages ([external link](https://r-pkgs.org/index.html)) by Hadley Wickham ([external link](http://hadley.nz/)) and Jenny Bryan ([external link](https://jennybryan.org/)) [@wickham2015r]
+* Writing an R package from scratch ([external link](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/)) by Hilary Parker ([external link](https://hilaryparker.com/))
+* Writing R Extensions ([external link](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)) by CRAN (this resource is very technical)
