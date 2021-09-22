@@ -165,8 +165,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.7" data-path="r-package.html"><a href="r-package.html#second-function"><i class="fa fa-check"></i><b>1.2.7</b> The Second Function</a><ul>
 <li class="chapter" data-level="1.2.7.1" data-path="r-package.html"><a href="r-package.html#ex-set3"><i class="fa fa-check"></i><b>1.2.7.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2.8" data-path="r-package.html"><a href="r-package.html#description"><i class="fa fa-check"></i><b>1.2.8</b> DESCRIPTION</a></li>
-<li class="chapter" data-level="1.2.9" data-path="r-package.html"><a href="r-package.html#namespace"><i class="fa fa-check"></i><b>1.2.9</b> NAMESPACE</a></li>
+<li class="chapter" data-level="1.2.8" data-path="r-package.html"><a href="r-package.html#description"><i class="fa fa-check"></i><b>1.2.8</b> <code>DESCRIPTION</code></a></li>
+<li class="chapter" data-level="1.2.9" data-path="r-package.html"><a href="r-package.html#namespace"><i class="fa fa-check"></i><b>1.2.9</b> <code>NAMESPACE</code></a></li>
 <li class="chapter" data-level="1.2.10" data-path="r-package.html"><a href="r-package.html#testthat"><i class="fa fa-check"></i><b>1.2.10</b> testthat</a><ul>
 <li class="chapter" data-level="1.2.10.1" data-path="r-package.html"><a href="r-package.html#ex-set4"><i class="fa fa-check"></i><b>1.2.10.1</b> Exercises</a></li>
 </ul></li>
@@ -225,6 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="extensions.html"><a href="extensions.html#add-tips"><i class="fa fa-check"></i><b>3.7</b> Additional Tips</a><ul>
 <li class="chapter" data-level="3.7.1" data-path="extensions.html"><a href="extensions.html#ex-set14"><i class="fa fa-check"></i><b>3.7.1</b> Exercises</a></li>
 </ul></li>
+<li class="chapter" data-level="3.8" data-path="extensions.html"><a href="extensions.html#thank-you"><i class="fa fa-check"></i><b>3.8</b> Thank you!</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="exercise-solutions.html"><a href="exercise-solutions.html"><i class="fa fa-check"></i><b>4</b> Exercise Solutions</a><ul>
 <li class="chapter" data-level="" data-path="exercise-solutions.html"><a href="exercise-solutions.html#building-an-r-package"><i class="fa fa-check"></i>Building an R Package</a></li>
@@ -258,16 +259,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.1</span> R Projects</h2>
 <p>When I first started coding in R, I would try to share my code with others and encountered a problem – my colleagues would copy, paste, and run my code but it would not work on their machine. Often this was because my scripts read in files from different file paths (locations) on my computer – and these file paths were unique to my machine!, To get my code to work, my colleagues would have to edit my code that used file paths so that they pointed to the correct files on their machine. Not only is this a lot to ask of someone, it also makes it incredibly error-prone. More often than not, I would have to meet with someone to get the code I sent them up and running. This was a waste of time for everyone involved.</p>
 <p>R looks for files to load in a working directory. This is helpful because looking for files in a working directory prevents you from having to type out the full path to a file every time you want to load something. For example, suppose you are not using a working directory and you have several files to load that live in <code>a/long/path/with/s p a c e s/and/cH-a_r--aCt-er$!!!</code>. To load <code>my_cool_file.csv</code> and <code>my_other_cool_file.csv</code>, you have to run</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="extensions.html#cb105-1"></a><span class="kw">read.csv</span>(<span class="st">&quot;a/long/path/with/s p a c e s/and/cH-a_r--aCt-er$!!!/my_cool_file.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="extensions.html#cb108-1"></a><span class="kw">read.csv</span>(<span class="st">&quot;a/long/path/with/s p a c e s/and/cH-a_r--aCt-er$!!!/my_cool_file.csv&quot;</span>)</span></code></pre></div>
 <p>and then retype (or copy/paste) the path to run</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="extensions.html#cb106-1"></a><span class="kw">read.csv</span>(<span class="st">&quot;a/long/path/with/s p a c e s/and/cH-a_r--aCt-er$!!!/my_other_cool_file.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="extensions.html#cb109-1"></a><span class="kw">read.csv</span>(<span class="st">&quot;a/long/path/with/s p a c e s/and/cH-a_r--aCt-er$!!!/my_other_cool_file.csv&quot;</span>)</span></code></pre></div>
 <p>This workflow is tedious and error-prone. If you set your working directory to <code>a/really/long/path/with/s p a c e s/and/cH-a_r--aCt-er$!!!</code>, then to load <code>my_cool_file.csv</code> and <code>my_other_cool_file.csv</code>, you have to run</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="extensions.html#cb107-1"></a><span class="kw">read.csv</span>(<span class="st">&quot;my_cool_file.csv&quot;</span>)</span>
-<span id="cb107-2"><a href="extensions.html#cb107-2"></a><span class="kw">read.csv</span>(<span class="st">&quot;my_other_cool_file.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="extensions.html#cb110-1"></a><span class="kw">read.csv</span>(<span class="st">&quot;my_cool_file.csv&quot;</span>)</span>
+<span id="cb110-2"><a href="extensions.html#cb110-2"></a><span class="kw">read.csv</span>(<span class="st">&quot;my_other_cool_file.csv&quot;</span>)</span></code></pre></div>
 <p>You can set working directories in R using <code>setwd()</code>, but this isn’t really a good idea for various reasons (you get to discuss them in the exercises). There is a better way to control your working directory – R projects!</p>
 <p>R projects automatically set your working directory to live wherever the project is stored on your machine. So if I have <code>my_cool_file.csv</code> and <code>my_other_cool_file.csv</code> in the root (top-most level) of my R project, I can load them by running</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="extensions.html#cb108-1"></a><span class="kw">read.csv</span>(<span class="st">&quot;my_cool_file.csv&quot;</span>)</span>
-<span id="cb108-2"><a href="extensions.html#cb108-2"></a><span class="kw">read.csv</span>(<span class="st">&quot;my_other_cool_file.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="extensions.html#cb111-1"></a><span class="kw">read.csv</span>(<span class="st">&quot;my_cool_file.csv&quot;</span>)</span>
+<span id="cb111-2"><a href="extensions.html#cb111-2"></a><span class="kw">read.csv</span>(<span class="st">&quot;my_other_cool_file.csv&quot;</span>)</span></code></pre></div>
 <p>while inside the R project. This is so powerful because that means I can bundle up my R project, send it to my colleague, and then the R project will set my colleague’s working directory to live wherever they save the project. That means that they can load <code>my_cool_file.csv</code> and <code>my_other_cool_file.csv</code> using the exact same code I used. No more file path problems – this is a vastly improved workflow. It may not seem like a big deal now, but learning how to use R projects makes sharing your work substantially easier.</p>
 <p>A side benefit of R projects is that they provide a convenient structure by which to organize all the files associated with a particular task. To learn more about creating and maintaining R packages, visit here (<a href="https://r4ds.had.co.nz/workflow-projects.html">external link</a>) and here (<a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">external link</a>). If you do not use R projects yet, I recommend that you start.</p>
 <div id="ex-set11" class="section level3">
@@ -287,48 +288,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>R Markdown documents provide a convenient way to combine text, R code, and results into a fully reproducible document that compiles (knits) to one of several output types (HTLM, PDF, word, slide decks, etc.). An R Markdown document has file extension <code>.Rmd</code> and can be created in RStudio by clicking “File -&gt; New File -&gt; R Markdown”, which brings up the following options
 <img src="images/rmark1.PNG" width="100%" /></p>
 <p>Pressing OK automatically opens a file with several contents</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb109-1"><a href="extensions.html#cb109-1"></a>---</span>
-<span id="cb109-2"><a href="extensions.html#cb109-2"></a>title: &quot;Untitled&quot;</span>
-<span id="cb109-3"><a href="extensions.html#cb109-3"></a>author: &quot;Michael Dumelle&quot;</span>
-<span id="cb109-4"><a href="extensions.html#cb109-4"></a>date: &quot;9/17/2021&quot;</span>
-<span id="cb109-5"><a href="extensions.html#cb109-5"></a>output: html_document</span>
-<span id="cb109-6"><a href="extensions.html#cb109-6"></a>---</span>
-<span id="cb109-7"><a href="extensions.html#cb109-7"></a></span>
-<span id="cb109-8"><a href="extensions.html#cb109-8"></a><span class="bn">```{r setup, include=FALSE}</span></span>
-<span id="cb109-9"><a href="extensions.html#cb109-9"></a><span class="bn">knitr::opts_chunk$set(echo = TRUE)</span></span>
-<span id="cb109-10"><a href="extensions.html#cb109-10"></a><span class="bn">```</span></span>
-<span id="cb109-11"><a href="extensions.html#cb109-11"></a></span>
-<span id="cb109-12"><a href="extensions.html#cb109-12"></a><span class="fu">## R Markdown</span></span>
-<span id="cb109-13"><a href="extensions.html#cb109-13"></a></span>
-<span id="cb109-14"><a href="extensions.html#cb109-14"></a>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <span class="ot">&lt;http://rmarkdown.rstudio.com&gt;</span>.</span>
-<span id="cb109-15"><a href="extensions.html#cb109-15"></a></span>
-<span id="cb109-16"><a href="extensions.html#cb109-16"></a>When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</span>
-<span id="cb109-17"><a href="extensions.html#cb109-17"></a></span>
-<span id="cb109-18"><a href="extensions.html#cb109-18"></a><span class="bn">```{r cars}</span></span>
-<span id="cb109-19"><a href="extensions.html#cb109-19"></a><span class="bn">summary(cars)</span></span>
-<span id="cb109-20"><a href="extensions.html#cb109-20"></a><span class="bn">```</span></span>
-<span id="cb109-21"><a href="extensions.html#cb109-21"></a></span>
-<span id="cb109-22"><a href="extensions.html#cb109-22"></a><span class="fu">## Including Plots</span></span>
-<span id="cb109-23"><a href="extensions.html#cb109-23"></a></span>
-<span id="cb109-24"><a href="extensions.html#cb109-24"></a>You can also embed plots, for example:</span>
-<span id="cb109-25"><a href="extensions.html#cb109-25"></a></span>
-<span id="cb109-26"><a href="extensions.html#cb109-26"></a><span class="bn">```{r pressure, echo=FALSE}</span></span>
-<span id="cb109-27"><a href="extensions.html#cb109-27"></a><span class="bn">plot(pressure)</span></span>
-<span id="cb109-28"><a href="extensions.html#cb109-28"></a><span class="bn">```</span></span>
-<span id="cb109-29"><a href="extensions.html#cb109-29"></a></span>
-<span id="cb109-30"><a href="extensions.html#cb109-30"></a>Note that the <span class="bn">`echo = FALSE`</span> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb112-1"><a href="extensions.html#cb112-1"></a>---</span>
+<span id="cb112-2"><a href="extensions.html#cb112-2"></a>title: &quot;Untitled&quot;</span>
+<span id="cb112-3"><a href="extensions.html#cb112-3"></a>author: &quot;Michael Dumelle&quot;</span>
+<span id="cb112-4"><a href="extensions.html#cb112-4"></a>date: &quot;9/17/2021&quot;</span>
+<span id="cb112-5"><a href="extensions.html#cb112-5"></a>output: html_document</span>
+<span id="cb112-6"><a href="extensions.html#cb112-6"></a>---</span>
+<span id="cb112-7"><a href="extensions.html#cb112-7"></a></span>
+<span id="cb112-8"><a href="extensions.html#cb112-8"></a><span class="bn">```{r setup, include=FALSE}</span></span>
+<span id="cb112-9"><a href="extensions.html#cb112-9"></a><span class="bn">knitr::opts_chunk$set(echo = TRUE)</span></span>
+<span id="cb112-10"><a href="extensions.html#cb112-10"></a><span class="bn">```</span></span>
+<span id="cb112-11"><a href="extensions.html#cb112-11"></a></span>
+<span id="cb112-12"><a href="extensions.html#cb112-12"></a><span class="fu">## R Markdown</span></span>
+<span id="cb112-13"><a href="extensions.html#cb112-13"></a></span>
+<span id="cb112-14"><a href="extensions.html#cb112-14"></a>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <span class="ot">&lt;http://rmarkdown.rstudio.com&gt;</span>.</span>
+<span id="cb112-15"><a href="extensions.html#cb112-15"></a></span>
+<span id="cb112-16"><a href="extensions.html#cb112-16"></a>When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</span>
+<span id="cb112-17"><a href="extensions.html#cb112-17"></a></span>
+<span id="cb112-18"><a href="extensions.html#cb112-18"></a><span class="bn">```{r cars}</span></span>
+<span id="cb112-19"><a href="extensions.html#cb112-19"></a><span class="bn">summary(cars)</span></span>
+<span id="cb112-20"><a href="extensions.html#cb112-20"></a><span class="bn">```</span></span>
+<span id="cb112-21"><a href="extensions.html#cb112-21"></a></span>
+<span id="cb112-22"><a href="extensions.html#cb112-22"></a><span class="fu">## Including Plots</span></span>
+<span id="cb112-23"><a href="extensions.html#cb112-23"></a></span>
+<span id="cb112-24"><a href="extensions.html#cb112-24"></a>You can also embed plots, for example:</span>
+<span id="cb112-25"><a href="extensions.html#cb112-25"></a></span>
+<span id="cb112-26"><a href="extensions.html#cb112-26"></a><span class="bn">```{r pressure, echo=FALSE}</span></span>
+<span id="cb112-27"><a href="extensions.html#cb112-27"></a><span class="bn">plot(pressure)</span></span>
+<span id="cb112-28"><a href="extensions.html#cb112-28"></a><span class="bn">```</span></span>
+<span id="cb112-29"><a href="extensions.html#cb112-29"></a></span>
+<span id="cb112-30"><a href="extensions.html#cb112-30"></a>Note that the <span class="bn">`echo = FALSE`</span> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</span></code></pre></div>
 <ul>
 <li><p>The part surrounded by <code>---</code> is the YAML header, which contains metadata about your document – big picture options are controlled here.</p></li>
 <li><p>The parts prefixed by <code>#</code> are first-level (section-level) headers, and the parts prefixed by <code>##</code> are second level (subsection-level) headers.</p></li>
 <li><p>The parts surrounded by <code>```</code> are code chunks – these are the engine that powers R Markdown. Code chunks let you run and display R code and output in your document. More generally, code chunks look like</p></li>
 </ul>
-<div class="sourceCode" id="cb110"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb110-1"><a href="extensions.html#cb110-1"></a><span class="bn">```{r label, chunk_options}</span></span>
-<span id="cb110-2"><a href="extensions.html#cb110-2"></a><span class="bn">R code</span></span>
-<span id="cb110-3"><a href="extensions.html#cb110-3"></a><span class="bn">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb113-1"><a href="extensions.html#cb113-1"></a><span class="bn">```{r label, chunk_options}</span></span>
+<span id="cb113-2"><a href="extensions.html#cb113-2"></a><span class="bn">R code</span></span>
+<span id="cb113-3"><a href="extensions.html#cb113-3"></a><span class="bn">```</span></span></code></pre></div>
 <ul>
 <li>The line</li>
 </ul>
-<div class="sourceCode" id="cb111"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb111-1"><a href="extensions.html#cb111-1"></a>knitr::opts_chunk$set()</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb114-1"><a href="extensions.html#cb114-1"></a>knitr::opts_chunk$set()</span></code></pre></div>
 <p>lets you set default options for your code chunks. For example, <code>knitr::opts_chunk$set(echo = TRUE)</code> sets <code>echo = TRUE</code> for all all code chunks, unless a particular code chunk sets <code>echo = FALSE</code>. More information on available code chunk options is available here (<a href="https://yihui.org/knitr/options/">external link</a>).</p>
 <ul>
 <li>The rest of the document contains the body of the document – the plain text.</li>
@@ -353,6 +354,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The rticles package is an extension of R Markdown designed to make adhering to journal style requirements easier. Some journal types rticles accommodates are Elsevier, PLOS, Sage, Springer, and Taylor &amp; Francis, among others. After installing rticles (<code>install.packages("rticles")</code>), you can access article templates by starting a new R Markdown document and selecting the template tab
 <img src="images/rmark2.PNG" width="100%" /></p>
 <p>The rticles templates have complicated YAML headers, but they generally have pretty clear inline instructions for how to edit them. The YAML headers change between templates, but the body of the document is just standard R Markdown (potentially with some LaTeX). This is very convenient because the body of the document is the same across templates (potentially with minor LaTeX discrepancies that are generally explained in the template’s inline instructions). Decide you want to switch from an Elsevier journal to a Taylor &amp; Francis journal? No problem, just change the template type! For this reason, rticles is one my favorite R packages.</p>
+<p>For a brief introduction LaTeX, see this (<a href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes">external link</a>). While some working knowledge of LaTeX is not necessarily required to successfully use rticles, it can be immensely helpful.</p>
 <div id="ex-set13" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Exercises</h3>
 <ol style="list-style-type: decimal">
@@ -363,7 +365,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="git-github" class="section level2">
 <h2><span class="header-section-number">3.4</span> Git and GitHub</h2>
 <p>I highly recommend you learn how to use Git and GitHub. Though intimidating, frustrating, and time-consuming at first, Git and GitHub are well worth the effort. Git (<a href="https://git-scm.com/">external link</a>) is a version control system. A version control system keeps track of all changes made to your code in a Git repository (which is a <code>.git/</code> folder somewhere in your code – note the <code>.git/</code> folder is usually hidden). Git is useful on its own, but it benefits greatly from integration with GitHub. GitHub (<a href="https://github.com/">external link</a>) is a website that lets you easily share your code, collaborate with others, track changes to your code, and backup your code, among other features. Git and GitHub is by far the most popular version control system for R packages, and access to development versions of R packages is usually only available through GitHub.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="extensions.html#cb112-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;username/packagename&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="extensions.html#cb115-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;username/packagename&quot;</span>)</span></code></pre></div>
 <p>Though we won’t get into details of Git and GitHub here (aside from a quick example we discuss next), luckily RStudio has many tools to enable R to communicate with Git and GitHub. For an intro to Git and GitHub through RStudio, visit this (<a href="https://r-pkgs.org/git.html">external link</a>). For a thorough book about using Git and GitHub through RStudio, visit this (<a href="https://happygitwithr.com/">external link</a>). For a video overview of using Git and GitHub through RStudio, watch this (<a href="https://www.rstudio.com/resources/rstudioconf-2017/happy-git-and-gihub-for-the-user-tutorial/">external link</a>).</p>
 <div id="cloning-a-github-repository-in-rstudio" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> Cloning a GitHub Repository in RStudio</h3>
@@ -375,7 +377,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="ci" class="section level2">
 <h2><span class="header-section-number">3.5</span> Continuous Integration</h2>
 <p>Continuous integration (often abbreviated CI) is the process of performing automated checks on code anytime it is updated. This may seem cumbersome, but it is a really good idea because it forces you to check for errors with every new version of code. One option for continuous integration in your R package’s GitHub repository is GitHub Actions (<a href="https://github.com/features/actions">external link</a>). devtools has several tools to help you set up GitHub actions. I recommend using their “standard” GitHub actions template, which can be added to your R project by running</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="extensions.html#cb113-1"></a><span class="kw">use_github_action</span>(<span class="dt">name =</span> <span class="st">&quot;check-standard&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="extensions.html#cb116-1"></a><span class="kw">use_github_action</span>(<span class="dt">name =</span> <span class="st">&quot;check-standard&quot;</span>)</span></code></pre></div>
 <pre><code>√ Creating &#39;.github/&#39;
 √ Adding &#39;^\\.github$&#39; to &#39;.Rbuildignore&#39;
 √ Adding &#39;*.html&#39; to &#39;.github/.gitignore&#39;
@@ -388,7 +390,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.6</span> Cody Style</h2>
 <p>The tidyverse style guide (<a href="https://style.tidyverse.org/">external link</a>) provides a set of code-writing guidelines that help make your code as easy to read as possible. The tidyverse style guide claims “Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread.”</p>
 <p>The styler (<a href="https://styler.r-lib.org/">external link</a>) package lets you restyle text, files, or entire projects. It includes an RStudio add in and is integrated with usethis. For example,</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="extensions.html#cb115-1"></a>usethis<span class="op">::</span><span class="kw">use_tidy_style</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="extensions.html#cb118-1"></a>usethis<span class="op">::</span><span class="kw">use_tidy_style</span>()</span></code></pre></div>
 <p>will automatically restyle all functions in your package’s <code>R</code> folder to conform to the tidyverse style guide.</p>
 <p>The lintr (<a href="https://github.com/jimhester/lintr">external link</a>) package performs automated checks to help you conform to a style guide. The default style guide is the tidyverse style guide.</p>
 </div>
@@ -405,6 +407,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li>Visit this (<a href="https://twitter.com/rstudiotips?lang=en">external link</a>) for more R tips and tricks</li>
 <li>Sign up for R Weekly (<a href="https://rweekly.org/">external link</a>) to get weekly R updates.</li>
+<li>You don’t have to learn how to do all of this all at once! Move at a pace you are comfortable with.</li>
+<li>Everyone has their own coding style, and my recommendations may differ from your coding preferences – that is okay! All I hope is that you consider them.</li>
 </ul>
 <div id="ex-set14" class="section level3">
 <h3><span class="header-section-number">3.7.1</span> Exercises</h3>
@@ -412,8 +416,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A data set is called “tidy” if it has three qualities: 1) each variable has its own column, 2) each observation has its own row, and 3) each value has its own cell. Is <code>river</code> tidy? Why or why not?</p></li>
 <li><p>Make <code>river</code> tidy.</p></li>
 </ol>
-
 </div>
+</div>
+<div id="thank-you" class="section level2">
+<h2><span class="header-section-number">3.8</span> Thank you!</h2>
+<p>Thank you so much for attending this workshop! I do genuinely appreciate you taking some time out of your day to take this journey with me, and I hope that you got something useful out of this workshop.</p>
+<p><img src="images/thank_you.png" width="50%" style="display: block; margin: auto;" /></p>
+
 </div>
 </div>
             </section>

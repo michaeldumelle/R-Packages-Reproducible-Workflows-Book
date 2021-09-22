@@ -54,7 +54,7 @@ Let's add three folders to `inst`:
 knitr::include_graphics("images/newrpack_files10.PNG")
 ```
 
-Suppose we plan to use this research compendium to write a manuscript on summarizing rivers. First we will make an R script to put in `analysis`. Recall that in [Exercise 1.2.7.1.2](#ex-set3), we generated `river_stats()`, whose body looks like
+First we will make an R script to put in `analysis`. Recall that in Exercise 1.2.7.1.2 ([internal link](#ex-set3)), we generated `river_stats()`, whose body looks like
 ```{r}
 river_stats <- function(data, pattern, FUN, ...) {
   desired_rivers <- grep(pattern, names(data))
@@ -63,17 +63,18 @@ river_stats <- function(data, pattern, FUN, ...) {
 }
 ```
 
-`river_stats()` works like `river_means()` and `river_medians()` but takes a general function instead of computing the mean or median specifically. Our script to put in `analysis` will look like
+`river_stats()` works like `river_means()` and `river_medians()` but takes a general function instead of computing the mean or median specifically. Suppose our goal is to find the minimum length and discharge for rivers whose names contain "C". Our script to put in `analysis` will look like
 ```{r}
 # find some summary statistics on rivers with pattern "C"
 
 ## load RPRW -- we need to do this because the script is separate from the 
-## functions installed in the RPRW package
+  ## functions installed in the RPRW package
 library(RPRW) 
 
 ## find minimums
 river_min <- river_stats(river, "C", min)
 
+## make a data frame of the minimums
 min_df <- data.frame(
   data = "river",
   pattern = "C",
@@ -81,10 +82,11 @@ min_df <- data.frame(
   discharge_min = river_min[[2]]
 )
 
+## write out the minimums (without row names)
 write.csv(min_df, "inst/output/min_df", row.names = FALSE)
 ```
 
-This R loads RPRW and finds the minimum length and discharge for rivers whose names start with C. The script then saves the contents to a CSV file in the `output` folder. These contents are used when building the manuscript. The manuscript is in the `manuscript` folder and is a completely reproducible R Markdown document. Though we won't discuss the details of this R Markdown document here unless we have time, the files can be viewed on your machine (after installing RPRW) at the location provided by
+This script loads RPRW and finds the minimum length and discharge for rivers whose names start with C. The script then saves the contents to a CSV file in the `output` folder. These contents are used when building the manuscript. The manuscript is in the `manuscript` folder and is a completely reproducible R Markdown document (using an rticles template, which we discuss later). Though we won't discuss the details of this R Markdown document here unless we have time, the files can be viewed on your machine (after installing RPRW) at the location provided by
 ```{r}
 system.file("manuscript", package = "RPRW")
 ```
@@ -170,7 +172,7 @@ The research compendium now visibly contains:
 * `tests`: a folder containing R function testing
 * `vignettes`: a folder containing the package vignette
 
-You can also add a `README.md` file to give a broad overview of your package (`README.md` is useful whether or not you use Git and GitHub). The `README.md` file is a markdown ([external link](https://www.markdownguide.org/)) file (notice the .md extension and notice the connection between R Markdown (`.Rmd`) and Markdown (`.md`)) in the RPRW package that looks like
+You can also add a `README.md` file to give a broad overview of your package (`README.md` is useful whether or not you use Git and GitHub). The `README.md` file is a Markdown ([external link](https://www.markdownguide.org/)) file (notice the .md extension and notice the connection between R Markdown (`.Rmd`) and Markdown (`.md`)) in the RPRW package that looks like
 ```{}
 # RPRW
 Companion R package for "Using R Packages for Reproducible Workflows" at the 2021 EPA R Workshop
@@ -196,7 +198,7 @@ If your colleague doesn't remember where they saved the file, they can interacti
 install.packages(file.choose(), repos = NULL, type = "source")
 ```
 
-Because R packages leverage R projects, all file paths are relative (not absolute), and your colleague can immediately run any of your code on their machine!
+Because R packages leverage R projects your colleague can immediately run any of your code on their machine (a reminder that we discuss R projects soon)!
 
 ### Exercises {#ex-set10}
 

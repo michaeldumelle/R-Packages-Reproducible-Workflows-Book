@@ -165,8 +165,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.7" data-path="r-package.html"><a href="r-package.html#second-function"><i class="fa fa-check"></i><b>1.2.7</b> The Second Function</a><ul>
 <li class="chapter" data-level="1.2.7.1" data-path="r-package.html"><a href="r-package.html#ex-set3"><i class="fa fa-check"></i><b>1.2.7.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2.8" data-path="r-package.html"><a href="r-package.html#description"><i class="fa fa-check"></i><b>1.2.8</b> DESCRIPTION</a></li>
-<li class="chapter" data-level="1.2.9" data-path="r-package.html"><a href="r-package.html#namespace"><i class="fa fa-check"></i><b>1.2.9</b> NAMESPACE</a></li>
+<li class="chapter" data-level="1.2.8" data-path="r-package.html"><a href="r-package.html#description"><i class="fa fa-check"></i><b>1.2.8</b> <code>DESCRIPTION</code></a></li>
+<li class="chapter" data-level="1.2.9" data-path="r-package.html"><a href="r-package.html#namespace"><i class="fa fa-check"></i><b>1.2.9</b> <code>NAMESPACE</code></a></li>
 <li class="chapter" data-level="1.2.10" data-path="r-package.html"><a href="r-package.html#testthat"><i class="fa fa-check"></i><b>1.2.10</b> testthat</a><ul>
 <li class="chapter" data-level="1.2.10.1" data-path="r-package.html"><a href="r-package.html#ex-set4"><i class="fa fa-check"></i><b>1.2.10.1</b> Exercises</a></li>
 </ul></li>
@@ -225,6 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="extensions.html"><a href="extensions.html#add-tips"><i class="fa fa-check"></i><b>3.7</b> Additional Tips</a><ul>
 <li class="chapter" data-level="3.7.1" data-path="extensions.html"><a href="extensions.html#ex-set14"><i class="fa fa-check"></i><b>3.7.1</b> Exercises</a></li>
 </ul></li>
+<li class="chapter" data-level="3.8" data-path="extensions.html"><a href="extensions.html#thank-you"><i class="fa fa-check"></i><b>3.8</b> Thank you!</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="exercise-solutions.html"><a href="exercise-solutions.html"><i class="fa fa-check"></i><b>4</b> Exercise Solutions</a><ul>
 <li class="chapter" data-level="" data-path="exercise-solutions.html"><a href="exercise-solutions.html#building-an-r-package"><i class="fa fa-check"></i>Building an R Package</a></li>
@@ -307,32 +308,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>manuscript</code> for our manuscript
 <img src="images/newrpack_files10.PNG" width="100%" /></li>
 </ol>
-<p>Suppose we plan to use this research compendium to write a manuscript on summarizing rivers. First we will make an R script to put in <code>analysis</code>. Recall that in <a href="r-package.html#ex-set3">Exercise 1.2.7.1.2</a>, we generated <code>river_stats()</code>, whose body looks like</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="r-package-rc.html#cb92-1"></a>river_stats &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern, FUN, ...) {</span>
-<span id="cb92-2"><a href="r-package-rc.html#cb92-2"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
-<span id="cb92-3"><a href="r-package-rc.html#cb92-3"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span>
-<span id="cb92-4"><a href="r-package-rc.html#cb92-4"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, FUN, ...)</span>
-<span id="cb92-5"><a href="r-package-rc.html#cb92-5"></a>}</span></code></pre></div>
-<p><code>river_stats()</code> works like <code>river_means()</code> and <code>river_medians()</code> but takes a general function instead of computing the mean or median specifically. Our script to put in <code>analysis</code> will look like</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="r-package-rc.html#cb93-1"></a><span class="co"># find some summary statistics on rivers with pattern &quot;C&quot;</span></span>
-<span id="cb93-2"><a href="r-package-rc.html#cb93-2"></a></span>
-<span id="cb93-3"><a href="r-package-rc.html#cb93-3"></a><span class="co">## load RPRW -- we need to do this because the script is separate from the </span></span>
-<span id="cb93-4"><a href="r-package-rc.html#cb93-4"></a><span class="co">## functions installed in the RPRW package</span></span>
-<span id="cb93-5"><a href="r-package-rc.html#cb93-5"></a><span class="kw">library</span>(RPRW) </span>
-<span id="cb93-6"><a href="r-package-rc.html#cb93-6"></a></span>
-<span id="cb93-7"><a href="r-package-rc.html#cb93-7"></a><span class="co">## find minimums</span></span>
-<span id="cb93-8"><a href="r-package-rc.html#cb93-8"></a>river_min &lt;-<span class="st"> </span><span class="kw">river_stats</span>(river, <span class="st">&quot;C&quot;</span>, min)</span>
-<span id="cb93-9"><a href="r-package-rc.html#cb93-9"></a></span>
-<span id="cb93-10"><a href="r-package-rc.html#cb93-10"></a>min_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb93-11"><a href="r-package-rc.html#cb93-11"></a>  <span class="dt">data =</span> <span class="st">&quot;river&quot;</span>,</span>
-<span id="cb93-12"><a href="r-package-rc.html#cb93-12"></a>  <span class="dt">pattern =</span> <span class="st">&quot;C&quot;</span>,</span>
-<span id="cb93-13"><a href="r-package-rc.html#cb93-13"></a>  <span class="dt">length_min =</span> river_min[[<span class="dv">1</span>]],</span>
-<span id="cb93-14"><a href="r-package-rc.html#cb93-14"></a>  <span class="dt">discharge_min =</span> river_min[[<span class="dv">2</span>]]</span>
-<span id="cb93-15"><a href="r-package-rc.html#cb93-15"></a>)</span>
-<span id="cb93-16"><a href="r-package-rc.html#cb93-16"></a></span>
-<span id="cb93-17"><a href="r-package-rc.html#cb93-17"></a><span class="kw">write.csv</span>(min_df, <span class="st">&quot;inst/output/min_df&quot;</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
-<p>This R loads RPRW and finds the minimum length and discharge for rivers whose names start with C. The script then saves the contents to a CSV file in the <code>output</code> folder. These contents are used when building the manuscript. The manuscript is in the <code>manuscript</code> folder and is a completely reproducible R Markdown document. Though we won’t discuss the details of this R Markdown document here unless we have time, the files can be viewed on your machine (after installing RPRW) at the location provided by</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="r-package-rc.html#cb94-1"></a><span class="kw">system.file</span>(<span class="st">&quot;manuscript&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;RPRW&quot;</span>)</span></code></pre></div>
+<p>First we will make an R script to put in <code>analysis</code>. Recall that in Exercise 1.2.7.1.2 (<a href="r-package.html#ex-set3">internal link</a>), we generated <code>river_stats()</code>, whose body looks like</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="r-package-rc.html#cb95-1"></a>river_stats &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern, FUN, ...) {</span>
+<span id="cb95-2"><a href="r-package-rc.html#cb95-2"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
+<span id="cb95-3"><a href="r-package-rc.html#cb95-3"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span>
+<span id="cb95-4"><a href="r-package-rc.html#cb95-4"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, FUN, ...)</span>
+<span id="cb95-5"><a href="r-package-rc.html#cb95-5"></a>}</span></code></pre></div>
+<p><code>river_stats()</code> works like <code>river_means()</code> and <code>river_medians()</code> but takes a general function instead of computing the mean or median specifically. Suppose our goal is to find the minimum length and discharge for rivers whose names contain “C”. Our script to put in <code>analysis</code> will look like</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="r-package-rc.html#cb96-1"></a><span class="co"># find some summary statistics on rivers with pattern &quot;C&quot;</span></span>
+<span id="cb96-2"><a href="r-package-rc.html#cb96-2"></a></span>
+<span id="cb96-3"><a href="r-package-rc.html#cb96-3"></a><span class="co">## load RPRW -- we need to do this because the script is separate from the </span></span>
+<span id="cb96-4"><a href="r-package-rc.html#cb96-4"></a>  <span class="co">## functions installed in the RPRW package</span></span>
+<span id="cb96-5"><a href="r-package-rc.html#cb96-5"></a><span class="kw">library</span>(RPRW) </span>
+<span id="cb96-6"><a href="r-package-rc.html#cb96-6"></a></span>
+<span id="cb96-7"><a href="r-package-rc.html#cb96-7"></a><span class="co">## find minimums</span></span>
+<span id="cb96-8"><a href="r-package-rc.html#cb96-8"></a>river_min &lt;-<span class="st"> </span><span class="kw">river_stats</span>(river, <span class="st">&quot;C&quot;</span>, min)</span>
+<span id="cb96-9"><a href="r-package-rc.html#cb96-9"></a></span>
+<span id="cb96-10"><a href="r-package-rc.html#cb96-10"></a><span class="co">## make a data frame of the minimums</span></span>
+<span id="cb96-11"><a href="r-package-rc.html#cb96-11"></a>min_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb96-12"><a href="r-package-rc.html#cb96-12"></a>  <span class="dt">data =</span> <span class="st">&quot;river&quot;</span>,</span>
+<span id="cb96-13"><a href="r-package-rc.html#cb96-13"></a>  <span class="dt">pattern =</span> <span class="st">&quot;C&quot;</span>,</span>
+<span id="cb96-14"><a href="r-package-rc.html#cb96-14"></a>  <span class="dt">length_min =</span> river_min[[<span class="dv">1</span>]],</span>
+<span id="cb96-15"><a href="r-package-rc.html#cb96-15"></a>  <span class="dt">discharge_min =</span> river_min[[<span class="dv">2</span>]]</span>
+<span id="cb96-16"><a href="r-package-rc.html#cb96-16"></a>)</span>
+<span id="cb96-17"><a href="r-package-rc.html#cb96-17"></a></span>
+<span id="cb96-18"><a href="r-package-rc.html#cb96-18"></a><span class="co">## write out the minimums (without row names)</span></span>
+<span id="cb96-19"><a href="r-package-rc.html#cb96-19"></a><span class="kw">write.csv</span>(min_df, <span class="st">&quot;inst/output/min_df&quot;</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p>This script loads RPRW and finds the minimum length and discharge for rivers whose names start with C. The script then saves the contents to a CSV file in the <code>output</code> folder. These contents are used when building the manuscript. The manuscript is in the <code>manuscript</code> folder and is a completely reproducible R Markdown document (using an rticles template, which we discuss later). Though we won’t discuss the details of this R Markdown document here unless we have time, the files can be viewed on your machine (after installing RPRW) at the location provided by</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="r-package-rc.html#cb97-1"></a><span class="kw">system.file</span>(<span class="st">&quot;manuscript&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;RPRW&quot;</span>)</span></code></pre></div>
 <p>A compiled PDF of the manuscript is available here (<a href="https://github.com/michaeldumelle/RPRW/blob/main/inst/manuscript/manuscript.pdf">external link</a>).</p>
 <div id="ex-set9" class="section level3">
 <h3><span class="header-section-number">2.4.1</span> Exercises</h3>
@@ -343,29 +346,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="citation" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> Adding a Citation</h3>
 <p>Often times your research compendium may be centered around a particular publication. You may build an R package that deals with specific tasks and then write your manuscript using the research compendium structure. In this event, you may want your publication to be easily citeable. You can add a citation to your R package research compendium by running</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="r-package-rc.html#cb95-1"></a><span class="kw">use_citation</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="r-package-rc.html#cb98-1"></a><span class="kw">use_citation</span>()</span></code></pre></div>
 <pre><code>√ Writing &#39;inst/CITATION&#39;
 * Modify &#39;inst/CITATION&#39;</code></pre>
 <p>The citation file is placed in the <code>inst</code> folder. It looks a little intimidating at first, but it automatically creates a text version and LaTeX version of your citation with relatively little ease. Here is raw code I used to create the citation in the RPRW package</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="r-package-rc.html#cb97-1"></a><span class="kw">citHeader</span>(<span class="st">&quot;To cite RPRW in publications use:&quot;</span>)</span>
-<span id="cb97-2"><a href="r-package-rc.html#cb97-2"></a></span>
-<span id="cb97-3"><a href="r-package-rc.html#cb97-3"></a><span class="kw">citEntry</span>(</span>
-<span id="cb97-4"><a href="r-package-rc.html#cb97-4"></a>  <span class="dt">entry    =</span> <span class="st">&quot;Manual&quot;</span>,</span>
-<span id="cb97-5"><a href="r-package-rc.html#cb97-5"></a>  <span class="dt">title    =</span> <span class="st">&quot;Using R Packages for Reproducible Workflows&quot;</span>,</span>
-<span id="cb97-6"><a href="r-package-rc.html#cb97-6"></a>  <span class="dt">author   =</span> <span class="kw">personList</span>(<span class="kw">as.person</span>(<span class="st">&quot;Michael Dumelle&quot;</span>)),</span>
-<span id="cb97-7"><a href="r-package-rc.html#cb97-7"></a>  <span class="dt">journal  =</span> <span class="st">&quot;EPA 2021 R Workshop&quot;</span>,</span>
-<span id="cb97-8"><a href="r-package-rc.html#cb97-8"></a>  <span class="dt">url      =</span> <span class="st">&quot;https://github.com/michaeldumelle/R-Packages-Reproducible-Workflows-Book&quot;</span>,</span>
-<span id="cb97-9"><a href="r-package-rc.html#cb97-9"></a>  <span class="dt">textVersion =</span></span>
-<span id="cb97-10"><a href="r-package-rc.html#cb97-10"></a>  <span class="kw">paste</span>(</span>
-<span id="cb97-11"><a href="r-package-rc.html#cb97-11"></a>    <span class="st">&quot;Michael Dumelle.&quot;</span>,</span>
-<span id="cb97-12"><a href="r-package-rc.html#cb97-12"></a>    <span class="st">&quot;(2021).&quot;</span>,</span>
-<span id="cb97-13"><a href="r-package-rc.html#cb97-13"></a>    <span class="st">&quot;Using R Packages for Reproducible Workflows.&quot;</span>,</span>
-<span id="cb97-14"><a href="r-package-rc.html#cb97-14"></a>    <span class="st">&quot;EPA 2021 R Workshop.&quot;</span>,</span>
-<span id="cb97-15"><a href="r-package-rc.html#cb97-15"></a>    <span class="st">&quot;URL https://github.com/michaeldumelle/R-Packages-Reproducible-Workflows-Book.&quot;</span></span>
-<span id="cb97-16"><a href="r-package-rc.html#cb97-16"></a>  )</span>
-<span id="cb97-17"><a href="r-package-rc.html#cb97-17"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="r-package-rc.html#cb100-1"></a><span class="kw">citHeader</span>(<span class="st">&quot;To cite RPRW in publications use:&quot;</span>)</span>
+<span id="cb100-2"><a href="r-package-rc.html#cb100-2"></a></span>
+<span id="cb100-3"><a href="r-package-rc.html#cb100-3"></a><span class="kw">citEntry</span>(</span>
+<span id="cb100-4"><a href="r-package-rc.html#cb100-4"></a>  <span class="dt">entry    =</span> <span class="st">&quot;Manual&quot;</span>,</span>
+<span id="cb100-5"><a href="r-package-rc.html#cb100-5"></a>  <span class="dt">title    =</span> <span class="st">&quot;Using R Packages for Reproducible Workflows&quot;</span>,</span>
+<span id="cb100-6"><a href="r-package-rc.html#cb100-6"></a>  <span class="dt">author   =</span> <span class="kw">personList</span>(<span class="kw">as.person</span>(<span class="st">&quot;Michael Dumelle&quot;</span>)),</span>
+<span id="cb100-7"><a href="r-package-rc.html#cb100-7"></a>  <span class="dt">journal  =</span> <span class="st">&quot;EPA 2021 R Workshop&quot;</span>,</span>
+<span id="cb100-8"><a href="r-package-rc.html#cb100-8"></a>  <span class="dt">url      =</span> <span class="st">&quot;https://github.com/michaeldumelle/R-Packages-Reproducible-Workflows-Book&quot;</span>,</span>
+<span id="cb100-9"><a href="r-package-rc.html#cb100-9"></a>  <span class="dt">textVersion =</span></span>
+<span id="cb100-10"><a href="r-package-rc.html#cb100-10"></a>  <span class="kw">paste</span>(</span>
+<span id="cb100-11"><a href="r-package-rc.html#cb100-11"></a>    <span class="st">&quot;Michael Dumelle.&quot;</span>,</span>
+<span id="cb100-12"><a href="r-package-rc.html#cb100-12"></a>    <span class="st">&quot;(2021).&quot;</span>,</span>
+<span id="cb100-13"><a href="r-package-rc.html#cb100-13"></a>    <span class="st">&quot;Using R Packages for Reproducible Workflows.&quot;</span>,</span>
+<span id="cb100-14"><a href="r-package-rc.html#cb100-14"></a>    <span class="st">&quot;EPA 2021 R Workshop.&quot;</span>,</span>
+<span id="cb100-15"><a href="r-package-rc.html#cb100-15"></a>    <span class="st">&quot;URL https://github.com/michaeldumelle/R-Packages-Reproducible-Workflows-Book.&quot;</span></span>
+<span id="cb100-16"><a href="r-package-rc.html#cb100-16"></a>  )</span>
+<span id="cb100-17"><a href="r-package-rc.html#cb100-17"></a>)</span></code></pre></div>
 <p>To view the citation, run</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="r-package-rc.html#cb98-1"></a><span class="kw">citation</span>(<span class="dt">package =</span> <span class="st">&quot;RPRW&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="r-package-rc.html#cb101-1"></a><span class="kw">citation</span>(<span class="dt">package =</span> <span class="st">&quot;RPRW&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt; 
 #&gt; To cite RPRW in publications use:
 #&gt; 
@@ -419,7 +422,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>tests</code>: a folder containing R function testing</li>
 <li><code>vignettes</code>: a folder containing the package vignette</li>
 </ul>
-<p>You can also add a <code>README.md</code> file to give a broad overview of your package (<code>README.md</code> is useful whether or not you use Git and GitHub). The <code>README.md</code> file is a markdown (<a href="https://www.markdownguide.org/">external link</a>) file (notice the .md extension and notice the connection between R Markdown (<code>.Rmd</code>) and Markdown (<code>.md</code>)) in the RPRW package that looks like</p>
+<p>You can also add a <code>README.md</code> file to give a broad overview of your package (<code>README.md</code> is useful whether or not you use Git and GitHub). The <code>README.md</code> file is a Markdown (<a href="https://www.markdownguide.org/">external link</a>) file (notice the .md extension and notice the connection between R Markdown (<code>.Rmd</code>) and Markdown (<code>.md</code>)) in the RPRW package that looks like</p>
 <pre><code># RPRW
 Companion R package for &quot;Using R Packages for Reproducible Workflows&quot; at the 2021 EPA R Workshop
 </code></pre>
@@ -427,13 +430,13 @@ Companion R package for &quot;Using R Packages for Reproducible Workflows&quot; 
 <div id="sharing-rc" class="section level2">
 <h2><span class="header-section-number">2.6</span> Sharing Your Research Compendium</h2>
 <p>So now you have a research compendium that combines your R functions with your data, code, and manuscript to create a reproducible product that is easy to share with your colleagues. But how do we share it? Running</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="r-package-rc.html#cb102-1"></a>devtools<span class="op">::</span><span class="kw">build</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="r-package-rc.html#cb105-1"></a>devtools<span class="op">::</span><span class="kw">build</span>()</span></code></pre></div>
 <p>will build an R package for you. By default, the package will be located in the same folder as the folder containing your R package with name “package-name_version-number.tar.gz”. Note that this is one level above the location of your R package’s directory. For example, if folder “A” holds “RPRW”, which is the folder containing all of the files associated with my R package, then using <code>devtools::build()</code> will install “RPRW_0.0.0.9000.tar.gz” in folder “A”.</p>
 <p>After building the package, you can send it to a colleague, they can save it on their machine, and then they can install it by running</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="r-package-rc.html#cb103-1"></a><span class="kw">install.packages</span>(path_to_package, <span class="dt">repos =</span> <span class="ot">NULL</span>, <span class="dt">type =</span> <span class="st">&quot;source&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="r-package-rc.html#cb106-1"></a><span class="kw">install.packages</span>(path_to_package, <span class="dt">repos =</span> <span class="ot">NULL</span>, <span class="dt">type =</span> <span class="st">&quot;source&quot;</span>)</span></code></pre></div>
 <p>If your colleague doesn’t remember where they saved the file, they can interactively search for it by running</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="r-package-rc.html#cb104-1"></a><span class="kw">install.packages</span>(<span class="kw">file.choose</span>(), <span class="dt">repos =</span> <span class="ot">NULL</span>, <span class="dt">type =</span> <span class="st">&quot;source&quot;</span>)</span></code></pre></div>
-<p>Because R packages leverage R projects, all file paths are relative (not absolute), and your colleague can immediately run any of your code on their machine!</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="r-package-rc.html#cb107-1"></a><span class="kw">install.packages</span>(<span class="kw">file.choose</span>(), <span class="dt">repos =</span> <span class="ot">NULL</span>, <span class="dt">type =</span> <span class="st">&quot;source&quot;</span>)</span></code></pre></div>
+<p>Because R packages leverage R projects your colleague can immediately run any of your code on their machine (a reminder that we discuss R projects soon)!</p>
 <div id="ex-set10" class="section level3">
 <h3><span class="header-section-number">2.6.1</span> Exercises</h3>
 <ol style="list-style-type: decimal">

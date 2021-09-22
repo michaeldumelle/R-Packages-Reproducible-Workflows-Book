@@ -31,18 +31,42 @@ knitr::opts_chunk$set(
 
 # Welcome {-}
 
-Welcome to the 2021 EPA R Workshop titled "Using R Packages for Reproducible Workflows" by me, Michael Dumelle -- I am glad to have you here! You should have R and RStudio installed before starting this workshop. If not, then just follow along with me as we proceed through the workshop. There are two types of hyperlinks in this book: internal and external. Internal hyperlinks take you to the place in the book highlighted in [blue](). External hyperlinks will take you to a webpage outside of the book. External links will be described in text but the actual link will follow the relevant text and read ([external link]()). This workshop book we work through today was published using Bookdown [@xie2016bookdown].
+Welcome to the 2021 EPA R Workshop titled "Using R Packages for Reproducible Workflows" by me, Michael Dumelle -- I am glad to have you here! You should have R and RStudio installed before starting this workshop. If not, no problem -- just follow along with me as we proceed through the workshop and revisit this book later. R code and output from this workshop are in blocks with grey background like this
+```{r, eval = TRUE}
+x <- c(1, 2, 3)
+print(x)
+```
+
+You can copy and paste these blocks by hovering your cursor in the upper-right portion of the block and clicking the copy button (which looks like two pages that slightly overlap). You can either follow along throughout the workshop by copying and pasting the R code onto your machine and/or by reading the R code output the book provides. Sometimes when I use functions, I will prefix the function call `packagename::` so that it is clear what package the function is from. For example, `ggplot2::ggsave()` calls the `ggsave()` function in the `ggplot2` package.
+
+There are two types of hyperlinks in this book: internal and external. Internal hyperlinks take you to the place in the book. External hyperlinks will take you to a webpage outside of the book. Both internal and external links will be described in text but the actual link will follow the relevant text and read ([internal link]()) or ([external link]()). There are several options in the upper-left toolbar of the book.
+```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("images/newrpack_files0.PNG")
+```
+
+From left to right, they let you:
+
+* Collapse or expand the table of contents
+* Search throughout the document
+* Adjust font size (small or large), font type (Serif or Sans), and color scheme (White, Sepia, or Night)
+* Edit the book (you don't have access to this one)
+* Download the book as a PDF or EPUB book (formatting warning: the book was built for a workshop format, not a PDF or EPUB format)
+* Use a Javascript keyboard shortcut helper
+
+This workshop book was published using Bookdown [@xie2016bookdown]. The book will be maintained for an indefinite amount of time after the workshop, so feel free to check back in for a refresher whenever you would like!
 
 ## Schedule {-}
 
 Here is the tentative schedule for today:
 
-* 1:00 - 1:15 EDT: Introductions and [Getting Started]
-* 1:15 - 2:45 EDT: [Building an R Package](#r-package)
-* 2:45 - 3:05 EDT: Break
-* 3:05 - 3:50 EDT: [Making an R Package a Research Compendium](#r-package-rc)
+* 1:00 - 1:15 EDT: Introductions and Getting Started ([internal link](#getting-started))
+* 1:15 - 2:00 EDT: Building an R Package Part I ([internal link](#r-package))
+* 2:00 - 2:10 EDT: Break
+* 2:10 - 2:50 EDT: Building an R Package Part II ([internal link](#r-package))
+* 2:50 - 3:05 EDT: Break
+* 3:05 - 3:50 EDT: Making an R Package a Research Compendium ([internal link](#r-package-rc))
 * 3:50 - 4:00 EDT: Break
-* 4:00 - 4:30 EDT: [Extensions](#extensions)
+* 4:00 - 4:30 EDT: Extensions ([internal link](#extensions))
 * 4:30 - 4:40 EDT: Break
 * 4:40 - 5:00 EDT: Questions
 
@@ -50,35 +74,43 @@ We will try to roughly adhere to this schedule, but it is possible that we stray
 
 ## About Me {-}
 
-I finished my PhD in statistics at Oregon State University in 2020. I now work in ORD-CPHEA-PESD-FEB as a statistician, working primarily on the National Aquatic Resource Surveys (NARS) team. My main research interests are sampling and survey design, spatial statistics, and software development. To learn more about me and my work, visit my website ([external link](https://michaeldumelle.github.io/)).
+I finished my PhD in statistics at Oregon State University in 2020. I now work in ORD-CPHEA-PESD-FEB as a statistician, primarily on the National Aquatic Resource Surveys (NARS) team. My main research interests are sampling and survey design, spatial statistics, and software development. To learn more about me and my work, visit my website ([external link](https://michaeldumelle.github.io/)).
 
 ## Acknowledgements {-}
 
 I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me create and give this workshop.
 
-## Getting Started {-}
+## Getting Started {#getting-started -}
 
-The first thing we need to do is install and load the devtools ([external link](https://devtools.r-lib.org/)) package
+The first thing we need to do is install and load the devtools ([external link](https://devtools.r-lib.org/)) package by running
 ```{r}
-install.packages("devtools")
+install.packages("devtools", dependencies = TRUE)
 library(devtools)
 ```
 
-The devtools package contains tools to make developing R packages easier and we will use functions in devtools frequently throughout this workshop. devtools is closely linked to the usethis ([external link](https://usethis.r-lib.org/)) package, which is installed alongside devtools. The usethis package contains tools that make package development less tedious and more structured.
+The devtools package contains tools to make developing R packages easier, and we will use functions in devtools frequently throughout this workshop. devtools is closely linked to the usethis ([external link](https://usethis.r-lib.org/)) package, which is installed alongside devtools. The usethis package contains tools that make package development less tedious and more structured.
 
-In this workshop we will build an R package named RPRW (**R** **P**ackages for **R**eproducible **W**orkflows) designed to quantify properties of rivers in North America. Then we will turn RPRW into a research compendium, a standard by which to organize a body of work. The book that you are viewing interweaves text, R code, and output. You can either follow along throughout the workshop by copying and pasting the R code in this book onto your machine and/or by reading the R code output. The book will be maintained for an indefinite amount of time after the workshop, so feel free to check back in for a refresher whenever you would like!
+In this workshop we will build an R package named RPRW (**R** **P**ackages for **R**eproducible **W**orkflows) designed to quantify properties of rivers in North America. Then we will turn RPRW into a research compendium, a standard by which to organize a body of work.  
 
-Though we will build RPRW together, it is available for download in its entirety by running
+Though we will build RPRW together, you can download in its entirety by running
 ```{r}
-devtools::install_github(repo = "michaeldumelle/RPRW", ref = "main")
+devtools::install_github(
+  repo = "michaeldumelle/RPRW",
+  ref = "main",
+  build_vignettes = TRUE
+)
 ```
 
-Then you can load it by running
+Then you can load RPRW by running
 ```{r}
 library(RPRW)
 ```
 
 Now that we have devtools installed and have talked about RPRW, let's get started building this R package!
+
+```{r, eval = TRUE, echo = FALSE, out.width = "50%", fig.align='center'}
+knitr::include_graphics("images/coding.jpg")
+```
 
 ```{r, eval = TRUE, include = FALSE}
 # automatically create a bib database for R packages

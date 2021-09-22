@@ -130,6 +130,8 @@ knitr::include_graphics("images/rmark2.PNG")
 
 The rticles templates have complicated YAML headers, but they generally have pretty clear inline instructions for how to edit them. The YAML headers change between templates, but the body of the document is just standard R Markdown (potentially with some LaTeX). This is very convenient because the body of the document is the same across templates (potentially with minor LaTeX discrepancies that are generally explained in the template's inline instructions). Decide you want to switch from an Elsevier journal to a Taylor & Francis journal? No problem, just change the template type! For this reason, rticles is one my favorite R packages.
 
+For a brief introduction LaTeX, see this ([external link](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes)). While some working knowledge of LaTeX is not necessarily required to successfully use rticles, it can be immensely helpful.
+
 ### Exercises {#ex-set13}
 
 1. Visit this ([external link](https://github.com/rstudio/rticles)) to see all the journals that rticles has a template for.
@@ -193,9 +195,19 @@ The lintr ([external link](https://github.com/jimhester/lintr)) package performs
     * When I say base-R here, I mean any of the packages that come installed alongside R: the packages base, datasets, graphics, grDevices, methods, stats, and utils.
 * Visit this ([external link](https://twitter.com/rstudiotips?lang=en)) for more R tips and tricks
 * Sign up for R Weekly ([external link](https://rweekly.org/)) to get weekly R updates.
+* You don't have to learn how to do all of this all at once! Move at a pace you are comfortable with.
+* Everyone has their own coding style, and my recommendations may differ from your coding preferences -- that is okay! All I hope is that you consider them.
 
 ### Exercises {#ex-set14}
 
 1. A data set is called "tidy" if it has three qualities: 1) each variable has its own column, 2) each observation has its own row, and 3) each value has its own cell. Is `river` tidy? Why or why not?
 
 2. Make `river` tidy.
+
+## Thank you!
+
+Thank you so much for attending this workshop! I do genuinely appreciate you taking some time out of your day to take this journey with me, and I hope that you got something useful out of this workshop.
+
+```{r, eval = TRUE, echo = FALSE, out.width = "50%", fig.align='center'}
+knitr::include_graphics("images/thank_you.png")
+```

@@ -126,7 +126,44 @@
 \chapter*{Welcome}\label{welcome}}
 \addcontentsline{toc}{chapter}{Welcome}
 
-Welcome to the 2021 EPA R Workshop titled ``Using R Packages for Reproducible Workflows'' by me, Michael Dumelle -- I am glad to have you here! You should have R and RStudio installed before starting this workshop. If not, then just follow along with me as we proceed through the workshop. There are two types of hyperlinks in this book: internal and external. Internal hyperlinks take you to the place in the book highlighted in \href{}{blue}. External hyperlinks will take you to a webpage outside of the book. External links will be described in text but the actual link will follow the relevant text and read (\href{}{external link}). This workshop book we work through today was published using Bookdown \citep{xie2016bookdown}.
+Welcome to the 2021 EPA R Workshop titled ``Using R Packages for Reproducible Workflows'' by me, Michael Dumelle -- I am glad to have you here! You should have R and RStudio installed before starting this workshop. If not, no problem -- just follow along with me as we proceed through the workshop and revisit this book later. R code and output from this workshop are in blocks with grey background like this
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> [1] 1 2 3
+\end{verbatim}
+
+You can copy and paste these blocks by hovering your cursor in the upper-right portion of the block and clicking the copy button (which looks like two pages that slightly overlap). You can either follow along throughout the workshop by copying and pasting the R code onto your machine and/or by reading the R code output the book provides. Sometimes when I use functions, I will prefix the function call \texttt{packagename::} so that it is clear what package the function is from. For example, \texttt{ggplot2::ggsave()} calls the \texttt{ggsave()} function in the \texttt{ggplot2} package.
+
+There are two types of hyperlinks in this book: internal and external. Internal hyperlinks take you to the place in the book. External hyperlinks will take you to a webpage outside of the book. Both internal and external links will be described in text but the actual link will follow the relevant text and read (\href{}{internal link}) or (\href{}{external link}). There are several options in the upper-left toolbar of the book.
+
+\includegraphics[width=1\linewidth]{images/newrpack_files0}
+
+From left to right, they let you:
+
+\begin{itemize}
+\tightlist
+\item
+  Collapse or expand the table of contents
+\item
+  Search throughout the document
+\item
+  Adjust font size (small or large), font type (Serif or Sans), and color scheme (White, Sepia, or Night)
+\item
+  Edit the book (you don't have access to this one)
+\item
+  Download the book as a PDF or EPUB book (formatting warning: the book was built for a workshop format, not a PDF or EPUB format)
+\item
+  Use a Javascript keyboard shortcut helper
+\end{itemize}
+
+This workshop book was published using Bookdown \citep{xie2016bookdown}. The book will be maintained for an indefinite amount of time after the workshop, so feel free to check back in for a refresher whenever you would like!
 
 \hypertarget{schedule}{%
 \section*{Schedule}\label{schedule}}
@@ -137,17 +174,21 @@ Here is the tentative schedule for today:
 \begin{itemize}
 \tightlist
 \item
-  1:00 - 1:15 EDT: Introductions and \protect\hyperlink{getting-started}{Getting Started}
+  1:00 - 1:15 EDT: Introductions and Getting Started (\protect\hyperlink{getting-started}{internal link})
 \item
-  1:15 - 2:45 EDT: \protect\hyperlink{r-package}{Building an R Package}
+  1:15 - 2:00 EDT: Building an R Package Part I (\protect\hyperlink{r-package}{internal link})
 \item
-  2:45 - 3:05 EDT: Break
+  2:00 - 2:10 EDT: Break
 \item
-  3:05 - 3:50 EDT: \protect\hyperlink{r-package-rc}{Making an R Package a Research Compendium}
+  2:10 - 2:50 EDT: Building an R Package Part II (\protect\hyperlink{r-package}{internal link})
+\item
+  2:50 - 3:05 EDT: Break
+\item
+  3:05 - 3:50 EDT: Making an R Package a Research Compendium (\protect\hyperlink{r-package-rc}{internal link})
 \item
   3:50 - 4:00 EDT: Break
 \item
-  4:00 - 4:30 EDT: \protect\hyperlink{extensions}{Extensions}
+  4:00 - 4:30 EDT: Extensions (\protect\hyperlink{extensions}{internal link})
 \item
   4:30 - 4:40 EDT: Break
 \item
@@ -160,7 +201,7 @@ We will try to roughly adhere to this schedule, but it is possible that we stray
 \section*{About Me}\label{about-me}}
 \addcontentsline{toc}{section}{About Me}
 
-I finished my PhD in statistics at Oregon State University in 2020. I now work in ORD-CPHEA-PESD-FEB as a statistician, working primarily on the National Aquatic Resource Surveys (NARS) team. My main research interests are sampling and survey design, spatial statistics, and software development. To learn more about me and my work, visit my website (\href{https://michaeldumelle.github.io/}{external link}).
+I finished my PhD in statistics at Oregon State University in 2020. I now work in ORD-CPHEA-PESD-FEB as a statistician, primarily on the National Aquatic Resource Surveys (NARS) team. My main research interests are sampling and survey design, spatial statistics, and software development. To learn more about me and my work, visit my website (\href{https://michaeldumelle.github.io/}{external link}).
 
 \hypertarget{acknowledgements}{%
 \section*{Acknowledgements}\label{acknowledgements}}
@@ -172,28 +213,32 @@ I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui 
 \section*{Getting Started}\label{getting-started}}
 \addcontentsline{toc}{section}{Getting Started}
 
-The first thing we need to do is install and load the devtools (\href{https://devtools.r-lib.org/}{external link}) package
+The first thing we need to do is install and load the devtools (\href{https://devtools.r-lib.org/}{external link}) package by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{)}
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{, }\DataTypeTok{dependencies =} \OtherTok{TRUE}\NormalTok{)}
 \KeywordTok{library}\NormalTok{(devtools)}
 \end{Highlighting}
 \end{Shaded}
 
-The devtools package contains tools to make developing R packages easier and we will use functions in devtools frequently throughout this workshop. devtools is closely linked to the usethis (\href{https://usethis.r-lib.org/}{external link}) package, which is installed alongside devtools. The usethis package contains tools that make package development less tedious and more structured.
+The devtools package contains tools to make developing R packages easier, and we will use functions in devtools frequently throughout this workshop. devtools is closely linked to the usethis (\href{https://usethis.r-lib.org/}{external link}) package, which is installed alongside devtools. The usethis package contains tools that make package development less tedious and more structured.
 
-In this workshop we will build an R package named RPRW (\textbf{R} \textbf{P}ackages for \textbf{R}eproducible \textbf{W}orkflows) designed to quantify properties of rivers in North America. Then we will turn RPRW into a research compendium, a standard by which to organize a body of work. The book that you are viewing interweaves text, R code, and output. You can either follow along throughout the workshop by copying and pasting the R code in this book onto your machine and/or by reading the R code output. The book will be maintained for an indefinite amount of time after the workshop, so feel free to check back in for a refresher whenever you would like!
+In this workshop we will build an R package named RPRW (\textbf{R} \textbf{P}ackages for \textbf{R}eproducible \textbf{W}orkflows) designed to quantify properties of rivers in North America. Then we will turn RPRW into a research compendium, a standard by which to organize a body of work.
 
-Though we will build RPRW together, it is available for download in its entirety by running
+Though we will build RPRW together, you can download in its entirety by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\DataTypeTok{repo =} \StringTok{"michaeldumelle/RPRW"}\NormalTok{, }\DataTypeTok{ref =} \StringTok{"main"}\NormalTok{)}
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}
+  \DataTypeTok{repo =} \StringTok{"michaeldumelle/RPRW"}\NormalTok{,}
+  \DataTypeTok{ref =} \StringTok{"main"}\NormalTok{,}
+  \DataTypeTok{build_vignettes =} \OtherTok{TRUE}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-Then you can load it by running
+Then you can load RPRW by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -202,6 +247,8 @@ Then you can load it by running
 \end{Shaded}
 
 Now that we have devtools installed and have talked about RPRW, let's get started building this R package!
+
+\begin{center}\includegraphics[width=0.5\linewidth]{images/coding} \end{center}
 
 \hypertarget{r-package}{%
 \chapter{Building an R Package}\label{r-package}}
@@ -233,10 +280,11 @@ and get help by running
 \end{Highlighting}
 \end{Shaded}
 
-One of the many reasons R packages are so useful is because they are the fundamental vessel by which to share R code. If your code is in a package, others can easily download and use it -- this is the essence of open-source software! Most R users have some experience with using at least one package, so they will likely be familiar with how to use yours after you share it. But sharing code is not the only benefit of creating packages -- a major benefit of using packages is that they enforce your code is built using a certain structure. Adhering to this structure
+One of the many reasons R packages are so useful is because they are the fundamental vessel by which to share R code. If your code is in a package, others can easily download and use it -- this is the essence of open-source software! Most R users have some experience with at least one package, so they will likely be familiar with how to use yours after you share it. But sharing code is not the only benefit of creating packages -- a major benefit of using packages is that they enforce your code is built using a certain structure. Adhering to this structure:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   saves you time -- You don't need to think about how to organize your files because packages tell you how these files must be organized!
 
@@ -269,7 +317,7 @@ One of the many reasons R packages are so useful is because they are the fundame
   \begin{itemize}
   \tightlist
   \item
-    This is because packages are built upon R projects (we discuss R projects in more detail in the \protect\hyperlink{r-projects}{R Projects} section).
+    This is because packages are built upon R projects, which we discuss more later.
   \end{itemize}
 \end{enumerate}
 
@@ -292,7 +340,7 @@ Next we will create the RPRW package together! If this is your first R package, 
 \hypertarget{the-motivating-dataset}{%
 \subsection{The Motivating Dataset}\label{the-motivating-dataset}}
 
-Suppose we want RPRW to summarize the length (in kilometers) and discharge (meters per second cubed) of North American rivers. Suppose we also want RPRW to easily accommodate many subsets of rivers based on their name. Below are our data of interest
+Suppose we want RPRW to summarize the length (in kilometers) and discharge (meters per second cubed) of North American rivers. Suppose we also want RPRW to easily accommodate many subsets of rivers based on their name. Below are our data of interest:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -307,7 +355,7 @@ Suppose we want RPRW to summarize the length (in kilometers) and discharge (mete
   \DataTypeTok{Canadian =} \KeywordTok{c}\NormalTok{(}\DecValTok{1458}\NormalTok{, }\DecValTok{174}\NormalTok{)}
 \NormalTok{) }
 \KeywordTok{rownames}\NormalTok{(river) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"length"}\NormalTok{, }\StringTok{"discharge"}\NormalTok{)}
-\NormalTok{river}
+\KeywordTok{print}\NormalTok{(river)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -317,12 +365,12 @@ Suppose we want RPRW to summarize the length (in kilometers) and discharge (mete
 #> discharge     1956       18400  6340       40     1004     7730  852      174
 \end{verbatim}
 
-If the structure of \texttt{river} is atypical to you, see \protect\hyperlink{ex-set14}{Exercise 3.7.1.1}.
+If the structure of \texttt{river} is atypical to you, see Exercise 3.7.1.1 (\protect\hyperlink{ex-set14}{internal link}).
 
 \hypertarget{first-step}{%
 \subsection{The First Step}\label{first-step}}
 
-The first step is using devtools to create a package template for us. There are a two ways to easily create this template. First, in the upper left-hand portion of the editor window (upper left-hand pane of RStudio), click ``File'' -\textgreater{} ``New Project'' -\textgreater{} ``New Directory'' -\textgreater{} ``R Package'' -\textgreater{} ``Create Project''. An alternative approach is to run
+The first step is using devtools to create a package template for us. There are a two ways to easily create this template. First, in editor window (upper-left pane in RStudio), click ``File -\textgreater{} New Project -\textgreater{} New Directory -\textgreater{} R Package -\textgreater{} Create Project''. An alternative approach is to run
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -357,20 +405,20 @@ RoxygenNote: 7.1.1
 √ Setting active project to 'path_to_RPRW_package/RPRW'
 \end{verbatim}
 
-The package is held inside a folder named ``RPRW'' created at the the path on your computer named ``path\_to\_RPRW\_package''. RStudio will automatically create a new window and you will see in the ``Files'' pane of RStudio (bottom right corner) there are several files (these are located at ``path\_to\_RPRW\_package/RPRW'')
+The package is placed inside a folder named ``RPRW'' created at the the path on your computer named ``path\_to\_RPRW\_package''. RStudio will automatically create a new window and you will see that in the ``Files'' tab of the bottom-right RStudio pane, there are several files (located in ``path\_to\_RPRW\_package/RPRW'')
 
 \includegraphics[width=1\linewidth]{images/newrpack_files}
 
-Notice the .Rproj file, which indicates that your package is also a project, so relative paths are used inside the package. Also notice that the ``Environment'' pane of RStudio (top right corner) now has a ``Build'' tab -- this tab contains some useful tools for your R package.
+Notice the \texttt{.Rproj} file, which indicates that your package is also an R project. Also notice that the top-right RStudio pane now has a ``Build'' tab, which contains some useful tools for your R package.
 
 \hypertarget{first-function}{%
 \subsection{The First Function}\label{first-function}}
 
-R packages are composed of several functions that work together to accomplish a set of goals. The folder called ``R'' is where functions in your package live. Let's create our first function, called \texttt{river\_means()}, which finds the mean river length and discharge of desired rivers. To create an R file in the R folder, run
+R packages are composed of several functions that work together to accomplish a set of goals. The folder named ``R'' is where functions in your package live. Let's create our first function, \texttt{river\_means()}, which finds the mean river length and discharge of desired rivers. To create an R script in the R folder named \texttt{river\_means.R}, run
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{use_r}\NormalTok{(}\StringTok{"river_means"}\NormalTok{)}
+\NormalTok{usethis}\OperatorTok{::}\KeywordTok{use_r}\NormalTok{(}\StringTok{"river_means"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -385,7 +433,7 @@ and the appropriate file now in your R folder.
 
 \includegraphics[width=1\linewidth]{images/newrpack_function}
 
-Generally, the name of your file should match the name of the function, and you should use separate files for separate functions. More experienced users, it is okay to break this rule every once in a while in certain contexts.
+Generally, the name of your file should match the name of the function, and you should use separate files for separate functions. More experienced R users -- it is okay to break this rule every once in a while depending on the context.
 
 The body of \texttt{river\_means()} looks like
 
@@ -410,10 +458,10 @@ There are two arguments in \texttt{river\_means()}:
   \begin{itemize}
   \tightlist
   \item
-    Making \texttt{data} the first argument makes this function easily pipeable (\href{https://r4ds.had.co.nz/pipes.html}{external link})
+    Making \texttt{data} the first argument to \texttt{river\_means()} makes it naturally pipeable (\href{https://r4ds.had.co.nz/pipes.html}{external link})
   \end{itemize}
 \item
-  \texttt{pattern}: A character pattern by which to subset the rivers in \texttt{data} before calculating means
+  \texttt{pattern}: A character string indicating the pattern by which to subset the rivers in \texttt{data} before calculating means (all rivers whose names satisfy the pattern are kept)
 \end{enumerate}
 
 There are three lines of code in \texttt{river\_means()}:
@@ -429,14 +477,14 @@ There are three lines of code in \texttt{river\_means()}:
   Find the mean length and discharge of the rivers whose names contain the pattern
 \end{enumerate}
 
-The object evaluated by the last line of code in a function is returned by default. So \texttt{river\_means()} returns code evaluated in the third line of \texttt{river\_means()}. You can force a different object to be returned earlier using \texttt{return(object)}.
+By default, the function returns the object evaluated by its last line of code. So \texttt{river\_means()} returns the output from \texttt{rowMeans()}. You can force the function to return a different object earlier using \texttt{return(object)}.
 
-You can leave comments in your function (by prefixing a line with \texttt{\#}) to communicate in a non-programming language what your code is doing. This is usually good practice because it helps others (including future you) understand the intent of each line of code.
+You can leave comments in your function by prefixing a line with \texttt{\#}. Comments are used to communicate in plain verbage the intent of your code. Leaving comments is usually good practice because it helps others (including future you) better understand the goals of your code.
 
 \hypertarget{load-all}{%
 \subsection{\texorpdfstring{\texttt{devtools::load\_all()}}{devtools::load\_all()}}\label{load-all}}
 
-Now that we have written \texttt{river\_means()} it is natural to want to try it out. One approach is to run \texttt{river\_means()} (either in the ``R/river\_means.R'' script or by copying and pasting \texttt{river\_means()} into the console). Another approach is to load \texttt{river\_means()} by running
+Now that we have written \texttt{river\_means()}, it is natural to want to try it out. One approach is to run \texttt{river\_means()} (either in the ``R/river\_means.R'' script or by copying and pasting \texttt{river\_means()} into the console). Another approach is to load \texttt{river\_means()} by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -444,9 +492,9 @@ Now that we have written \texttt{river\_means()} it is natural to want to try it
 \end{Highlighting}
 \end{Shaded}
 
-These approaches put \texttt{river\_means()} in the global environment (look at the environment pane in the upper-right hand corner of RStudio). Unfortunately messing around too much in the global environment can easily introduce errors or unintended behavior of your functions.
+These approaches put \texttt{river\_means()} in the global environment (look at the environment tab in the upper-right pane of RStudio). Unfortunately messing around too much in the global environment can easily introduce errors in your functions or have them behave in unexpected ways.
 
-An alternative approach is to leverage devtools, since after all, you are bothering to create a package, so you may as well use the tools designed for them! The devtools function \texttt{devtools::load\_all()} emulates the process of building, installing, and loading our R package. This has a few benefits. First, the functions are ``sourced'' into a better spot (not the global environment). Second, it makes all of your functions available through a single line of code -- rather than running and/or sourcing several functions separately. I highly recommend you practice using \texttt{devtools::load\_all()} to load your functions rather than navigating the dangerous global environment.
+An alternative approach is to leverage devtools, since after all, you are bothering to create a package, so you may as well use the tools designed for them! The devtools function \texttt{devtools::load\_all()} emulates the process of building, installing, and loading a package. This has a few benefits. First, the functions are ``sourced'' into a better spot (not the global environment). Second, it makes all of your functions available through a single line of code rather than running and/or sourcing several functions separately. I highly recommend you practice using \texttt{devtools::load\_all()} instead of navigating the dangerous global environment.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -454,7 +502,7 @@ An alternative approach is to leverage devtools, since after all, you are bother
 \end{Highlighting}
 \end{Shaded}
 
-Now we get to try out \texttt{river\_means()}! Suppose we want to summarize the rivers whose names start with ``Mi'' (in \texttt{river}, this is only Missiouri and Mississippi)?
+Now we get to try out \texttt{river\_means()}! Suppose we want to summarize the rivers whose names start with ``Mi'' (in \texttt{river}, this is only Missiouri and Mississippi).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -480,7 +528,7 @@ Next suppose we want to summarize rivers whose names start with ``Y'' (Yukon) or
 #>    2500.5    3596.0
 \end{verbatim}
 
-Hooray -- our function works! Give yourself a congratulations :)! And for more on patterns and strings in R, visit here (\href{https://r4ds.had.co.nz/strings.html}{external link}) and (\href{https://bookdown.org/rdpeng/rprogdatascience/regular-expressions.html\#sub-and-gsub}{external link}).
+Hooray -- our function works! Give yourself a congratulations :)! And for more on patterns and strings in R, visit here (\href{https://r4ds.had.co.nz/strings.html}{external link}) and here (\href{https://bookdown.org/rdpeng/rprogdatascience/regular-expressions.html\#sub-and-gsub}{external link}).
 
 \hypertarget{ex-set2}{%
 \subsubsection{Exercises}\label{ex-set2}}
@@ -509,14 +557,13 @@ So far the \texttt{river} data has been stored in global environment. What if yo
 √ Saving 'river' to 'data/river.rda'
 \end{verbatim}
 
-You will see that at the root of your R package (inside ``path\_to\_RPRW\_package/RPRW''), there is now a folder called \texttt{data}. In \texttt{data}, there is a file called \texttt{river.rda}. \texttt{river\_rda} contains the \texttt{river} data and can now be loaded by running \texttt{data("river")}. For illustration, let's remove \texttt{river} from our global environment and then load it using \texttt{data("river")} (similar to how we load data from other packages):
+You will see that at the root of your R package (inside ``path\_to\_RPRW\_package/RPRW''), there is now a folder called \texttt{data}. In \texttt{data}, there is a file called \texttt{river.rda}. \texttt{river\_rda} contains the \texttt{river} data and can now be loaded by running \texttt{utils::data("river")}. For illustration, let's remove \texttt{river} from our global environment and then load it using \texttt{utils::data("river")} (similar to how we load data from other packages):
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{rm}\NormalTok{(river) }\CommentTok{# remove the river data from our global environment}
-\KeywordTok{load_all}\NormalTok{() }\CommentTok{# emulate the package building, installation, and loading process}
-\KeywordTok{data}\NormalTok{(}\StringTok{"river"}\NormalTok{) }\CommentTok{# load the river data}
-\NormalTok{river }\CommentTok{# view the river data}
+\NormalTok{utils}\OperatorTok{::}\KeywordTok{data}\NormalTok{(}\StringTok{"river"}\NormalTok{) }\CommentTok{# load the river data}
+\KeywordTok{print}\NormalTok{(river) }\CommentTok{# view the river data}
 \end{Highlighting}
 \end{Shaded}
 
@@ -529,7 +576,7 @@ You will see that at the root of your R package (inside ``path\_to\_RPRW\_packag
 \hypertarget{roxygen}{%
 \subsection{roxygen Comments}\label{roxygen}}
 
-After writing \texttt{river\_means()}, you should document it while its structure is fresh in your mind. This makes it easier for others (including future you) to understand how to use \texttt{river\_means()}. Documenting R functions is a bit more complicated than leaving standard comments (\texttt{\#}). Documenting R functions requires the use of a special type of comment -- \emph{roxygen} comments (view the roxygen2 (\href{https://roxygen2.r-lib.org/}{external link}) package for more). Roxygen comments are prefixed with \texttt{\#\textquotesingle{}} (instead of \texttt{\#} like for standard comments) and have special \textbf{tags} associated with them. roxygen comment templates are available and can be inserted by putting your cursor somewhere in the body of a function and either:
+After writing \texttt{river\_means()}, you should document it while its structure is fresh in your mind. This makes it easier for others (including future you) to understand how to use \texttt{river\_means()}. Documenting R functions is a bit more complicated than leaving standard comments (\texttt{\#}). It requires using of a special type of comment, \emph{roxygen} comments (view the roxygen2 (\href{https://roxygen2.r-lib.org/}{external link}) package for more). roxygen comments are prefixed with \texttt{\#\textquotesingle{}} (instead of \texttt{\#}) and have special \textbf{tags} associated with them. roxygen comment templates can be automatically inserted into your R script by putting your cursor somewhere in the body of a function and either:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -572,11 +619,17 @@ The \texttt{@} indicates the tag. The template inserts four tags for us:
   \texttt{@return}: to document function output
 \item
   \texttt{@export}: to make the function available after installing the package
+
+  \begin{itemize}
+  \tightlist
+  \item
+    You may not want to export every function in your package (e.g.~helpers)
+  \end{itemize}
 \item
   \texttt{@examples}: to provide examples of using the function
 \end{enumerate}
 
-Let's document \texttt{river\_means()}
+Let's document \texttt{river\_means()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -600,7 +653,7 @@ Let's document \texttt{river\_means()}
 \end{Highlighting}
 \end{Shaded}
 
-Next we need to turn these roxygen comments into a new format that packages require before finishing documentation. The details of this new format are not critical -- the important take-away is that the roxygen comments are automatically transformed to the new format by running
+Next we need to turn these roxygen comments into a new format that powers the actual documentation. The details of this new format are not critical -- the important take-away is that the roxygen comments are automatically transformed to the new format by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -619,7 +672,7 @@ From now on I'll stop reminding you every time, but again, notice the benefits o
 
 \includegraphics[width=1\linewidth]{images/newrpack_files2}
 
-The \texttt{river\_means.md} file is the result of transforming the roxygen comments to documentation that packages use. As you can see, \texttt{river\_means.md} is a bit more complicated than the roxygen comments in \texttt{river\_means()}. Luckily, \texttt{river\_means.md} is automatically generated. The broader, important point of all this is that after running \texttt{devtools::document()}, you can view the documentation of \texttt{river\_means()}!
+The \texttt{river\_means.md} file is the result of transforming the roxygen comments to documentation that packages use. As you can see, \texttt{river\_means.Rd} is a bit more complicated than the roxygen comments in \texttt{river\_means()}. Luckily, \texttt{river\_means.Rd} is automatically generated. The broader, important point of all this is that after running \texttt{devtools::document()}, you can view the documentation of \texttt{river\_means()}!
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -634,13 +687,13 @@ For more on documentation in R packages (including documenting data), visit here
 \hypertarget{second-function}{%
 \subsection{The Second Function}\label{second-function}}
 
-You may be wondering how to tell your package to use functions from other packages. \texttt{river\_means()}uses a few other functions available in R (see \protect\hyperlink{ex-set1}{Exercise 1.1.1.1}: \texttt{\textless{}-}, \texttt{grep()}, \texttt{names()}, \texttt{{[}}, and \texttt{rowMeans()}. How does R know how to use the right \texttt{names()} function when executing \texttt{river\_means()}? These questions related to an package's NAMESPACE, which we discuss a bit later.
+You may be wondering how to tell your package to use functions from other packages. \texttt{river\_means()}uses a few other functions available in R (see Exercise 1.1.1.1 (\protect\hyperlink{ex-set1}{internal link}): \texttt{\textless{}-}, \texttt{grep()}, \texttt{names()}, \texttt{{[}}, and \texttt{rowMeans()}. How does R know how to use the right \texttt{names()} function when executing \texttt{river\_means()}? These questions related to an package's \texttt{NAMESPACE}, which we discuss a bit later.
 
-The functions used in \texttt{river\_means()} are all from the base package in R (\href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html}{external link}) (the base package is automatically installed alongside R). When using functions from the base package in your package, you don't have to give R any special warning. This is the only package that operates this way, however. When using functions from other packages in your package, you need to let R know what package that function comes from (this is true even for other packages automatically installed alongside R - stats, graphics, grDevices, utils, datasets, and methods). To illustrate this process, suppose we want to create a new function in our package called \texttt{river\_medians()} that operates like \texttt{river\_means()} but computes medians instead of means. First we create the script in our R folder by running
+The functions used in \texttt{river\_means()} are all from the base package in R (\href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html}{external link}). The base package is automatically installed alongside R. When using functions from the base package in your package, you don't have to give R any special warning. This is the only package that operates this way, however. When using functions from other packages in your package, you need to let R know what package that function comes from (this is true even for other packages automatically installed alongside R - datasets, graphics, grDevices, methods, stats, and utils). To illustrate this process, suppose we want to create a new function in our package called \texttt{river\_medians()} that operates like \texttt{river\_means()} but computes medians instead of means. First we create the script in our R folder by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{use_r}\NormalTok{(}\StringTok{"river_medians"}\NormalTok{)}
+\NormalTok{usethis}\OperatorTok{::}\KeywordTok{use_r}\NormalTok{(}\StringTok{"river_medians"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -664,9 +717,9 @@ But wait! Run
 \end{Highlighting}
 \end{Shaded}
 
-See anything different? You'll notice that \texttt{median()} is in the stats package (\href{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html}{external link}), not the base package. We need to let R know that when \texttt{river\_medians()} uses \texttt{median()} from the stats package. To accomplish this, there are two steps to take.
+See anything different? You'll notice that \texttt{median()} is in the stats package (\href{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html}{external link}), not the base package. We need to let R know that when \texttt{river\_medians()} uses \texttt{median()}, \texttt{median()} is from the stats package. To accomplish this, there are two steps to take.
 
-The first step is to tell your package that at least one function stats is required somewhere by running
+The first step is to tell your package that at least one function from the stats package is required by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -679,9 +732,9 @@ The first step is to tell your package that at least one function stats is requi
 * Refer to functions with `stats::fun()`
 \end{verbatim}
 
-The package stats was added to the Imports field in the DESCRIPTION file at the root of your package. We will talk more about DESCRIPTION in a bit, but for now just remember that it contains metadata (high-level data) about your package. No matter how many times your package uses any function from stats, you only need to run \texttt{usethis::use\_package("stats")} once.
+The package stats was added to the Imports field in the \texttt{DESCRIPTION} file at the root of your package. We will talk more about \texttt{DESCRIPTION} in a bit, but for now just remember that it contains metadata (high-level data) about your package. No matter how many times your package uses any function from stats, you only need to run \texttt{usethis::use\_package("stats")} once.
 
-The second step is to tell \texttt{river\_medians()} function to use the \texttt{median()} from stats. There are a few ways to do this. The way that is considered best practice is to preface any outside functions (aside from those in base) with \texttt{packagename::}. Incorporating this into \texttt{river\_medians()} and inserting roxygen documentation yields
+The second step is to tell the \texttt{river\_medians()} function to use the \texttt{median()} function from stats. There are a few ways to do this. The way that is considered ``best practice'' is to preface any outside functions (aside from those in base) with \texttt{package::}. Incorporating this into \texttt{river\_medians()} and inserting roxygen documentation yields
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -705,7 +758,7 @@ The second step is to tell \texttt{river\_medians()} function to use the \texttt
 \end{Highlighting}
 \end{Shaded}
 
-Though this is way that is considered best practice, it does add some extra typing and can be cumbersome if you are using many outside functions. The \texttt{packagename::} prefix can be avoided by importing \texttt{median()} from stats to \texttt{river\_median()} using the roxygen tag \texttt{@importFrom}:
+Though \texttt{package::function} is considered best practice, it does add some extra typing and can be cumbersome if you are using many outside functions. The \texttt{package::} prefix can be avoided by importing \texttt{median()} from stats to \texttt{river\_median()} using the roxygen tag \texttt{@importFrom}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -755,7 +808,7 @@ A third option is relevant if you are using several functions from stats. In thi
 \end{Highlighting}
 \end{Shaded}
 
-Be careful when using \texttt{@importFrom} or \texttt{@import}. If two functions from different packages have the same name and you try to use it in your function, R may not know which one to use. In these contexts, using the \texttt{packagename::} prefix is crucial.
+Be careful when using \texttt{@importFrom} or \texttt{@import} (especially \texttt{@import}). If two functions from different packages have the same name and you try to use one it in your function, R may use the wrong one. In these contexts, using the \texttt{package::} prefix is crucial.
 
 \hypertarget{ex-set3}{%
 \subsubsection{Exercises}\label{ex-set3}}
@@ -771,21 +824,21 @@ These exercises are challenging, so if they don't make sense now, that is okay! 
 \end{enumerate}
 
 \hypertarget{description}{%
-\subsection{DESCRIPTION}\label{description}}
+\subsection{\texorpdfstring{\texttt{DESCRIPTION}}{DESCRIPTION}}\label{description}}
 
-The DESCRIPTION file contains the R package's metadata (and was automatically installed when we created the R package). The DESCRIPTION file lets you easily track version numbers, authorship, and additional R packages that your R package uses. There are two fields in DESCRIPTION that do most of the communication regarding how your R package uses additional R packages:
+The \texttt{DESCRIPTION} file contains the R package's metadata (and was automatically installed when we created the R package). The \texttt{DESCRIPTION} file lets you easily track version numbers, authorship, and additional R packages that your R package uses. There are two fields in \texttt{DESCRIPTION} that do most of the communication regarding how your R package uses additional R packages:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Imports: Packages here must be installed in order for your package to work. As a result, any package listed in \texttt{Imports} will be installed alongside your package. Packages in \texttt{Imports} help build the foundation of your package.
+  \texttt{Imports}: Packages here must be installed in order for your package to work. As a result, any package listed in \texttt{Imports} will be installed alongside your package. Packages in \texttt{Imports} help build the foundation of your package.
 \item
-  Suggests: Packages here enhance your package but are not required for your package to work. You might use suggested packages for enhanced plotting, additional data sets, or more. Packages in \texttt{Suggests} can add finishing touches to your package, but they are not part of your package's foundation.
+  \texttt{Suggests}: Packages here enhance your package but are not required for your package to work. You might use suggested packages for enhanced plotting, additional data sets, or more. Packages in \texttt{Suggests} can add finishing touches to your package, but they are not part of your package's foundation -- they are like a home's paint color, not its framing.
 \end{enumerate}
 
 Other fields used to communicate how your R package uses additional R packages are \texttt{Depends}, \texttt{LinkingTo}, and \texttt{Enhances}. The difference between \texttt{Depends} and \texttt{Imports} is subtle -- the general advice is to use \texttt{Imports} instead of \texttt{Depends}.
 
-Editing the package, title, author, and description fields of this package yield a DESCRIPTION file that looks like
+Editing the package, title, author, and description fields of this package yield a \texttt{DESCRIPTION} file that looks like
 
 \begin{verbatim}
 Package: RPRW
@@ -810,14 +863,14 @@ Imports:
     stats
 \end{verbatim}
 
-We will talk about some of the remaining parts of DESCRIPTION later.
+We will talk about some of the remaining parts of \texttt{DESCRIPTION} later.
 
 \hypertarget{namespace}{%
-\subsection{NAMESPACE}\label{namespace}}
+\subsection{\texorpdfstring{\texttt{NAMESPACE}}{NAMESPACE}}\label{namespace}}
 
-While the DESCRIPTION file communicates what packages your package \emph{uses}, the NAMESPACE file communicates \emph{how} your package uses these packages. More specifically, the NAMESPACE file controls which functions your package exports (making them available to others when your package is installed) and what functions from what packages must be available for your exported functions to work. The DESCRIPTION file is automatically updated while running \texttt{devtools::document()} and should not be edited by hand (in fact, there is a warning in the NAMESPACE file to warn against editing the file by hand)
+While the \texttt{DESCRIPTION} file communicates what packages your package \emph{uses}, the \texttt{NAMESPACE} file communicates \emph{how} your package uses these packages. More specifically, the \texttt{NAMESPACE} file controls which functions your package exports (making them available to others when your package is installed) and what functions from what packages must be available for your exported functions to work. The \texttt{NAMESPACE} file is automatically updated while running \texttt{devtools::document()} and should not be edited by hand (in fact, there is a warning in the \texttt{NAMESPACE} file to warn against editing the file by hand).
 
-In \texttt{river\_median()}, if you called \texttt{median} using \texttt{stats::median}, your NAMESPACE file will look like
+In \texttt{river\_median()}, if you called \texttt{median} using \texttt{stats::median}, your \texttt{NAMESPACE} file will look like
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -828,7 +881,7 @@ In \texttt{river\_median()}, if you called \texttt{median} using \texttt{stats::
 \end{Highlighting}
 \end{Shaded}
 
-If you used the \texttt{@importFrom\ stats\ median} approach, your NAMESPACE will look like
+If you used the \texttt{@importFrom\ stats\ median} approach, your \texttt{NAMESPACE} will look like
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -840,7 +893,7 @@ If you used the \texttt{@importFrom\ stats\ median} approach, your NAMESPACE wil
 \end{Highlighting}
 \end{Shaded}
 
-If you used the \texttt{@import\ stats} approach, your NAMESPACE will look like
+If you used the \texttt{@import\ stats} approach, your \texttt{NAMESPACE} will look like
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -855,7 +908,7 @@ If you used the \texttt{@import\ stats} approach, your NAMESPACE will look like
 \hypertarget{testthat}{%
 \subsection{testthat}\label{testthat}}
 
-Testing your code to make sure that it performs as intended is an important step in the package building process. Though this may seem like extra work upfront, implementing a rigorous testing procedure for your package is essential. In R, testing is incorporated into your package through the testthat (\href{https://testthat.r-lib.org/}{external link}) package. To begin using testthat, run
+Testing your code to make sure that it performs as intended is an important step in the package building process. Though this may seem like extra work upfront, implementing a rigorous testing procedure for your package is essential for its continued success. In R, testing is incorporated into your package through the testthat (\href{https://testthat.r-lib.org/}{external link}) package. To begin using testthat, run
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -968,9 +1021,10 @@ All tests pass -- hooray! I want to again emphasize how important testing is. I 
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   Write similar tests for \texttt{river\_means()} (discharge), \texttt{river\_medians()} (length), and \texttt{river\_medians()} (discharge).
+\item
+  Check out the covr (\href{https://cran.r-project.org/web/packages/covr/vignettes/how_it_works.html}{external link}) package, which quantifies how much of your package's code is used by your tests.
 \end{enumerate}
 
 \hypertarget{license}{%
@@ -990,12 +1044,12 @@ At some point, your package needs a license. The license places restrictions on 
 √ Adding '^LICENSE\\.md$' to '.Rbuildignore'
 \end{verbatim}
 
-\texttt{usethis::use\_gpl\_license()} adds the license to DESCRIPTION and creates a LICENSE.md file at the root of your package that contains information about the license.
+\texttt{usethis::use\_gpl\_license()} adds the license to \texttt{DESCRIPTION} and creates a \texttt{LICENSE.md} file at the root of your package that contains information about the license.
 
 \hypertarget{vignettes}{%
 \subsection{Vignettes}\label{vignettes}}
 
-Vignettes act as high-level user guides for your package. They are the glue that binds together several components of your package to illustrate how the package can be used to solve a particular problem. Vignettes tend to be R Markdown documents. Though we cover R Markdown documents in more detail later, for now we note that they that dynamically interweave text and R code to form the foundation for fully reproducible documents created in R. R markdown documents have a \texttt{.Rmd} extension.
+Vignettes act as high-level user guides for your package. They are the glue that binds together several components of your package to illustrate how the package can be used to solve a particular problem. Vignettes tend to be R Markdown documents. Though we cover R Markdown documents in more detail later, for now we note that they that interweave text and R code to create reproducible documents. You can recognize whether a document is an R markdown documents by the \texttt{.Rmd} extension that R documents have.
 
 The ggplot2 (\href{https://ggplot2.tidyverse.org/}{external link}) package is a popular package for visualizing data. After installing ggplot2
 
@@ -1017,7 +1071,7 @@ after which a file will pop up alongside your R scripts with the contents
 
 \includegraphics[width=1\linewidth]{images/newrpack_files6}
 
-To then view a specific vignette, run \texttt{vignette(topic,\ package)}. For example, to view the vignette regarding \textbf{aes}thetic specifications, run
+To then view a specific vignette, run \texttt{vignette("topic",\ "package")}. For example, to view the vignette regarding \textbf{aes}thetic specifications, run
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1025,9 +1079,9 @@ To then view a specific vignette, run \texttt{vignette(topic,\ package)}. For ex
 \end{Highlighting}
 \end{Shaded}
 
-The vignette can be viewed in the bottom-right pane of RStudio. Vignettes are also available on a package's CRAN page -- for the ggplot2 aesthetic specifications vignette, see here (\href{https://cran.r-project.org/web/packages/ggplot2/vignettes/ggplot2-specs.html}{external link}).
+The vignette can then be viewed in the ``Help'' tab of the bottom-right pane of RStudio. Vignettes are also available on a package's CRAN page -- for the ggplot2 aesthetic specifications vignette viewable on its CRAN page, see here (\href{https://cran.r-project.org/web/packages/ggplot2/vignettes/ggplot2-specs.html}{external link}).
 
-Suppose we want to include a vignette that shows how to use RPRW to compute river statistics. Running
+Suppose we want to include a vignette in RPRW that shows how to it to compute river statistics. Running
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1046,13 +1100,13 @@ Suppose we want to include a vignette that shows how to use RPRW to compute rive
 * Modify 'vignettes/river-statistics.Rmd'
 \end{verbatim}
 
-does a few things. It alters your DESCRIPTION file, most notably adding the knitr (\href{https://yihui.org/knitr/}{external link}) and rmarkdown packages to the \texttt{Suggests} field. It also creates a vignette folder at the root of your package and adds to that folder an rmarkdown vignette (notice the \texttt{.Rmd} extension) named \texttt{river-statistics.Rmd} whose title is ``River Statistics''.
+does a few things. It alters your \texttt{DESCRIPTION} file, most notably adding the knitr (\href{https://yihui.org/knitr/}{external link}) and rmarkdown packages to the \texttt{Suggests} field. It also creates a vignette folder at the root of your package and adds to that folder an rmarkdown vignette named \texttt{river-statistics.Rmd} (notice the \texttt{.Rmd} extension) whose title is ``River Statistics''.
 
 While we won't create a vignette for our package during the workshop, I have added a vignette to the RPRW package. To view it (after installation), run
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{vignette}\NormalTok{(river}\OperatorTok{-}\NormalTok{statistics, }\StringTok{"RPRW"}\NormalTok{)}
+\KeywordTok{vignette}\NormalTok{(}\StringTok{"river-statistics"}\NormalTok{, }\StringTok{"RPRW"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1061,7 +1115,7 @@ While we won't create a vignette for our package during the workshop, I have add
 
 At this point we have built R package and are ready to share it with the world! But we should probably check to make sure we did not make any small mistakes. Does devtools have a way to do this? Of course -- introducing \texttt{devtools::check()}! \texttt{devtools::check()} evaluates several automated tests on your package to make sure it can be properly installed and shared -- this can take a few minutes. The \texttt{devtools::check()} output lists errors, warnings, and notes associated with your package. Though the warnings and notes are important, it is most crucial to address the errors immediately.
 
-Hopefully your output after running \texttt{devtools::check()}, your output looks like
+Hopefully after running \texttt{devtools::check()}, your output looks like
 
 \begin{verbatim}
 -- R CMD check results ---------- RPRW 0.0.0.9000 ----
@@ -1075,7 +1129,7 @@ If not, do your best to fix the errors and address the warnings and notes!
 \hypertarget{install}{%
 \subsection{\texorpdfstring{\texttt{devtools::install()}}{devtools::install()}}\label{install}}
 
-After \texttt{devtools::check()} identifies zero errors (and hopefully zero warnings and notes), you can install your package by running
+After \texttt{devtools::check()} identifies zero errors (and hopefully zero warnings and zero notes), you can install your package by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1083,7 +1137,7 @@ After \texttt{devtools::check()} identifies zero errors (and hopefully zero warn
 \end{Highlighting}
 \end{Shaded}
 
-After installing RPRW, you can use \texttt{library(RPRW)} to load it like you do any other R package.
+After installing RPRW, you can use \texttt{library(RPRW)} to load it like you do for any other R package.
 
 \hypertarget{ex-set5}{%
 \subsubsection{Exercises}\label{ex-set5}}
@@ -1100,7 +1154,7 @@ After installing RPRW, you can use \texttt{library(RPRW)} to load it like you do
 
 Congratulations on building an R package! If this was your first one, then an extra special congratulations to you! Hopefully stepping through the process together made it all less intimidating.
 
-\includegraphics[width=0.5\linewidth]{images/you_did_it}
+\begin{center}\includegraphics[width=0.5\linewidth]{images/well_done} \end{center}
 
 \hypertarget{debugging}{%
 \section{Debugging}\label{debugging}}
@@ -1369,6 +1423,11 @@ The length and discharge means are \texttt{NaN}, which stands for ``Not a Number
 \NormalTok{  new_data <-}\StringTok{ }\NormalTok{data[, desired_rivers, drop =}\StringTok{ }\OtherTok{FALSE}\NormalTok{]}
   \KeywordTok{rowMeans}\NormalTok{(new_data)}
 \NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{river_means}\NormalTok{(rivers, }\StringTok{"ZZZ"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1496,7 +1555,7 @@ Let's add three folders to \texttt{inst}:
 
 \includegraphics[width=1\linewidth]{images/newrpack_files10}
 
-Suppose we plan to use this research compendium to write a manuscript on summarizing rivers. First we will make an R script to put in \texttt{analysis}. Recall that in \protect\hyperlink{ex-set3}{Exercise 1.2.7.1.2}, we generated \texttt{river\_stats()}, whose body looks like
+First we will make an R script to put in \texttt{analysis}. Recall that in Exercise 1.2.7.1.2 (\protect\hyperlink{ex-set3}{internal link}), we generated \texttt{river\_stats()}, whose body looks like
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1508,19 +1567,20 @@ Suppose we plan to use this research compendium to write a manuscript on summari
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{river\_stats()} works like \texttt{river\_means()} and \texttt{river\_medians()} but takes a general function instead of computing the mean or median specifically. Our script to put in \texttt{analysis} will look like
+\texttt{river\_stats()} works like \texttt{river\_means()} and \texttt{river\_medians()} but takes a general function instead of computing the mean or median specifically. Suppose our goal is to find the minimum length and discharge for rivers whose names contain ``C''. Our script to put in \texttt{analysis} will look like
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# find some summary statistics on rivers with pattern "C"}
 
 \CommentTok{## load RPRW -- we need to do this because the script is separate from the }
-\CommentTok{## functions installed in the RPRW package}
+  \CommentTok{## functions installed in the RPRW package}
 \KeywordTok{library}\NormalTok{(RPRW) }
 
 \CommentTok{## find minimums}
 \NormalTok{river_min <-}\StringTok{ }\KeywordTok{river_stats}\NormalTok{(river, }\StringTok{"C"}\NormalTok{, min)}
 
+\CommentTok{## make a data frame of the minimums}
 \NormalTok{min_df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
   \DataTypeTok{data =} \StringTok{"river"}\NormalTok{,}
   \DataTypeTok{pattern =} \StringTok{"C"}\NormalTok{,}
@@ -1528,11 +1588,12 @@ Suppose we plan to use this research compendium to write a manuscript on summari
   \DataTypeTok{discharge_min =}\NormalTok{ river_min[[}\DecValTok{2}\NormalTok{]]}
 \NormalTok{)}
 
+\CommentTok{## write out the minimums (without row names)}
 \KeywordTok{write.csv}\NormalTok{(min_df, }\StringTok{"inst/output/min_df"}\NormalTok{, }\DataTypeTok{row.names =} \OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-This R loads RPRW and finds the minimum length and discharge for rivers whose names start with C. The script then saves the contents to a CSV file in the \texttt{output} folder. These contents are used when building the manuscript. The manuscript is in the \texttt{manuscript} folder and is a completely reproducible R Markdown document. Though we won't discuss the details of this R Markdown document here unless we have time, the files can be viewed on your machine (after installing RPRW) at the location provided by
+This script loads RPRW and finds the minimum length and discharge for rivers whose names start with C. The script then saves the contents to a CSV file in the \texttt{output} folder. These contents are used when building the manuscript. The manuscript is in the \texttt{manuscript} folder and is a completely reproducible R Markdown document (using an rticles template, which we discuss later). Though we won't discuss the details of this R Markdown document here unless we have time, the files can be viewed on your machine (after installing RPRW) at the location provided by
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1678,7 +1739,7 @@ The research compendium now visibly contains:
   \texttt{vignettes}: a folder containing the package vignette
 \end{itemize}
 
-You can also add a \texttt{README.md} file to give a broad overview of your package (\texttt{README.md} is useful whether or not you use Git and GitHub). The \texttt{README.md} file is a markdown (\href{https://www.markdownguide.org/}{external link}) file (notice the .md extension and notice the connection between R Markdown (\texttt{.Rmd}) and Markdown (\texttt{.md})) in the RPRW package that looks like
+You can also add a \texttt{README.md} file to give a broad overview of your package (\texttt{README.md} is useful whether or not you use Git and GitHub). The \texttt{README.md} file is a Markdown (\href{https://www.markdownguide.org/}{external link}) file (notice the .md extension and notice the connection between R Markdown (\texttt{.Rmd}) and Markdown (\texttt{.md})) in the RPRW package that looks like
 
 \begin{verbatim}
 # RPRW
@@ -1714,7 +1775,7 @@ If your colleague doesn't remember where they saved the file, they can interacti
 \end{Highlighting}
 \end{Shaded}
 
-Because R packages leverage R projects, all file paths are relative (not absolute), and your colleague can immediately run any of your code on their machine!
+Because R packages leverage R projects your colleague can immediately run any of your code on their machine (a reminder that we discuss R projects soon)!
 
 \hypertarget{ex-set10}{%
 \subsection{Exercises}\label{ex-set10}}
@@ -1911,6 +1972,8 @@ The rticles package is an extension of R Markdown designed to make adhering to j
 
 The rticles templates have complicated YAML headers, but they generally have pretty clear inline instructions for how to edit them. The YAML headers change between templates, but the body of the document is just standard R Markdown (potentially with some LaTeX). This is very convenient because the body of the document is the same across templates (potentially with minor LaTeX discrepancies that are generally explained in the template's inline instructions). Decide you want to switch from an Elsevier journal to a Taylor \& Francis journal? No problem, just change the template type! For this reason, rticles is one my favorite R packages.
 
+For a brief introduction LaTeX, see this (\href{https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes}{external link}). While some working knowledge of LaTeX is not necessarily required to successfully use rticles, it can be immensely helpful.
+
 \hypertarget{ex-set13}{%
 \subsection{Exercises}\label{ex-set13}}
 
@@ -2007,6 +2070,10 @@ The lintr (\href{https://github.com/jimhester/lintr}{external link}) package per
   Visit this (\href{https://twitter.com/rstudiotips?lang=en}{external link}) for more R tips and tricks
 \item
   Sign up for R Weekly (\href{https://rweekly.org/}{external link}) to get weekly R updates.
+\item
+  You don't have to learn how to do all of this all at once! Move at a pace you are comfortable with.
+\item
+  Everyone has their own coding style, and my recommendations may differ from your coding preferences -- that is okay! All I hope is that you consider them.
 \end{itemize}
 
 \hypertarget{ex-set14}{%
@@ -2020,6 +2087,13 @@ The lintr (\href{https://github.com/jimhester/lintr}{external link}) package per
   Make \texttt{river} tidy.
 \end{enumerate}
 
+\hypertarget{thank-you}{%
+\section{Thank you!}\label{thank-you}}
+
+Thank you so much for attending this workshop! I do genuinely appreciate you taking some time out of your day to take this journey with me, and I hope that you got something useful out of this workshop.
+
+\begin{center}\includegraphics[width=0.5\linewidth]{images/thank_you} \end{center}
+
 \hypertarget{exercise-solutions}{%
 \chapter{Exercise Solutions}\label{exercise-solutions}}
 
@@ -2027,17 +2101,23 @@ The lintr (\href{https://github.com/jimhester/lintr}{external link}) package per
 \section*{Building an R Package}\label{building-an-r-package}}
 \addcontentsline{toc}{section}{Building an R Package}
 
-\textbf{\protect\hyperlink{ex-set1}{Exercise 1.1.1.1}} What are some of your favorite R packages?
+\textbf{Exercise 1.1.1.1} (\protect\hyperlink{ex-set1}{internal link})
+What are some of your favorite R packages?
 
-\textbf{Answer 1.1.1.1} This is for you to answer! I have many favorites, but a few are devtools, styler, rticles, rlang, and purrr.
+Answer 1.1.1.1
+This is for you to answer! I have many favorites, but a few are devtools, purrr, rlang, rticles, styler, and usethis.
 
-\textbf{\protect\hyperlink{ex-set1}{Exercise 1.1.1.2}} Of those we have talked about so far, what benefits of R packages are most appealing to you?
+\textbf{Exercise 1.1.1.2} (\protect\hyperlink{ex-set1}{internal link})
+Of those we have talked about so far, what benefits of R packages are most appealing to you?
 
-\textbf{Answer 1.1.1.2} This is for you to answer! The most appealing benefit to me is the structure that helps keep me organized.
+Answer 1.1.1.2
+This is for you to answer! One of the the most appealing benefits to me is the structure that helps keep me organized.
 
-\textbf{\protect\hyperlink{ex-set2}{Exercise 1.2.4.1.1}} How many functions does \texttt{river\_means()} call within the body of the function? What package are these functions in?
+\textbf{Exercise 1.2.4.1.1} (\protect\hyperlink{ex-set2}{internal link})
+How many functions does \texttt{river\_means()} call within the body of the function? What package are these functions in?
 
-\textbf{Answer 1.2.4.1.1} 1. There are five functions: \texttt{\textless{}-}, \texttt{grep()}, \texttt{names()}, \texttt{{[}}, and \texttt{rowMeans()}. They are all in the ``base'' package -- this fact be can seen in each function's documentation
+Answer 1.2.4.1.1
+There are five functions: \texttt{\textless{}-}, \texttt{grep()}, \texttt{names()}, \texttt{{[}}, and \texttt{rowMeans()}. They are all in the ``base'' package -- this fact be can seen in each function's documentation
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2049,10 +2129,10 @@ The lintr (\href{https://github.com/jimhester/lintr}{external link}) package per
 \end{Highlighting}
 \end{Shaded}
 
-\textbf{\protect\hyperlink{ex-set2}{Exercise 1.2.4.1.2}} Try using \texttt{river\_means()} with a few different patterns. Do you notice anything strange?
+\textbf{Exercise 1.2.4.1.2} (\protect\hyperlink{ex-set2}{internal link})
+Try using \texttt{river\_means()} with a few different patterns. Do you notice anything strange?
 
-\textbf{Answer 1.2.4.1.1}
-
+Answer 1.2.4.1.1
 Strange behavior occurs when the pattern matches only one river or zero rivers. If the pattern matches only one river, there is an error:
 
 \begin{Shaded}
@@ -2078,11 +2158,12 @@ If the pattern matches zero rivers, the mean is \texttt{NaN} (which stands for n
 #>       NaN       NaN
 \end{verbatim}
 
-These are both unintended and are discussed more in \protect\hyperlink{debugging}{Debugging}.
+These are both unintended and are discussed more in Debugging (\protect\hyperlink{debugging}{internal link}).
 
-\textbf{\protect\hyperlink{ex-set3}{Exercise 1.2.7.1.1}} Write a new function, \texttt{river\_stats()}, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder for a function a user inserts themselves.
+\textbf{Exercise 1.2.7.1.1} (\protect\hyperlink{ex-set3}{internal link})
+Write a new function, \texttt{river\_stats()}, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder for a function a user inserts themselves.
 
-\textbf{Answer 1.2.7.1.1}
+Answer 1.2.7.1.1
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2146,9 +2227,10 @@ These are both unintended and are discussed more in \protect\hyperlink{debugging
 #>      3656     10178
 \end{verbatim}
 
-\textbf{\protect\hyperlink{ex-set3}{Exercise 1.2.7.1.2}} Rewrite \texttt{river\_stats()} from the previous exercise so that \texttt{river\_stats()} also takes additional arguments to the summarizing function (hint: use \texttt{...} as an argument)
+\textbf{Exercise 1.2.7.1.2} \protect\hyperlink{ex-set3}{internal link})
+Rewrite \texttt{river\_stats()} from the previous exercise so that \texttt{river\_stats()} also takes additional arguments to the summarizing function (hint: use \texttt{...} as an argument)
 
-\textbf{Answer 1.2.7.1.2}
+Answer 1.2.7.1.2
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2191,9 +2273,10 @@ These are both unintended and are discussed more in \protect\hyperlink{debugging
 #>      2330      1956
 \end{verbatim}
 
-\textbf{\protect\hyperlink{ex-set4}{Exercise 1.2.10.1}} Write similar tests for \texttt{river\_means()} (discharge), \texttt{river\_medians()} (length), and \texttt{river\_medians()} (discharge).
+\textbf{Exercise 1.2.10.1} (\protect\hyperlink{ex-set4}{internal link})
+Write similar tests for \texttt{river\_means()} (discharge), \texttt{river\_medians()} (length), and \texttt{river\_medians()} (discharge).
 
-\textbf{Answer 1.2.10.1}
+Answer 1.2.10.1
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2273,10 +2356,17 @@ These are both unintended and are discussed more in \protect\hyperlink{debugging
 #> Test passed
 \end{verbatim}
 
-\textbf{\protect\hyperlink{ex-set5}{Exercise 1.2.14.1.1}}
+\textbf{Exercise 1.2.10.2} (\protect\hyperlink{ex-set4}{internal link})
+Check out the covr (\href{https://cran.r-project.org/web/packages/covr/vignettes/how_it_works.html}{external link}) package, which quantifies how much of your package's code is used by your tests.
+
+Answer 1.2.10.2
+NA
+
+\textbf{Exercise 1.2.14.1.1} (\protect\hyperlink{ex-set5}{internal link})
 Find the argument to \texttt{devtools::install()} that identifies whether vignettes are built alongside installation. What is the default value of this argument?
 
-\textbf{Answer 1.2.14.1.1} Running
+Answer 1.2.14.1.1
+Running
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2286,10 +2376,10 @@ Find the argument to \texttt{devtools::install()} that identifies whether vignet
 
 we see that \texttt{build\_vignettes} controls whether vignettes are build alongside installation. The default argument for \texttt{build\_vignettes} is \texttt{FALSE}.
 
-\textbf{\protect\hyperlink{ex-set6}{Exercise 1.3.4.1.1}}
+\textbf{Exercise 1.3.4.1.1} (\protect\hyperlink{ex-set6}{internal link})
 Rewrite \texttt{river\_medians()} so that it stops and returns an informative error message when the pattern matches zero rivers.
 
-\textbf{Answer 1.3.4.1.1}
+Answer 1.3.4.1.1
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2315,71 +2405,71 @@ The error messages in the \texttt{RPRW} package are more informative but more di
 \section*{Making an R Package a Research Compendium}\label{making-an-r-package-a-research-compendium}}
 \addcontentsline{toc}{section}{Making an R Package a Research Compendium}
 
-\protect\hyperlink{ex-set7}{Exercise 2.1.1.1}
+\textbf{Exercise 2.1.1.1} (\protect\hyperlink{ex-set7}{internal link})
 What principles of a research compendium seem most beneficial to you?
 
-\textbf{Answer 2.1.1.1}
+Answer 2.1.1.1
 This is for you to answer! To me, the file organization, file separation, and computational details all seem like wonderful principles!
 
-\protect\hyperlink{ex-set8}{Exercise 2.2.1.1}
+\textbf{Exercise 2.2.1.1} (\protect\hyperlink{ex-set8}{internal link})
 Can you identify any benefits to a research compendium that are not already on this list?
 
-\textbf{Answer 2.2.1.1}
+Answer 2.2.1.1
 This is for you to answer! To me, another benefit is leveraging a structure that facilitates reproducibility.
 
-\protect\hyperlink{ex-set9}{Exercise 2.4.1.1}
+\textbf{Exercise 2.4.1.1} (\protect\hyperlink{ex-set9}{internal link})
 There is a folder name within \texttt{inst} that should be avoided -- what is it?
 
-\textbf{Answer 2.4.1.1}
+Answer 2.4.1.1
 You should not name a folder in \texttt{inst} named \texttt{doc}. The package building process automatically creates a folder named \texttt{doc} upon installation -- so putting a \texttt{doc} folder in \texttt{inst} creates conflicts. For those that use GitHub, \texttt{inst/doc} is automatically placed in \texttt{gitignore}.
 
-\protect\hyperlink{ex-set10}{Exercise 2.6.1.1}
+\textbf{Exercise 2.6.1.1} (\protect\hyperlink{ex-set10}{internal link})
 Run \texttt{?devtools::build} to look at some additional arguments -- which seem useful to you?
 
-\textbf{Answer 2.6.1.1}
+Answer 2.6.1.1
 This is for you to answer! But \texttt{vignettes} and \texttt{manual} seem important to be aware of.
 
 \hypertarget{extensions-1}{%
 \section*{Extensions}\label{extensions-1}}
 \addcontentsline{toc}{section}{Extensions}
 
-\protect\hyperlink{ex-set11}{Exercise 3.1.1.1}
+\textbf{Exercise 3.1.1.1} (\protect\hyperlink{ex-set11}{internal link})
 What are some drawbacks of running \texttt{setwd()} whenever you want to set a working directory?
 
-\textbf{Answer 3.1.1.1}
+Answer 3.1.1.1
 * You have to remember to run \texttt{setwd()} anytime you want to re-run a script
 * It is easy to run \texttt{setwd()} and point to the wrong working directory
 * It means that your code is harder to share because someone else will have to change the line of code calling \texttt{setwd()}
 * Can you think of more?
 
-\protect\hyperlink{ex-set11}{Exercise 3.1.1.2}
+\textbf{Exercise 3.1.1.2} (\protect\hyperlink{ex-set11}{internal link})
 Look into the here (\href{https://here.r-lib.org/}{external link}) package, designed to help solve working directory problems (that can even occur within R Projects).
 
-\textbf{Answer 3.1.1.1}
+Answer 3.1.1.1
 NA
 
-\protect\hyperlink{ex-set12}{Exercise 3.2.1.1}
+\textbf{Exercise 3.2.1.1} (\protect\hyperlink{ex-set12}{internal link})
 What benefits do you see to R Markdown documents?
 
-\textbf{Answer 3.1.1.1}
+Answer 3.1.1.1
 This is for you to answer! One of my favorite benefits is making reproducible figures, tables, and output within the document.
 
-\protect\hyperlink{ex-set12}{Exercise 3.2.1.2}
+\textbf{Exercise 3.2.1.2} (\protect\hyperlink{ex-set12}{internal link})
 Save the basic R Markdown template we just discussed and knit it to see its contents.
 
-\textbf{Answer 3.1.1.1}
+Answer 3.1.1.1
 Go to ``File -\textgreater{} New File -\textgreater{} R Markdown'' and create an R Markdown template. Then in the editor (upper-left) window, click ``Knit''. Save the file to a location and then the document will knit to an HTML document and pop up in a default viewer. To knit to other output types, click on the down arrow to the right of the ``Knit'' button.
 
-\protect\hyperlink{ex-set13}{Exercise 3.3.1.1}
+\textbf{Exercise 3.3.1.1} (\protect\hyperlink{ex-set13}{internal link})
 Visit this (\href{https://github.com/rstudio/rticles}{external}) to see all the journals that rticles has a template for.
 
-\textbf{Answer 3.1.1.1}
+Answer 3.1.1.1
 NA
 
-\protect\hyperlink{ex-set14}{Exercise 3.7.1.1}
+\textbf{Exercise 3.7.1.1} (\protect\hyperlink{ex-set14}{internal link})
 1. A data set is called ``tidy'' if it has three qualities: 1) each variable has its own column, 2) each observation has its own row, and 3) each value has its own cell. Is \texttt{river} tidy?
 
-\textbf{Answer 3.7.1.1}
+Answer 3.7.1.1
 \texttt{river} is not tidy. The river names are spread across columns. One could also argue that \texttt{length} and \texttt{discharge} are both values of a \texttt{metric} argument. Then a tidy \texttt{river} data set would look like
 
 \begin{Shaded}
@@ -2410,10 +2500,10 @@ NA
 #> 16 Canadian    discharge   174
 \end{verbatim}
 
-\protect\hyperlink{ex-set14}{Exercise 3.7.1.2}
+\textbf{Exercise 3.7.1.2} (\protect\hyperlink{ex-set14}{internal link})
 Make \texttt{river} tidy
 
-\textbf{Answer 3.7.1.1}
+Answer 3.7.1.1
 
 \begin{Shaded}
 \begin{Highlighting}[]

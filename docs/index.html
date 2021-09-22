@@ -165,8 +165,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.7" data-path="r-package.html"><a href="r-package.html#second-function"><i class="fa fa-check"></i><b>1.2.7</b> The Second Function</a><ul>
 <li class="chapter" data-level="1.2.7.1" data-path="r-package.html"><a href="r-package.html#ex-set3"><i class="fa fa-check"></i><b>1.2.7.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2.8" data-path="r-package.html"><a href="r-package.html#description"><i class="fa fa-check"></i><b>1.2.8</b> DESCRIPTION</a></li>
-<li class="chapter" data-level="1.2.9" data-path="r-package.html"><a href="r-package.html#namespace"><i class="fa fa-check"></i><b>1.2.9</b> NAMESPACE</a></li>
+<li class="chapter" data-level="1.2.8" data-path="r-package.html"><a href="r-package.html#description"><i class="fa fa-check"></i><b>1.2.8</b> <code>DESCRIPTION</code></a></li>
+<li class="chapter" data-level="1.2.9" data-path="r-package.html"><a href="r-package.html#namespace"><i class="fa fa-check"></i><b>1.2.9</b> <code>NAMESPACE</code></a></li>
 <li class="chapter" data-level="1.2.10" data-path="r-package.html"><a href="r-package.html#testthat"><i class="fa fa-check"></i><b>1.2.10</b> testthat</a><ul>
 <li class="chapter" data-level="1.2.10.1" data-path="r-package.html"><a href="r-package.html#ex-set4"><i class="fa fa-check"></i><b>1.2.10.1</b> Exercises</a></li>
 </ul></li>
@@ -225,6 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="extensions.html"><a href="extensions.html#add-tips"><i class="fa fa-check"></i><b>3.7</b> Additional Tips</a><ul>
 <li class="chapter" data-level="3.7.1" data-path="extensions.html"><a href="extensions.html#ex-set14"><i class="fa fa-check"></i><b>3.7.1</b> Exercises</a></li>
 </ul></li>
+<li class="chapter" data-level="3.8" data-path="extensions.html"><a href="extensions.html#thank-you"><i class="fa fa-check"></i><b>3.8</b> Thank you!</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="exercise-solutions.html"><a href="exercise-solutions.html"><i class="fa fa-check"></i><b>4</b> Exercise Solutions</a><ul>
 <li class="chapter" data-level="" data-path="exercise-solutions.html"><a href="exercise-solutions.html#building-an-r-package"><i class="fa fa-check"></i>Building an R Package</a></li>
@@ -259,17 +260,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="welcome" class="section level1 unnumbered">
 <h1>Welcome</h1>
-<p>Welcome to the 2021 EPA R Workshop titled “Using R Packages for Reproducible Workflows” by me, Michael Dumelle – I am glad to have you here! You should have R and RStudio installed before starting this workshop. If not, then just follow along with me as we proceed through the workshop. There are two types of hyperlinks in this book: internal and external. Internal hyperlinks take you to the place in the book highlighted in <a href="">blue</a>. External hyperlinks will take you to a webpage outside of the book. External links will be described in text but the actual link will follow the relevant text and read (<a href="">external link</a>). This workshop book we work through today was published using Bookdown <span class="citation">(Xie <a href="#ref-xie2016bookdown" role="doc-biblioref">2016</a>)</span>.</p>
+<p>Welcome to the 2021 EPA R Workshop titled “Using R Packages for Reproducible Workflows” by me, Michael Dumelle – I am glad to have you here! You should have R and RStudio installed before starting this workshop. If not, no problem – just follow along with me as we proceed through the workshop and revisit this book later. R code and output from this workshop are in blocks with grey background like this</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb1-2"><a href="index.html#cb1-2"></a><span class="kw">print</span>(x)</span></code></pre></div>
+<pre><code>#&gt; [1] 1 2 3</code></pre>
+<p>You can copy and paste these blocks by hovering your cursor in the upper-right portion of the block and clicking the copy button (which looks like two pages that slightly overlap). You can either follow along throughout the workshop by copying and pasting the R code onto your machine and/or by reading the R code output the book provides. Sometimes when I use functions, I will prefix the function call <code>packagename::</code> so that it is clear what package the function is from. For example, <code>ggplot2::ggsave()</code> calls the <code>ggsave()</code> function in the <code>ggplot2</code> package.</p>
+<p>There are two types of hyperlinks in this book: internal and external. Internal hyperlinks take you to the place in the book. External hyperlinks will take you to a webpage outside of the book. Both internal and external links will be described in text but the actual link will follow the relevant text and read (<a href="">internal link</a>) or (<a href="">external link</a>). There are several options in the upper-left toolbar of the book.
+<img src="images/newrpack_files0.PNG" width="100%" /></p>
+<p>From left to right, they let you:</p>
+<ul>
+<li>Collapse or expand the table of contents</li>
+<li>Search throughout the document</li>
+<li>Adjust font size (small or large), font type (Serif or Sans), and color scheme (White, Sepia, or Night)</li>
+<li>Edit the book (you don’t have access to this one)</li>
+<li>Download the book as a PDF or EPUB book (formatting warning: the book was built for a workshop format, not a PDF or EPUB format)</li>
+<li>Use a Javascript keyboard shortcut helper</li>
+</ul>
+<p>This workshop book was published using Bookdown <span class="citation">(Xie <a href="#ref-xie2016bookdown" role="doc-biblioref">2016</a>)</span>. The book will be maintained for an indefinite amount of time after the workshop, so feel free to check back in for a refresher whenever you would like!</p>
 <div id="schedule" class="section level2 unnumbered">
 <h2>Schedule</h2>
 <p>Here is the tentative schedule for today:</p>
 <ul>
-<li>1:00 - 1:15 EDT: Introductions and <a href="index.html#getting-started">Getting Started</a></li>
-<li>1:15 - 2:45 EDT: <a href="r-package.html#r-package">Building an R Package</a></li>
-<li>2:45 - 3:05 EDT: Break</li>
-<li>3:05 - 3:50 EDT: <a href="r-package-rc.html#r-package-rc">Making an R Package a Research Compendium</a></li>
+<li>1:00 - 1:15 EDT: Introductions and Getting Started (<a href="index.html#getting-started">internal link</a>)</li>
+<li>1:15 - 2:00 EDT: Building an R Package Part I (<a href="r-package.html#r-package">internal link</a>)</li>
+<li>2:00 - 2:10 EDT: Break</li>
+<li>2:10 - 2:50 EDT: Building an R Package Part II (<a href="r-package.html#r-package">internal link</a>)</li>
+<li>2:50 - 3:05 EDT: Break</li>
+<li>3:05 - 3:50 EDT: Making an R Package a Research Compendium (<a href="r-package-rc.html#r-package-rc">internal link</a>)</li>
 <li>3:50 - 4:00 EDT: Break</li>
-<li>4:00 - 4:30 EDT: <a href="extensions.html#extensions">Extensions</a></li>
+<li>4:00 - 4:30 EDT: Extensions (<a href="extensions.html#extensions">internal link</a>)</li>
 <li>4:30 - 4:40 EDT: Break</li>
 <li>4:40 - 5:00 EDT: Questions</li>
 </ul>
@@ -277,7 +296,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="about-me" class="section level2 unnumbered">
 <h2>About Me</h2>
-<p>I finished my PhD in statistics at Oregon State University in 2020. I now work in ORD-CPHEA-PESD-FEB as a statistician, working primarily on the National Aquatic Resource Surveys (NARS) team. My main research interests are sampling and survey design, spatial statistics, and software development. To learn more about me and my work, visit my website (<a href="https://michaeldumelle.github.io/">external link</a>).</p>
+<p>I finished my PhD in statistics at Oregon State University in 2020. I now work in ORD-CPHEA-PESD-FEB as a statistician, primarily on the National Aquatic Resource Surveys (NARS) team. My main research interests are sampling and survey design, spatial statistics, and software development. To learn more about me and my work, visit my website (<a href="https://michaeldumelle.github.io/">external link</a>).</p>
 </div>
 <div id="acknowledgements" class="section level2 unnumbered">
 <h2>Acknowledgements</h2>
@@ -285,16 +304,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="getting-started" class="section level2 unnumbered">
 <h2>Getting Started</h2>
-<p>The first thing we need to do is install and load the devtools (<a href="https://devtools.r-lib.org/">external link</a>) package</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
-<span id="cb1-2"><a href="index.html#cb1-2"></a><span class="kw">library</span>(devtools)</span></code></pre></div>
-<p>The devtools package contains tools to make developing R packages easier and we will use functions in devtools frequently throughout this workshop. devtools is closely linked to the usethis (<a href="https://usethis.r-lib.org/">external link</a>) package, which is installed alongside devtools. The usethis package contains tools that make package development less tedious and more structured.</p>
-<p>In this workshop we will build an R package named RPRW (<strong>R</strong> <strong>P</strong>ackages for <strong>R</strong>eproducible <strong>W</strong>orkflows) designed to quantify properties of rivers in North America. Then we will turn RPRW into a research compendium, a standard by which to organize a body of work. The book that you are viewing interweaves text, R code, and output. You can either follow along throughout the workshop by copying and pasting the R code in this book onto your machine and/or by reading the R code output. The book will be maintained for an indefinite amount of time after the workshop, so feel free to check back in for a refresher whenever you would like!</p>
-<p>Though we will build RPRW together, it is available for download in its entirety by running</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="dt">repo =</span> <span class="st">&quot;michaeldumelle/RPRW&quot;</span>, <span class="dt">ref =</span> <span class="st">&quot;main&quot;</span>)</span></code></pre></div>
-<p>Then you can load it by running</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1"></a><span class="kw">library</span>(RPRW)</span></code></pre></div>
+<p>The first thing we need to do is install and load the devtools (<a href="https://devtools.r-lib.org/">external link</a>) package by running</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb3-2"><a href="index.html#cb3-2"></a><span class="kw">library</span>(devtools)</span></code></pre></div>
+<p>The devtools package contains tools to make developing R packages easier, and we will use functions in devtools frequently throughout this workshop. devtools is closely linked to the usethis (<a href="https://usethis.r-lib.org/">external link</a>) package, which is installed alongside devtools. The usethis package contains tools that make package development less tedious and more structured.</p>
+<p>In this workshop we will build an R package named RPRW (<strong>R</strong> <strong>P</strong>ackages for <strong>R</strong>eproducible <strong>W</strong>orkflows) designed to quantify properties of rivers in North America. Then we will turn RPRW into a research compendium, a standard by which to organize a body of work.</p>
+<p>Though we will build RPRW together, you can download in its entirety by running</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(</span>
+<span id="cb4-2"><a href="index.html#cb4-2"></a>  <span class="dt">repo =</span> <span class="st">&quot;michaeldumelle/RPRW&quot;</span>,</span>
+<span id="cb4-3"><a href="index.html#cb4-3"></a>  <span class="dt">ref =</span> <span class="st">&quot;main&quot;</span>,</span>
+<span id="cb4-4"><a href="index.html#cb4-4"></a>  <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span></span>
+<span id="cb4-5"><a href="index.html#cb4-5"></a>)</span></code></pre></div>
+<p>Then you can load RPRW by running</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="index.html#cb5-1"></a><span class="kw">library</span>(RPRW)</span></code></pre></div>
 <p>Now that we have devtools installed and have talked about RPRW, let’s get started building this R package!</p>
+<p><img src="images/coding.jpg" width="50%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

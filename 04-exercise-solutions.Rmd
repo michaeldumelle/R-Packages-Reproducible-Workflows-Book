@@ -10,17 +10,23 @@ river_means <- function(data, pattern) {
 
 ## Building an R Package {-}
 
-**[Exercise 1.1.1.1](#ex-set1)** What are some of your favorite R packages?
+**Exercise 1.1.1.1** ([internal link](#ex-set1)) 
+What are some of your favorite R packages?
 
-**Answer 1.1.1.1** This is for you to answer! I have many favorites, but a few are devtools, styler, rticles, rlang, and purrr.
+Answer 1.1.1.1
+This is for you to answer! I have many favorites, but a few are devtools, purrr, rlang, rticles, styler, and usethis.
 
-**[Exercise 1.1.1.2](#ex-set1)** Of those we have talked about so far, what benefits of R packages are most appealing to you?
+**Exercise 1.1.1.2** ([internal link](#ex-set1)) 
+Of those we have talked about so far, what benefits of R packages are most appealing to you?
 
-**Answer 1.1.1.2** This is for you to answer! The most appealing benefit to me is the structure that helps keep me organized.
+Answer 1.1.1.2 
+This is for you to answer! One of the the most appealing benefits to me is the structure that helps keep me organized.
 
-**[Exercise 1.2.4.1.1](#ex-set2)** How many functions does `river_means()` call within the body of the function? What package are these functions in?
+**Exercise 1.2.4.1.1** ([internal link](#ex-set2)) 
+How many functions does `river_means()` call within the body of the function? What package are these functions in?
 
-**Answer 1.2.4.1.1** 1. There are five functions: `<-`, `grep()`, `names()`, `[`, and `rowMeans()`. They are all in the "base" package -- this fact be can seen in each function's documentation
+Answer 1.2.4.1.1 
+There are five functions: `<-`, `grep()`, `names()`, `[`, and `rowMeans()`. They are all in the "base" package -- this fact be can seen in each function's documentation
 ```{r}
 ?`<-`
 ?grep
@@ -29,10 +35,10 @@ river_means <- function(data, pattern) {
 ?rowMeans
 ```
 
-**[Exercise 1.2.4.1.2](#ex-set2)** Try using `river_means()` with a few different patterns. Do you notice anything strange?
+**Exercise 1.2.4.1.2** ([internal link](#ex-set2)) 
+Try using `river_means()` with a few different patterns. Do you notice anything strange?
 
-**Answer 1.2.4.1.1** 
-
+Answer 1.2.4.1.1 
 Strange behavior occurs when the pattern matches only one river or zero rivers. If the pattern matches only one river, there is an error:
 ```{r, eval = TRUE}
 river_means(river, "R")
@@ -43,12 +49,12 @@ If the pattern matches zero rivers, the mean is `NaN` (which stands for not a nu
 river_means(river, "ZZZ")
 ```
 
-These are both unintended and are discussed more in [Debugging](#debugging).
+These are both unintended and are discussed more in Debugging ([internal link](#debugging)).
 
-**[Exercise 1.2.7.1.1](#ex-set3)** Write a new function, `river_stats()`, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder for a function a user inserts themselves.
+**Exercise 1.2.7.1.1** ([internal link](#ex-set3)) 
+Write a new function, `river_stats()`, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder for a function a user inserts themselves.
 
-**Answer 1.2.7.1.1**
-
+Answer 1.2.7.1.1
 ```{r, eval = TRUE}
 #' Summary statistics of river lengths and discharges
 #'
@@ -74,10 +80,10 @@ river_stats(river, "Mi", mean)
 river_stats(river, "Mi", stats::median)
 ```
 
-**[Exercise 1.2.7.1.2](#ex-set3)** Rewrite `river_stats()` from the previous exercise so that `river_stats()` also takes additional arguments to the summarizing function (hint: use `...` as an argument)
+**Exercise 1.2.7.1.2** [internal link](#ex-set3)) 
+Rewrite `river_stats()` from the previous exercise so that `river_stats()` also takes additional arguments to the summarizing function (hint: use `...` as an argument)
 
-**Answer 1.2.7.1.2**
- 
+Answer 1.2.7.1.2
 ```{r, eval = TRUE}
 #' Summary statistics of river lengths and discharges
 #'
@@ -102,10 +108,10 @@ river_stats(river, "Mi|C", mean, trim = 0)
 river_stats(river, "Mi|C", mean, trim = 0.5)
 ```
 
-**[Exercise 1.2.10.1](#ex-set4)** Write similar tests for `river_means()` (discharge), `river_medians()` (length), and `river_medians()` (discharge).
+**Exercise 1.2.10.1** ([internal link](#ex-set4)) 
+Write similar tests for `river_means()` (discharge), `river_medians()` (length), and `river_medians()` (discharge).
 
-**Answer 1.2.10.1** 
-
+Answer 1.2.10.1 
 ```{r, eval = TRUE}
 testthat::test_that("the mean discharge is calculated correctly in a test case", {
   
@@ -166,10 +172,17 @@ testthat::test_that("the mean discharge is calculated correctly in a test case",
 })
 ```
 
-**[Exercise 1.2.14.1.1](#ex-set5)**
+**Exercise 1.2.10.2** ([internal link](#ex-set4)) 
+Check out the covr ([external link](https://cran.r-project.org/web/packages/covr/vignettes/how_it_works.html)) package, which quantifies how much of your package's code is used by your tests.
+
+Answer 1.2.10.2
+NA
+
+**Exercise 1.2.14.1.1** ([internal link](#ex-set5))
 Find the argument to `devtools::install()` that identifies whether vignettes are built alongside installation. What is the default value of this argument?
 
-**Answer 1.2.14.1.1** Running 
+Answer 1.2.14.1.1
+Running 
 ```{r}
 ?devtools_install
 ```
@@ -177,10 +190,10 @@ we see that `build_vignettes` controls whether vignettes are build alongside ins
 
 
 
-**[Exercise 1.3.4.1.1](#ex-set6)**
+**Exercise 1.3.4.1.1** ([internal link](#ex-set6))
 Rewrite `river_medians()` so that it stops and returns an informative error message when the pattern matches zero rivers.
 
-**Answer 1.3.4.1.1**
+Answer 1.3.4.1.1
 ```{r, eval = TRUE}
 river_medians <- function(data, pattern) {
   desired_rivers <- grep(pattern, names(data))
@@ -197,70 +210,70 @@ The error messages in the `RPRW` package are more informative but more difficult
 
 ## Making an R Package a Research Compendium {-}
 
-[Exercise 2.1.1.1](#ex-set7)
+**Exercise 2.1.1.1** ([internal link](#ex-set7))
 What principles of a research compendium seem most beneficial to you?
 
-**Answer 2.1.1.1**
+Answer 2.1.1.1
 This is for you to answer! To me, the file organization, file separation, and computational details all seem like wonderful principles!
 
-[Exercise 2.2.1.1](#ex-set8)
+**Exercise 2.2.1.1** ([internal link](#ex-set8))
 Can you identify any benefits to a research compendium that are not already on this list?
 
-**Answer 2.2.1.1**
+Answer 2.2.1.1
 This is for you to answer! To me, another benefit is leveraging a structure that facilitates reproducibility.
 
-[Exercise 2.4.1.1](#ex-set9)
+**Exercise 2.4.1.1** ([internal link](#ex-set9))
 There is a folder name within `inst` that should be avoided -- what is it?
 
-**Answer 2.4.1.1**
+Answer 2.4.1.1
 You should not name a folder in `inst` named `doc`. The package building process automatically creates a folder named `doc` upon installation -- so putting a `doc` folder in `inst` creates conflicts. For those that use GitHub, `inst/doc` is automatically placed in `gitignore`.
 
-[Exercise 2.6.1.1](#ex-set10)
+**Exercise 2.6.1.1** ([internal link](#ex-set10))
 Run `?devtools::build` to look at some additional arguments -- which seem useful to you?
 
-**Answer 2.6.1.1**
+Answer 2.6.1.1
 This is for you to answer! But `vignettes` and `manual` seem important to be aware of.
 
 ## Extensions {-}
 
-[Exercise 3.1.1.1](#ex-set11)
+**Exercise 3.1.1.1** ([internal link](#ex-set11))
 What are some drawbacks of running `setwd()` whenever you want to set a working directory?
 
-**Answer 3.1.1.1**
+Answer 3.1.1.1
 * You have to remember to run `setwd()` anytime you want to re-run a script
 * It is easy to run `setwd()` and point to the wrong working directory
 * It means that your code is harder to share because someone else will have to change the line of code calling `setwd()`
 * Can you think of more?
 
-[Exercise 3.1.1.2](#ex-set11)
+**Exercise 3.1.1.2** ([internal link](#ex-set11))
 Look into the here ([external link](https://here.r-lib.org/)) package, designed to help solve working directory problems (that can even occur within R Projects).
 
-**Answer 3.1.1.1**
+Answer 3.1.1.1
 NA
 
-[Exercise 3.2.1.1](#ex-set12)
+**Exercise 3.2.1.1** ([internal link](#ex-set12))
 What benefits do you see to R Markdown documents?
 
-**Answer 3.1.1.1**
+Answer 3.1.1.1
 This is for you to answer! One of my favorite benefits is making reproducible figures, tables, and output within the document.
 
-[Exercise 3.2.1.2](#ex-set12)
+**Exercise 3.2.1.2** ([internal link](#ex-set12))
 Save the basic R Markdown template we just discussed and knit it to see its contents.
 
-**Answer 3.1.1.1**
+Answer 3.1.1.1
 Go to "File -> New File -> R Markdown" and create an R Markdown template. Then in the editor (upper-left) window, click "Knit". Save the file to a location and then the document will knit to an HTML document and pop up in a default viewer. To knit to other output types, click on the down arrow to the right of the "Knit" button.
 
 
-[Exercise 3.3.1.1](#ex-set13)
+**Exercise 3.3.1.1** ([internal link](#ex-set13))
 Visit this ([external](https://github.com/rstudio/rticles)) to see all the journals that rticles has a template for.
 
-**Answer 3.1.1.1**
+Answer 3.1.1.1
 NA
 
-[Exercise 3.7.1.1](#ex-set14)
+**Exercise 3.7.1.1** ([internal link](#ex-set14))
 1. A data set is called "tidy" if it has three qualities: 1) each variable has its own column, 2) each observation has its own row, and 3) each value has its own cell. Is `river` tidy?
 
-**Answer 3.7.1.1**
+Answer 3.7.1.1
 `river` is not tidy. The river names are spread across columns. One could also argue that `length` and `discharge` are both values of a `metric` argument. Then a tidy `river` data set would look like
 
 ```{r, eval = TRUE, echo = FALSE}
@@ -278,10 +291,10 @@ river_tidy <- river %>%
 river_tidy
 ```
 
-[Exercise 3.7.1.2](#ex-set14)
+**Exercise 3.7.1.2** ([internal link](#ex-set14))
 Make `river` tidy
 
-**Answer 3.7.1.1**
+Answer 3.7.1.1
 ```{r}
 # approach 1 to loading packages
 library(tibble) # run install.packages("tibble") if needed
