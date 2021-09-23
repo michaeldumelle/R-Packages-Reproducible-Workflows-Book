@@ -39,6 +39,7 @@ ex-set9
 citation
 rc-recap
 sharing-rc
+hosting-your-research-compendium
 ex-set10
 ex-rc
 extensions
@@ -51,6 +52,7 @@ rticles
 ex-set13
 git-github
 cloning-a-github-repository-in-rstudio
+gitignore
 ci
 style
 add-tips

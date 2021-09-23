@@ -31,13 +31,13 @@ knitr::opts_chunk$set(
 
 # Welcome {-}
 
-Welcome to the 2021 EPA R Workshop titled "Using R Packages for Reproducible Workflows" by me, Michael Dumelle -- I am glad to have you here! You should have R and RStudio installed before starting this workshop. If not, no problem -- just follow along with me as we proceed through the workshop and revisit this book later. R code and output from this workshop are in blocks with grey background like this
+Welcome to the 2021 EPA R Workshop titled "Using R Packages for Reproducible Workflows" by me, Michael Dumelle -- I am glad to have you here! You should have R and RStudio installed before starting this workshop. If not, no problem -- just follow along with me as we proceed through the workshop and revisit this book later. R code and output from this workshop are in blocks with gray background like this
 ```{r, eval = TRUE}
 x <- c(1, 2, 3)
 print(x)
 ```
 
-You can copy and paste these blocks by hovering your cursor in the upper-right portion of the block and clicking the copy button (which looks like two pages that slightly overlap). You can either follow along throughout the workshop by copying and pasting the R code onto your machine and/or by reading the R code output the book provides. Sometimes when I use functions, I will prefix the function call `packagename::` so that it is clear what package the function is from. For example, `ggplot2::ggsave()` calls the `ggsave()` function in the `ggplot2` package.
+You can copy and paste these blocks by hovering your cursor in the upper-right portion of the block and clicking the copy button (which looks like two pages that slightly overlap). You can either follow along throughout the workshop by copying and pasting the R code onto your machine and/or by reading the R code output the book provides. Sometimes when I use functions, I will prefix the function call `package::` so that it is clear what package the function is from. For example, `ggplot2::ggsave()` calls the `ggsave()` function in the `ggplot2` package.
 
 There are two types of hyperlinks in this book: internal and external. Internal hyperlinks take you to the place in the book. External hyperlinks will take you to a webpage outside of the book. Both internal and external links will be described in text but the actual link will follow the relevant text and read ([internal link]()) or ([external link]()). There are several options in the upper-left toolbar of the book.
 ```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
@@ -51,6 +51,7 @@ From left to right, they let you:
 * Adjust font size (small or large), font type (Serif or Sans), and color scheme (White, Sepia, or Night)
 * Edit the book (you don't have access to this one)
 * Download the book as a PDF or EPUB book (formatting warning: the book was built for a workshop format, not a PDF or EPUB format)
+    * If you are unable to download the PDF via this link, it is also available here ([external link](https://github.com/michaeldumelle/R-Packages-Reproducible-Workflows-Book/blob/main/docs/_main.pdf))
 * Use a Javascript keyboard shortcut helper
 
 This workshop book was published using Bookdown [@xie2016bookdown]. The book will be maintained for an indefinite amount of time after the workshop, so feel free to check back in for a refresher whenever you would like!

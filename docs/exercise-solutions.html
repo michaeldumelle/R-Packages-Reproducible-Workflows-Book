@@ -201,10 +201,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.2" data-path="r-package-rc.html"><a href="r-package-rc.html#citation"><i class="fa fa-check"></i><b>2.4.2</b> Adding a Citation</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="r-package-rc.html"><a href="r-package-rc.html#rc-recap"><i class="fa fa-check"></i><b>2.5</b> Research Compendium Recap</a></li>
-<li class="chapter" data-level="2.6" data-path="r-package-rc.html"><a href="r-package-rc.html#sharing-rc"><i class="fa fa-check"></i><b>2.6</b> Sharing Your Research Compendium</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-set10"><i class="fa fa-check"></i><b>2.6.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.6" data-path="r-package-rc.html"><a href="r-package-rc.html#sharing-rc"><i class="fa fa-check"></i><b>2.6</b> Sharing Your Research Compendium</a></li>
+<li class="chapter" data-level="2.7" data-path="r-package-rc.html"><a href="r-package-rc.html#hosting-your-research-compendium"><i class="fa fa-check"></i><b>2.7</b> Hosting Your Research Compendium</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-set10"><i class="fa fa-check"></i><b>2.7.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-rc"><i class="fa fa-check"></i><b>2.7</b> An Example R Package Reserach Compendium</a></li>
+<li class="chapter" data-level="2.8" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-rc"><i class="fa fa-check"></i><b>2.8</b> An Example R Package Reserach Compendium</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="extensions.html"><a href="extensions.html"><i class="fa fa-check"></i><b>3</b> Extensions</a><ul>
 <li class="chapter" data-level="3.1" data-path="extensions.html"><a href="extensions.html#r-projects"><i class="fa fa-check"></i><b>3.1</b> R Projects</a><ul>
@@ -219,9 +220,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="extensions.html"><a href="extensions.html#git-github"><i class="fa fa-check"></i><b>3.4</b> Git and GitHub</a><ul>
 <li class="chapter" data-level="3.4.1" data-path="extensions.html"><a href="extensions.html#cloning-a-github-repository-in-rstudio"><i class="fa fa-check"></i><b>3.4.1</b> Cloning a GitHub Repository in RStudio</a></li>
+<li class="chapter" data-level="3.4.2" data-path="extensions.html"><a href="extensions.html#gitignore"><i class="fa fa-check"></i><b>3.4.2</b> <code>.gitignore</code></a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="extensions.html"><a href="extensions.html#ci"><i class="fa fa-check"></i><b>3.5</b> Continuous Integration</a></li>
-<li class="chapter" data-level="3.6" data-path="extensions.html"><a href="extensions.html#style"><i class="fa fa-check"></i><b>3.6</b> Cody Style</a></li>
+<li class="chapter" data-level="3.6" data-path="extensions.html"><a href="extensions.html#style"><i class="fa fa-check"></i><b>3.6</b> Code Style</a></li>
 <li class="chapter" data-level="3.7" data-path="extensions.html"><a href="extensions.html#add-tips"><i class="fa fa-check"></i><b>3.7</b> Additional Tips</a><ul>
 <li class="chapter" data-level="3.7.1" data-path="extensions.html"><a href="extensions.html#ex-set14"><i class="fa fa-check"></i><b>3.7.1</b> Exercises</a></li>
 </ul></li>
@@ -269,139 +271,139 @@ This is for you to answer! One of the the most appealing benefits to me is the s
 How many functions does <code>river_means()</code> call within the body of the function? What package are these functions in?</p>
 <p>Answer 1.2.4.1.1
 There are five functions: <code>&lt;-</code>, <code>grep()</code>, <code>names()</code>, <code>[</code>, and <code>rowMeans()</code>. They are all in the “base” package – this fact be can seen in each function’s documentation</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="exercise-solutions.html#cb119-1"></a>?<span class="st">`</span><span class="dt">&lt;-</span><span class="st">`</span></span>
-<span id="cb119-2"><a href="exercise-solutions.html#cb119-2"></a>?grep</span>
-<span id="cb119-3"><a href="exercise-solutions.html#cb119-3"></a>?names</span>
-<span id="cb119-4"><a href="exercise-solutions.html#cb119-4"></a>?<span class="st">`</span><span class="dt">[</span><span class="st">`</span></span>
-<span id="cb119-5"><a href="exercise-solutions.html#cb119-5"></a>?rowMeans</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="exercise-solutions.html#cb121-1"></a>?<span class="st">`</span><span class="dt">&lt;-</span><span class="st">`</span></span>
+<span id="cb121-2"><a href="exercise-solutions.html#cb121-2"></a>?grep</span>
+<span id="cb121-3"><a href="exercise-solutions.html#cb121-3"></a>?names</span>
+<span id="cb121-4"><a href="exercise-solutions.html#cb121-4"></a>?<span class="st">`</span><span class="dt">[</span><span class="st">`</span></span>
+<span id="cb121-5"><a href="exercise-solutions.html#cb121-5"></a>?rowMeans</span></code></pre></div>
 <p><strong>Exercise 1.2.4.1.2</strong> (<a href="r-package.html#ex-set2">internal link</a>)
 Try using <code>river_means()</code> with a few different patterns. Do you notice anything strange?</p>
 <p>Answer 1.2.4.1.1
 Strange behavior occurs when the pattern matches only one river or zero rivers. If the pattern matches only one river, there is an error:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="exercise-solutions.html#cb120-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="exercise-solutions.html#cb122-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt; Error in rowMeans(new_data): &#39;x&#39; must be an array of at least two dimensions</code></pre>
 <p>If the pattern matches zero rivers, the mean is <code>NaN</code> (which stands for not a number)</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="exercise-solutions.html#cb122-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;ZZZ&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="exercise-solutions.html#cb124-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;ZZZ&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;       NaN       NaN</code></pre>
 <p>These are both unintended and are discussed more in Debugging (<a href="r-package.html#debugging">internal link</a>).</p>
 <p><strong>Exercise 1.2.7.1.1</strong> (<a href="r-package.html#ex-set3">internal link</a>)
 Write a new function, <code>river_stats()</code>, that takes a data frame, pattern, and a general function by which to summarize river length and discharge. This general function should not be an actual function but rather a placeholder for a function a user inserts themselves.</p>
 <p>Answer 1.2.7.1.1</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="exercise-solutions.html#cb124-1"></a><span class="co">#&#39; Summary statistics of river lengths and discharges</span></span>
-<span id="cb124-2"><a href="exercise-solutions.html#cb124-2"></a><span class="co">#&#39;</span></span>
-<span id="cb124-3"><a href="exercise-solutions.html#cb124-3"></a><span class="co">#&#39; @param data A data frame with two rows. The first row indicates river length and</span></span>
-<span id="cb124-4"><a href="exercise-solutions.html#cb124-4"></a><span class="co">#&#39;   second row indicates river discharge. The columns of data indicate river names.</span></span>
-<span id="cb124-5"><a href="exercise-solutions.html#cb124-5"></a><span class="co">#&#39; @param pattern A pattern by which to include only particular rivers</span></span>
-<span id="cb124-6"><a href="exercise-solutions.html#cb124-6"></a><span class="co">#&#39; @param FUN A function to summarize the rivers</span></span>
-<span id="cb124-7"><a href="exercise-solutions.html#cb124-7"></a><span class="co">#&#39;</span></span>
-<span id="cb124-8"><a href="exercise-solutions.html#cb124-8"></a><span class="co">#&#39; @return The summarized river length and mean river discharge for the desired rivers</span></span>
-<span id="cb124-9"><a href="exercise-solutions.html#cb124-9"></a><span class="co">#&#39; @export</span></span>
-<span id="cb124-10"><a href="exercise-solutions.html#cb124-10"></a><span class="co">#&#39;</span></span>
-<span id="cb124-11"><a href="exercise-solutions.html#cb124-11"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb124-12"><a href="exercise-solutions.html#cb124-12"></a><span class="co">#&#39; data(&quot;river&quot;)</span></span>
-<span id="cb124-13"><a href="exercise-solutions.html#cb124-13"></a><span class="co">#&#39; river_stat(river, &quot;Mi&quot;, min)</span></span>
-<span id="cb124-14"><a href="exercise-solutions.html#cb124-14"></a>river_stats &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern, FUN) {</span>
-<span id="cb124-15"><a href="exercise-solutions.html#cb124-15"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
-<span id="cb124-16"><a href="exercise-solutions.html#cb124-16"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span>
-<span id="cb124-17"><a href="exercise-solutions.html#cb124-17"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, FUN)</span>
-<span id="cb124-18"><a href="exercise-solutions.html#cb124-18"></a>}</span>
-<span id="cb124-19"><a href="exercise-solutions.html#cb124-19"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi&quot;</span>, min)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="exercise-solutions.html#cb126-1"></a><span class="co">#&#39; Summary statistics of river lengths and discharges</span></span>
+<span id="cb126-2"><a href="exercise-solutions.html#cb126-2"></a><span class="co">#&#39;</span></span>
+<span id="cb126-3"><a href="exercise-solutions.html#cb126-3"></a><span class="co">#&#39; @param data A data frame with two rows. The first row indicates river length and</span></span>
+<span id="cb126-4"><a href="exercise-solutions.html#cb126-4"></a><span class="co">#&#39;   second row indicates river discharge. The columns of data indicate river names.</span></span>
+<span id="cb126-5"><a href="exercise-solutions.html#cb126-5"></a><span class="co">#&#39; @param pattern A pattern by which to include only particular rivers</span></span>
+<span id="cb126-6"><a href="exercise-solutions.html#cb126-6"></a><span class="co">#&#39; @param FUN A function to summarize the rivers</span></span>
+<span id="cb126-7"><a href="exercise-solutions.html#cb126-7"></a><span class="co">#&#39;</span></span>
+<span id="cb126-8"><a href="exercise-solutions.html#cb126-8"></a><span class="co">#&#39; @return The summarized river length and mean river discharge for the desired rivers</span></span>
+<span id="cb126-9"><a href="exercise-solutions.html#cb126-9"></a><span class="co">#&#39; @export</span></span>
+<span id="cb126-10"><a href="exercise-solutions.html#cb126-10"></a><span class="co">#&#39;</span></span>
+<span id="cb126-11"><a href="exercise-solutions.html#cb126-11"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb126-12"><a href="exercise-solutions.html#cb126-12"></a><span class="co">#&#39; data(&quot;river&quot;)</span></span>
+<span id="cb126-13"><a href="exercise-solutions.html#cb126-13"></a><span class="co">#&#39; river_stat(river, &quot;Mi&quot;, min)</span></span>
+<span id="cb126-14"><a href="exercise-solutions.html#cb126-14"></a>river_stats &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern, FUN) {</span>
+<span id="cb126-15"><a href="exercise-solutions.html#cb126-15"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
+<span id="cb126-16"><a href="exercise-solutions.html#cb126-16"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span>
+<span id="cb126-17"><a href="exercise-solutions.html#cb126-17"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, FUN)</span>
+<span id="cb126-18"><a href="exercise-solutions.html#cb126-18"></a>}</span>
+<span id="cb126-19"><a href="exercise-solutions.html#cb126-19"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi&quot;</span>, min)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;      3544      1956</code></pre>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="exercise-solutions.html#cb126-1"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi&quot;</span>, max)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="exercise-solutions.html#cb128-1"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi&quot;</span>, max)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;      3768     18400</code></pre>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="exercise-solutions.html#cb128-1"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi&quot;</span>, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="exercise-solutions.html#cb130-1"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi&quot;</span>, mean)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;      3656     10178</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="exercise-solutions.html#cb130-1"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi&quot;</span>, stats<span class="op">::</span>median)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="exercise-solutions.html#cb132-1"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi&quot;</span>, stats<span class="op">::</span>median)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;      3656     10178</code></pre>
 <p><strong>Exercise 1.2.7.1.2</strong> <a href="r-package.html#ex-set3">internal link</a>)
 Rewrite <code>river_stats()</code> from the previous exercise so that <code>river_stats()</code> also takes additional arguments to the summarizing function (hint: use <code>...</code> as an argument)</p>
 <p>Answer 1.2.7.1.2</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="exercise-solutions.html#cb132-1"></a><span class="co">#&#39; Summary statistics of river lengths and discharges</span></span>
-<span id="cb132-2"><a href="exercise-solutions.html#cb132-2"></a><span class="co">#&#39;</span></span>
-<span id="cb132-3"><a href="exercise-solutions.html#cb132-3"></a><span class="co">#&#39; @param data A data frame with two rows. The first row indicates river length and</span></span>
-<span id="cb132-4"><a href="exercise-solutions.html#cb132-4"></a><span class="co">#&#39;   second row indicates river discharge. The columns of data indicate river names.</span></span>
-<span id="cb132-5"><a href="exercise-solutions.html#cb132-5"></a><span class="co">#&#39; @param pattern A pattern by which to include only particular rivers</span></span>
-<span id="cb132-6"><a href="exercise-solutions.html#cb132-6"></a><span class="co">#&#39; @param FUN A function to summarize the rivers</span></span>
-<span id="cb132-7"><a href="exercise-solutions.html#cb132-7"></a><span class="co">#&#39; @param ... Additional arguments to pass to \code{FUN}</span></span>
-<span id="cb132-8"><a href="exercise-solutions.html#cb132-8"></a><span class="co">#&#39;</span></span>
-<span id="cb132-9"><a href="exercise-solutions.html#cb132-9"></a><span class="co">#&#39; @return The summarized river length and mean river discharge for the desired rivers</span></span>
-<span id="cb132-10"><a href="exercise-solutions.html#cb132-10"></a><span class="co">#&#39; @export</span></span>
-<span id="cb132-11"><a href="exercise-solutions.html#cb132-11"></a><span class="co">#&#39;</span></span>
-<span id="cb132-12"><a href="exercise-solutions.html#cb132-12"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb132-13"><a href="exercise-solutions.html#cb132-13"></a><span class="co">#&#39; data(&quot;river&quot;)</span></span>
-<span id="cb132-14"><a href="exercise-solutions.html#cb132-14"></a><span class="co">#&#39; river_stat(river, &quot;Mi|C&quot;, mean, trim = 0.5)</span></span>
-<span id="cb132-15"><a href="exercise-solutions.html#cb132-15"></a>river_stats &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern, FUN, ...) {</span>
-<span id="cb132-16"><a href="exercise-solutions.html#cb132-16"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
-<span id="cb132-17"><a href="exercise-solutions.html#cb132-17"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span>
-<span id="cb132-18"><a href="exercise-solutions.html#cb132-18"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, FUN, ...)</span>
-<span id="cb132-19"><a href="exercise-solutions.html#cb132-19"></a>}</span>
-<span id="cb132-20"><a href="exercise-solutions.html#cb132-20"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi|C&quot;</span>, mean, <span class="dt">trim =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="exercise-solutions.html#cb134-1"></a><span class="co">#&#39; Summary statistics of river lengths and discharges</span></span>
+<span id="cb134-2"><a href="exercise-solutions.html#cb134-2"></a><span class="co">#&#39;</span></span>
+<span id="cb134-3"><a href="exercise-solutions.html#cb134-3"></a><span class="co">#&#39; @param data A data frame with two rows. The first row indicates river length and</span></span>
+<span id="cb134-4"><a href="exercise-solutions.html#cb134-4"></a><span class="co">#&#39;   second row indicates river discharge. The columns of data indicate river names.</span></span>
+<span id="cb134-5"><a href="exercise-solutions.html#cb134-5"></a><span class="co">#&#39; @param pattern A pattern by which to include only particular rivers</span></span>
+<span id="cb134-6"><a href="exercise-solutions.html#cb134-6"></a><span class="co">#&#39; @param FUN A function to summarize the rivers</span></span>
+<span id="cb134-7"><a href="exercise-solutions.html#cb134-7"></a><span class="co">#&#39; @param ... Additional arguments to pass to \code{FUN}</span></span>
+<span id="cb134-8"><a href="exercise-solutions.html#cb134-8"></a><span class="co">#&#39;</span></span>
+<span id="cb134-9"><a href="exercise-solutions.html#cb134-9"></a><span class="co">#&#39; @return The summarized river length and mean river discharge for the desired rivers</span></span>
+<span id="cb134-10"><a href="exercise-solutions.html#cb134-10"></a><span class="co">#&#39; @export</span></span>
+<span id="cb134-11"><a href="exercise-solutions.html#cb134-11"></a><span class="co">#&#39;</span></span>
+<span id="cb134-12"><a href="exercise-solutions.html#cb134-12"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb134-13"><a href="exercise-solutions.html#cb134-13"></a><span class="co">#&#39; data(&quot;river&quot;)</span></span>
+<span id="cb134-14"><a href="exercise-solutions.html#cb134-14"></a><span class="co">#&#39; river_stat(river, &quot;Mi|C&quot;, mean, trim = 0.5)</span></span>
+<span id="cb134-15"><a href="exercise-solutions.html#cb134-15"></a>river_stats &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern, FUN, ...) {</span>
+<span id="cb134-16"><a href="exercise-solutions.html#cb134-16"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
+<span id="cb134-17"><a href="exercise-solutions.html#cb134-17"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span>
+<span id="cb134-18"><a href="exercise-solutions.html#cb134-18"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, FUN, ...)</span>
+<span id="cb134-19"><a href="exercise-solutions.html#cb134-19"></a>}</span>
+<span id="cb134-20"><a href="exercise-solutions.html#cb134-20"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi|C&quot;</span>, mean, <span class="dt">trim =</span> <span class="dv">0</span>)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;      2620      5660</code></pre>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="exercise-solutions.html#cb134-1"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi|C&quot;</span>, mean, <span class="dt">trim =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="exercise-solutions.html#cb136-1"></a><span class="kw">river_stats</span>(river, <span class="st">&quot;Mi|C&quot;</span>, mean, <span class="dt">trim =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;      2330      1956</code></pre>
 <p><strong>Exercise 1.2.10.1</strong> (<a href="r-package.html#ex-set4">internal link</a>)
 Write similar tests for <code>river_means()</code> (discharge), <code>river_medians()</code> (length), and <code>river_medians()</code> (discharge).</p>
 <p>Answer 1.2.10.1</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="exercise-solutions.html#cb136-1"></a>testthat<span class="op">::</span><span class="kw">test_that</span>(<span class="st">&quot;the mean discharge is calculated correctly in a test case&quot;</span>, {</span>
-<span id="cb136-2"><a href="exercise-solutions.html#cb136-2"></a>  </span>
-<span id="cb136-3"><a href="exercise-solutions.html#cb136-3"></a>  <span class="co"># calculate values required for the test for discharge</span></span>
-<span id="cb136-4"><a href="exercise-solutions.html#cb136-4"></a></span>
-<span id="cb136-5"><a href="exercise-solutions.html#cb136-5"></a>  <span class="co">## calculate the means from the function</span></span>
-<span id="cb136-6"><a href="exercise-solutions.html#cb136-6"></a>  river_means_val &lt;-<span class="st"> </span><span class="kw">river_means</span>(river, <span class="st">&quot;Missouri|Mississippi&quot;</span>)</span>
-<span id="cb136-7"><a href="exercise-solutions.html#cb136-7"></a>  river_means_discharge &lt;-<span class="st"> </span>river_means_val[[<span class="dv">2</span>]]</span>
-<span id="cb136-8"><a href="exercise-solutions.html#cb136-8"></a></span>
-<span id="cb136-9"><a href="exercise-solutions.html#cb136-9"></a>  <span class="co">## calculate the means &quot;by hand&quot;</span></span>
-<span id="cb136-10"><a href="exercise-solutions.html#cb136-10"></a>  raw_vec_discharge &lt;-<span class="st"> </span><span class="kw">unlist</span>(river[<span class="st">&quot;discharge&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Missouri&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>)])</span>
-<span id="cb136-11"><a href="exercise-solutions.html#cb136-11"></a>  raw_means_discharge &lt;-<span class="st"> </span><span class="kw">mean</span>(raw_vec_discharge)</span>
-<span id="cb136-12"><a href="exercise-solutions.html#cb136-12"></a>  </span>
-<span id="cb136-13"><a href="exercise-solutions.html#cb136-13"></a>  <span class="co"># perform the actual test for discharge</span></span>
-<span id="cb136-14"><a href="exercise-solutions.html#cb136-14"></a></span>
-<span id="cb136-15"><a href="exercise-solutions.html#cb136-15"></a>  <span class="co">## check that the function and &quot;by hand&quot; output matches</span></span>
-<span id="cb136-16"><a href="exercise-solutions.html#cb136-16"></a>  <span class="kw">expect_equal</span>(river_means_discharge, raw_means_discharge)</span>
-<span id="cb136-17"><a href="exercise-solutions.html#cb136-17"></a>})</span></code></pre></div>
-<pre><code>#&gt; Test passed</code></pre>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="exercise-solutions.html#cb138-1"></a>testthat<span class="op">::</span><span class="kw">test_that</span>(<span class="st">&quot;the median length is calculated correctly in a test case&quot;</span>, {</span>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="exercise-solutions.html#cb138-1"></a>testthat<span class="op">::</span><span class="kw">test_that</span>(<span class="st">&quot;the mean discharge is calculated correctly in a test case&quot;</span>, {</span>
 <span id="cb138-2"><a href="exercise-solutions.html#cb138-2"></a>  </span>
-<span id="cb138-3"><a href="exercise-solutions.html#cb138-3"></a>  <span class="co"># calculate values required for the test for length</span></span>
+<span id="cb138-3"><a href="exercise-solutions.html#cb138-3"></a>  <span class="co"># calculate values required for the test for discharge</span></span>
 <span id="cb138-4"><a href="exercise-solutions.html#cb138-4"></a></span>
-<span id="cb138-5"><a href="exercise-solutions.html#cb138-5"></a>  <span class="co">## calculate the medians from the function</span></span>
-<span id="cb138-6"><a href="exercise-solutions.html#cb138-6"></a>  river_medians_val &lt;-<span class="st"> </span><span class="kw">river_medians</span>(river, <span class="st">&quot;Missouri|Mississippi&quot;</span>)</span>
-<span id="cb138-7"><a href="exercise-solutions.html#cb138-7"></a>  river_medians_length &lt;-<span class="st"> </span>river_medians_val[[<span class="dv">1</span>]]</span>
+<span id="cb138-5"><a href="exercise-solutions.html#cb138-5"></a>  <span class="co">## calculate the means from the function</span></span>
+<span id="cb138-6"><a href="exercise-solutions.html#cb138-6"></a>  river_means_val &lt;-<span class="st"> </span><span class="kw">river_means</span>(river, <span class="st">&quot;Missouri|Mississippi&quot;</span>)</span>
+<span id="cb138-7"><a href="exercise-solutions.html#cb138-7"></a>  river_means_discharge &lt;-<span class="st"> </span>river_means_val[[<span class="dv">2</span>]]</span>
 <span id="cb138-8"><a href="exercise-solutions.html#cb138-8"></a></span>
-<span id="cb138-9"><a href="exercise-solutions.html#cb138-9"></a>  <span class="co">## calculate the medians &quot;by hand&quot;</span></span>
-<span id="cb138-10"><a href="exercise-solutions.html#cb138-10"></a>  raw_vec_length &lt;-<span class="st"> </span><span class="kw">unlist</span>(river[<span class="st">&quot;length&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Missouri&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>)])</span>
-<span id="cb138-11"><a href="exercise-solutions.html#cb138-11"></a>  raw_medians_length &lt;-<span class="st"> </span><span class="kw">median</span>(raw_vec_length)</span>
+<span id="cb138-9"><a href="exercise-solutions.html#cb138-9"></a>  <span class="co">## calculate the means &quot;by hand&quot;</span></span>
+<span id="cb138-10"><a href="exercise-solutions.html#cb138-10"></a>  raw_vec_discharge &lt;-<span class="st"> </span><span class="kw">unlist</span>(river[<span class="st">&quot;discharge&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Missouri&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>)])</span>
+<span id="cb138-11"><a href="exercise-solutions.html#cb138-11"></a>  raw_means_discharge &lt;-<span class="st"> </span><span class="kw">mean</span>(raw_vec_discharge)</span>
 <span id="cb138-12"><a href="exercise-solutions.html#cb138-12"></a>  </span>
-<span id="cb138-13"><a href="exercise-solutions.html#cb138-13"></a>  <span class="co"># perform the actual test for length</span></span>
+<span id="cb138-13"><a href="exercise-solutions.html#cb138-13"></a>  <span class="co"># perform the actual test for discharge</span></span>
 <span id="cb138-14"><a href="exercise-solutions.html#cb138-14"></a></span>
 <span id="cb138-15"><a href="exercise-solutions.html#cb138-15"></a>  <span class="co">## check that the function and &quot;by hand&quot; output matches</span></span>
-<span id="cb138-16"><a href="exercise-solutions.html#cb138-16"></a>  <span class="kw">expect_equal</span>(river_medians_length, raw_medians_length)</span>
+<span id="cb138-16"><a href="exercise-solutions.html#cb138-16"></a>  <span class="kw">expect_equal</span>(river_means_discharge, raw_means_discharge)</span>
 <span id="cb138-17"><a href="exercise-solutions.html#cb138-17"></a>})</span></code></pre></div>
 <pre><code>#&gt; Test passed</code></pre>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="exercise-solutions.html#cb140-1"></a>testthat<span class="op">::</span><span class="kw">test_that</span>(<span class="st">&quot;the mean discharge is calculated correctly in a test case&quot;</span>, {</span>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="exercise-solutions.html#cb140-1"></a>testthat<span class="op">::</span><span class="kw">test_that</span>(<span class="st">&quot;the median length is calculated correctly in a test case&quot;</span>, {</span>
 <span id="cb140-2"><a href="exercise-solutions.html#cb140-2"></a>  </span>
-<span id="cb140-3"><a href="exercise-solutions.html#cb140-3"></a>  <span class="co"># calculate values required for the test for discharge</span></span>
+<span id="cb140-3"><a href="exercise-solutions.html#cb140-3"></a>  <span class="co"># calculate values required for the test for length</span></span>
 <span id="cb140-4"><a href="exercise-solutions.html#cb140-4"></a></span>
 <span id="cb140-5"><a href="exercise-solutions.html#cb140-5"></a>  <span class="co">## calculate the medians from the function</span></span>
 <span id="cb140-6"><a href="exercise-solutions.html#cb140-6"></a>  river_medians_val &lt;-<span class="st"> </span><span class="kw">river_medians</span>(river, <span class="st">&quot;Missouri|Mississippi&quot;</span>)</span>
-<span id="cb140-7"><a href="exercise-solutions.html#cb140-7"></a>  river_medians_discharge &lt;-<span class="st"> </span>river_medians_val[[<span class="dv">2</span>]]</span>
+<span id="cb140-7"><a href="exercise-solutions.html#cb140-7"></a>  river_medians_length &lt;-<span class="st"> </span>river_medians_val[[<span class="dv">1</span>]]</span>
 <span id="cb140-8"><a href="exercise-solutions.html#cb140-8"></a></span>
 <span id="cb140-9"><a href="exercise-solutions.html#cb140-9"></a>  <span class="co">## calculate the medians &quot;by hand&quot;</span></span>
-<span id="cb140-10"><a href="exercise-solutions.html#cb140-10"></a>  raw_vec_discharge &lt;-<span class="st"> </span><span class="kw">unlist</span>(river[<span class="st">&quot;discharge&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Missouri&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>)])</span>
-<span id="cb140-11"><a href="exercise-solutions.html#cb140-11"></a>  raw_medians_discharge &lt;-<span class="st"> </span><span class="kw">median</span>(raw_vec_discharge)</span>
+<span id="cb140-10"><a href="exercise-solutions.html#cb140-10"></a>  raw_vec_length &lt;-<span class="st"> </span><span class="kw">unlist</span>(river[<span class="st">&quot;length&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Missouri&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>)])</span>
+<span id="cb140-11"><a href="exercise-solutions.html#cb140-11"></a>  raw_medians_length &lt;-<span class="st"> </span><span class="kw">median</span>(raw_vec_length)</span>
 <span id="cb140-12"><a href="exercise-solutions.html#cb140-12"></a>  </span>
-<span id="cb140-13"><a href="exercise-solutions.html#cb140-13"></a>  <span class="co"># perform the actual test for discharge</span></span>
+<span id="cb140-13"><a href="exercise-solutions.html#cb140-13"></a>  <span class="co"># perform the actual test for length</span></span>
 <span id="cb140-14"><a href="exercise-solutions.html#cb140-14"></a></span>
 <span id="cb140-15"><a href="exercise-solutions.html#cb140-15"></a>  <span class="co">## check that the function and &quot;by hand&quot; output matches</span></span>
-<span id="cb140-16"><a href="exercise-solutions.html#cb140-16"></a>  <span class="kw">expect_equal</span>(river_medians_discharge, raw_medians_discharge)</span>
+<span id="cb140-16"><a href="exercise-solutions.html#cb140-16"></a>  <span class="kw">expect_equal</span>(river_medians_length, raw_medians_length)</span>
 <span id="cb140-17"><a href="exercise-solutions.html#cb140-17"></a>})</span></code></pre></div>
+<pre><code>#&gt; Test passed</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="exercise-solutions.html#cb142-1"></a>testthat<span class="op">::</span><span class="kw">test_that</span>(<span class="st">&quot;the mean discharge is calculated correctly in a test case&quot;</span>, {</span>
+<span id="cb142-2"><a href="exercise-solutions.html#cb142-2"></a>  </span>
+<span id="cb142-3"><a href="exercise-solutions.html#cb142-3"></a>  <span class="co"># calculate values required for the test for discharge</span></span>
+<span id="cb142-4"><a href="exercise-solutions.html#cb142-4"></a></span>
+<span id="cb142-5"><a href="exercise-solutions.html#cb142-5"></a>  <span class="co">## calculate the medians from the function</span></span>
+<span id="cb142-6"><a href="exercise-solutions.html#cb142-6"></a>  river_medians_val &lt;-<span class="st"> </span><span class="kw">river_medians</span>(river, <span class="st">&quot;Missouri|Mississippi&quot;</span>)</span>
+<span id="cb142-7"><a href="exercise-solutions.html#cb142-7"></a>  river_medians_discharge &lt;-<span class="st"> </span>river_medians_val[[<span class="dv">2</span>]]</span>
+<span id="cb142-8"><a href="exercise-solutions.html#cb142-8"></a></span>
+<span id="cb142-9"><a href="exercise-solutions.html#cb142-9"></a>  <span class="co">## calculate the medians &quot;by hand&quot;</span></span>
+<span id="cb142-10"><a href="exercise-solutions.html#cb142-10"></a>  raw_vec_discharge &lt;-<span class="st"> </span><span class="kw">unlist</span>(river[<span class="st">&quot;discharge&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Missouri&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>)])</span>
+<span id="cb142-11"><a href="exercise-solutions.html#cb142-11"></a>  raw_medians_discharge &lt;-<span class="st"> </span><span class="kw">median</span>(raw_vec_discharge)</span>
+<span id="cb142-12"><a href="exercise-solutions.html#cb142-12"></a>  </span>
+<span id="cb142-13"><a href="exercise-solutions.html#cb142-13"></a>  <span class="co"># perform the actual test for discharge</span></span>
+<span id="cb142-14"><a href="exercise-solutions.html#cb142-14"></a></span>
+<span id="cb142-15"><a href="exercise-solutions.html#cb142-15"></a>  <span class="co">## check that the function and &quot;by hand&quot; output matches</span></span>
+<span id="cb142-16"><a href="exercise-solutions.html#cb142-16"></a>  <span class="kw">expect_equal</span>(river_medians_discharge, raw_medians_discharge)</span>
+<span id="cb142-17"><a href="exercise-solutions.html#cb142-17"></a>})</span></code></pre></div>
 <pre><code>#&gt; Test passed</code></pre>
 <p><strong>Exercise 1.2.10.2</strong> (<a href="r-package.html#ex-set4">internal link</a>)
 Check out the covr (<a href="https://cran.r-project.org/web/packages/covr/vignettes/how_it_works.html">external link</a>) package, which quantifies how much of your package’s code is used by your tests.</p>
@@ -411,20 +413,20 @@ NA</p>
 Find the argument to <code>devtools::install()</code> that identifies whether vignettes are built alongside installation. What is the default value of this argument?</p>
 <p>Answer 1.2.14.1.1
 Running</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="exercise-solutions.html#cb142-1"></a>?devtools_install</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="exercise-solutions.html#cb144-1"></a>?devtools_install</span></code></pre></div>
 <p>we see that <code>build_vignettes</code> controls whether vignettes are build alongside installation. The default argument for <code>build_vignettes</code> is <code>FALSE</code>.</p>
 <p><strong>Exercise 1.3.4.1.1</strong> (<a href="r-package.html#ex-set6">internal link</a>)
 Rewrite <code>river_medians()</code> so that it stops and returns an informative error message when the pattern matches zero rivers.</p>
 <p>Answer 1.3.4.1.1</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="exercise-solutions.html#cb143-1"></a>river_medians &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern) {</span>
-<span id="cb143-2"><a href="exercise-solutions.html#cb143-2"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
-<span id="cb143-3"><a href="exercise-solutions.html#cb143-3"></a>  <span class="cf">if</span> (<span class="kw">length</span>(desired_rivers) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb143-4"><a href="exercise-solutions.html#cb143-4"></a>    <span class="kw">stop</span>(<span class="st">&quot;The pattern provided does not match any rivers in the data provided.&quot;</span>)</span>
-<span id="cb143-5"><a href="exercise-solutions.html#cb143-5"></a>  }</span>
-<span id="cb143-6"><a href="exercise-solutions.html#cb143-6"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers, drop =<span class="st"> </span><span class="ot">FALSE</span>]</span>
-<span id="cb143-7"><a href="exercise-solutions.html#cb143-7"></a>  <span class="kw">rowMeans</span>(new_data)</span>
-<span id="cb143-8"><a href="exercise-solutions.html#cb143-8"></a>}</span>
-<span id="cb143-9"><a href="exercise-solutions.html#cb143-9"></a><span class="kw">river_medians</span>(rivers, <span class="st">&quot;ZZZ&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="exercise-solutions.html#cb145-1"></a>river_medians &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern) {</span>
+<span id="cb145-2"><a href="exercise-solutions.html#cb145-2"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
+<span id="cb145-3"><a href="exercise-solutions.html#cb145-3"></a>  <span class="cf">if</span> (<span class="kw">length</span>(desired_rivers) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb145-4"><a href="exercise-solutions.html#cb145-4"></a>    <span class="kw">stop</span>(<span class="st">&quot;The pattern provided does not match any rivers in the data provided.&quot;</span>)</span>
+<span id="cb145-5"><a href="exercise-solutions.html#cb145-5"></a>  }</span>
+<span id="cb145-6"><a href="exercise-solutions.html#cb145-6"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers, drop =<span class="st"> </span><span class="ot">FALSE</span>]</span>
+<span id="cb145-7"><a href="exercise-solutions.html#cb145-7"></a>  <span class="kw">rowMeans</span>(new_data)</span>
+<span id="cb145-8"><a href="exercise-solutions.html#cb145-8"></a>}</span>
+<span id="cb145-9"><a href="exercise-solutions.html#cb145-9"></a><span class="kw">river_medians</span>(rivers, <span class="st">&quot;ZZZ&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt; Error in river_medians(rivers, &quot;ZZZ&quot;): The pattern provided does not match any rivers in the data provided.</code></pre>
 <p>The error messages in the <code>RPRW</code> package are more informative but more difficult to code.</p>
 </div>
@@ -476,7 +478,7 @@ NA</p>
 1. A data set is called “tidy” if it has three qualities: 1) each variable has its own column, 2) each observation has its own row, and 3) each value has its own cell. Is <code>river</code> tidy?</p>
 <p>Answer 3.7.1.1
 <code>river</code> is not tidy. The river names are spread across columns. One could also argue that <code>length</code> and <code>discharge</code> are both values of a <code>metric</code> argument. Then a tidy <code>river</code> data set would look like</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="exercise-solutions.html#cb145-1"></a>river_tidy</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="exercise-solutions.html#cb147-1"></a>river_tidy</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 16 x 3
 #&gt;    name        metric    value
 #&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;
@@ -499,17 +501,17 @@ NA</p>
 <p><strong>Exercise 3.7.1.2</strong> (<a href="extensions.html#ex-set14">internal link</a>)
 Make <code>river</code> tidy</p>
 <p>Answer 3.7.1.1</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="exercise-solutions.html#cb147-1"></a><span class="co"># approach 1 to loading packages</span></span>
-<span id="cb147-2"><a href="exercise-solutions.html#cb147-2"></a><span class="kw">library</span>(tibble) <span class="co"># run install.packages(&quot;tibble&quot;) if needed</span></span>
-<span id="cb147-3"><a href="exercise-solutions.html#cb147-3"></a><span class="kw">library</span>(tidyr) <span class="co"># run install.packages(&quot;tidyr&quot;) if needed</span></span>
-<span id="cb147-4"><a href="exercise-solutions.html#cb147-4"></a><span class="kw">library</span>(dplyr) <span class="co"># # run install.packages(&quot;dplyr) if needed</span></span></code></pre></div>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="exercise-solutions.html#cb148-1"></a><span class="co"># approach 2 to loading packages</span></span>
-<span id="cb148-2"><a href="exercise-solutions.html#cb148-2"></a><span class="kw">library</span>(tidyverse) <span class="co"># run install.packages(&quot;tidyverse&quot;) if needed</span></span></code></pre></div>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="exercise-solutions.html#cb149-1"></a>river_tidy &lt;-<span class="st"> </span>river <span class="op">%&gt;%</span></span>
-<span id="cb149-2"><a href="exercise-solutions.html#cb149-2"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;metric&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb149-3"><a href="exercise-solutions.html#cb149-3"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(Missouri<span class="op">:</span>Canadian) <span class="op">%&gt;%</span></span>
-<span id="cb149-4"><a href="exercise-solutions.html#cb149-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(name, metric, value)</span></code></pre></div>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="exercise-solutions.html#cb150-1"></a>river_tidy</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="exercise-solutions.html#cb149-1"></a><span class="co"># approach 1 to loading packages</span></span>
+<span id="cb149-2"><a href="exercise-solutions.html#cb149-2"></a><span class="kw">library</span>(tibble) <span class="co"># run install.packages(&quot;tibble&quot;) if needed</span></span>
+<span id="cb149-3"><a href="exercise-solutions.html#cb149-3"></a><span class="kw">library</span>(tidyr) <span class="co"># run install.packages(&quot;tidyr&quot;) if needed</span></span>
+<span id="cb149-4"><a href="exercise-solutions.html#cb149-4"></a><span class="kw">library</span>(dplyr) <span class="co"># # run install.packages(&quot;dplyr) if needed</span></span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="exercise-solutions.html#cb150-1"></a><span class="co"># approach 2 to loading packages</span></span>
+<span id="cb150-2"><a href="exercise-solutions.html#cb150-2"></a><span class="kw">library</span>(tidyverse) <span class="co"># run install.packages(&quot;tidyverse&quot;) if needed</span></span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="exercise-solutions.html#cb151-1"></a>river_tidy &lt;-<span class="st"> </span>river <span class="op">%&gt;%</span></span>
+<span id="cb151-2"><a href="exercise-solutions.html#cb151-2"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;metric&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb151-3"><a href="exercise-solutions.html#cb151-3"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(Missouri<span class="op">:</span>Canadian) <span class="op">%&gt;%</span></span>
+<span id="cb151-4"><a href="exercise-solutions.html#cb151-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(name, metric, value)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="exercise-solutions.html#cb152-1"></a>river_tidy</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 16 x 3
 #&gt;    name        metric    value
 #&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;

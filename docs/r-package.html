@@ -201,10 +201,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.2" data-path="r-package-rc.html"><a href="r-package-rc.html#citation"><i class="fa fa-check"></i><b>2.4.2</b> Adding a Citation</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="r-package-rc.html"><a href="r-package-rc.html#rc-recap"><i class="fa fa-check"></i><b>2.5</b> Research Compendium Recap</a></li>
-<li class="chapter" data-level="2.6" data-path="r-package-rc.html"><a href="r-package-rc.html#sharing-rc"><i class="fa fa-check"></i><b>2.6</b> Sharing Your Research Compendium</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-set10"><i class="fa fa-check"></i><b>2.6.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.6" data-path="r-package-rc.html"><a href="r-package-rc.html#sharing-rc"><i class="fa fa-check"></i><b>2.6</b> Sharing Your Research Compendium</a></li>
+<li class="chapter" data-level="2.7" data-path="r-package-rc.html"><a href="r-package-rc.html#hosting-your-research-compendium"><i class="fa fa-check"></i><b>2.7</b> Hosting Your Research Compendium</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-set10"><i class="fa fa-check"></i><b>2.7.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-rc"><i class="fa fa-check"></i><b>2.7</b> An Example R Package Reserach Compendium</a></li>
+<li class="chapter" data-level="2.8" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-rc"><i class="fa fa-check"></i><b>2.8</b> An Example R Package Reserach Compendium</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="extensions.html"><a href="extensions.html"><i class="fa fa-check"></i><b>3</b> Extensions</a><ul>
 <li class="chapter" data-level="3.1" data-path="extensions.html"><a href="extensions.html#r-projects"><i class="fa fa-check"></i><b>3.1</b> R Projects</a><ul>
@@ -219,9 +220,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="extensions.html"><a href="extensions.html#git-github"><i class="fa fa-check"></i><b>3.4</b> Git and GitHub</a><ul>
 <li class="chapter" data-level="3.4.1" data-path="extensions.html"><a href="extensions.html#cloning-a-github-repository-in-rstudio"><i class="fa fa-check"></i><b>3.4.1</b> Cloning a GitHub Repository in RStudio</a></li>
+<li class="chapter" data-level="3.4.2" data-path="extensions.html"><a href="extensions.html#gitignore"><i class="fa fa-check"></i><b>3.4.2</b> <code>.gitignore</code></a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="extensions.html"><a href="extensions.html#ci"><i class="fa fa-check"></i><b>3.5</b> Continuous Integration</a></li>
-<li class="chapter" data-level="3.6" data-path="extensions.html"><a href="extensions.html#style"><i class="fa fa-check"></i><b>3.6</b> Cody Style</a></li>
+<li class="chapter" data-level="3.6" data-path="extensions.html"><a href="extensions.html#style"><i class="fa fa-check"></i><b>3.6</b> Code Style</a></li>
 <li class="chapter" data-level="3.7" data-path="extensions.html"><a href="extensions.html#add-tips"><i class="fa fa-check"></i><b>3.7</b> Additional Tips</a><ul>
 <li class="chapter" data-level="3.7.1" data-path="extensions.html"><a href="extensions.html#ex-set14"><i class="fa fa-check"></i><b>3.7.1</b> Exercises</a></li>
 </ul></li>
@@ -317,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="first-step" class="section level3">
 <h3><span class="header-section-number">1.2.2</span> The First Step</h3>
 <p>The first step is using devtools to create a package template for us. There are a two ways to easily create this template. First, in editor window (upper-left pane in RStudio), click “File -&gt; New Project -&gt; New Directory -&gt; R Package -&gt; Create Project”. An alternative approach is to run</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="r-package.html#cb11-1"></a>devtools<span class="op">::</span><span class="kw">create_package</span>(<span class="st">&quot;path_to_RPRW_package/RPRW&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="r-package.html#cb11-1"></a>usethis<span class="op">::</span><span class="kw">create_package</span>(<span class="st">&quot;path_to_RPRW_package/RPRW&quot;</span>)</span></code></pre></div>
 <pre><code>√ Creating &#39;path_to_RPRW_package/RPRW/&#39;
 √ Setting active project to &#39;path_to_RPRW_package/RPRW&#39;
 √ Creating &#39;R/&#39;
@@ -377,7 +379,7 @@ RoxygenNote: 7.1.1
 <li>Find the mean length and discharge of the rivers whose names contain the pattern</li>
 </ol>
 <p>By default, the function returns the object evaluated by its last line of code. So <code>river_means()</code> returns the output from <code>rowMeans()</code>. You can force the function to return a different object earlier using <code>return(object)</code>.</p>
-<p>You can leave comments in your function by prefixing a line with <code>#</code>. Comments are used to communicate in plain verbage the intent of your code. Leaving comments is usually good practice because it helps others (including future you) better understand the goals of your code.</p>
+<p>You can leave comments in your function by prefixing a line with <code>#</code>. Comments are used to communicate in plain language the intent of your code. Leaving comments is usually good practice because it helps others (including future you) better understand the goals of your code.</p>
 </div>
 <div id="load-all" class="section level3">
 <h3><span class="header-section-number">1.2.4</span> <code>devtools::load_all()</code></h3>
@@ -386,7 +388,7 @@ RoxygenNote: 7.1.1
 <p>These approaches put <code>river_means()</code> in the global environment (look at the environment tab in the upper-right pane of RStudio). Unfortunately messing around too much in the global environment can easily introduce errors in your functions or have them behave in unexpected ways.</p>
 <p>An alternative approach is to leverage devtools, since after all, you are bothering to create a package, so you may as well use the tools designed for them! The devtools function <code>devtools::load_all()</code> emulates the process of building, installing, and loading a package. This has a few benefits. First, the functions are “sourced” into a better spot (not the global environment). Second, it makes all of your functions available through a single line of code rather than running and/or sourcing several functions separately. I highly recommend you practice using <code>devtools::load_all()</code> instead of navigating the dangerous global environment.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="r-package.html#cb17-1"></a>devtools<span class="op">::</span><span class="kw">load_all</span>()</span></code></pre></div>
-<p>Now we get to try out <code>river_means()</code>! Suppose we want to summarize the rivers whose names start with “Mi” (in <code>river</code>, this is only Missiouri and Mississippi).</p>
+<p>Now we get to try out <code>river_means()</code>! Suppose we want to summarize the rivers whose names start with “Mi” (in <code>river</code>, this is only Missouri and Mississippi).</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="r-package.html#cb18-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;Mi&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;      3656     10178</code></pre>
@@ -556,6 +558,8 @@ Writing river_means.Rd</code></pre>
 <span id="cb38-17"><a href="r-package.html#cb38-17"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, median)</span>
 <span id="cb38-18"><a href="r-package.html#cb38-18"></a>}</span></code></pre></div>
 <p>Be careful when using <code>@importFrom</code> or <code>@import</code> (especially <code>@import</code>). If two functions from different packages have the same name and you try to use one it in your function, R may use the wrong one. In these contexts, using the <code>package::</code> prefix is crucial.</p>
+<p>To finish creating the <code>river_medians()</code> documentation, run</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="r-package.html#cb39-1"></a>devtools<span class="op">::</span><span class="kw">document</span>()</span></code></pre></div>
 <div id="ex-set3" class="section level4">
 <h4><span class="header-section-number">1.2.7.1</span> Exercises</h4>
 <p>These exercises are challenging, so if they don’t make sense now, that is okay! Make sure to re-review the solutions after the workshop.</p>
@@ -600,27 +604,27 @@ Imports:
 <h3><span class="header-section-number">1.2.9</span> <code>NAMESPACE</code></h3>
 <p>While the <code>DESCRIPTION</code> file communicates what packages your package <em>uses</em>, the <code>NAMESPACE</code> file communicates <em>how</em> your package uses these packages. More specifically, the <code>NAMESPACE</code> file controls which functions your package exports (making them available to others when your package is installed) and what functions from what packages must be available for your exported functions to work. The <code>NAMESPACE</code> file is automatically updated while running <code>devtools::document()</code> and should not be edited by hand (in fact, there is a warning in the <code>NAMESPACE</code> file to warn against editing the file by hand).</p>
 <p>In <code>river_median()</code>, if you called <code>median</code> using <code>stats::median</code>, your <code>NAMESPACE</code> file will look like</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="r-package.html#cb40-1"></a><span class="co"># Generated by roxygen2: do not edit by hand</span></span>
-<span id="cb40-2"><a href="r-package.html#cb40-2"></a></span>
-<span id="cb40-3"><a href="r-package.html#cb40-3"></a><span class="kw">export</span>(river_means)</span>
-<span id="cb40-4"><a href="r-package.html#cb40-4"></a><span class="kw">export</span>(river_medians)</span></code></pre></div>
-<p>If you used the <code>@importFrom stats median</code> approach, your <code>NAMESPACE</code> will look like</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="r-package.html#cb41-1"></a><span class="co"># Generated by roxygen2: do not edit by hand</span></span>
 <span id="cb41-2"><a href="r-package.html#cb41-2"></a></span>
 <span id="cb41-3"><a href="r-package.html#cb41-3"></a><span class="kw">export</span>(river_means)</span>
-<span id="cb41-4"><a href="r-package.html#cb41-4"></a><span class="kw">export</span>(river_medians)</span>
-<span id="cb41-5"><a href="r-package.html#cb41-5"></a><span class="kw">importFrom</span>(stats,median)</span></code></pre></div>
-<p>If you used the <code>@import stats</code> approach, your <code>NAMESPACE</code> will look like</p>
+<span id="cb41-4"><a href="r-package.html#cb41-4"></a><span class="kw">export</span>(river_medians)</span></code></pre></div>
+<p>If you used the <code>@importFrom stats median</code> approach, your <code>NAMESPACE</code> will look like</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="r-package.html#cb42-1"></a><span class="co"># Generated by roxygen2: do not edit by hand</span></span>
 <span id="cb42-2"><a href="r-package.html#cb42-2"></a></span>
 <span id="cb42-3"><a href="r-package.html#cb42-3"></a><span class="kw">export</span>(river_means)</span>
 <span id="cb42-4"><a href="r-package.html#cb42-4"></a><span class="kw">export</span>(river_medians)</span>
-<span id="cb42-5"><a href="r-package.html#cb42-5"></a><span class="kw">import</span>(stats)</span></code></pre></div>
+<span id="cb42-5"><a href="r-package.html#cb42-5"></a><span class="kw">importFrom</span>(stats,median)</span></code></pre></div>
+<p>If you used the <code>@import stats</code> approach, your <code>NAMESPACE</code> will look like</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="r-package.html#cb43-1"></a><span class="co"># Generated by roxygen2: do not edit by hand</span></span>
+<span id="cb43-2"><a href="r-package.html#cb43-2"></a></span>
+<span id="cb43-3"><a href="r-package.html#cb43-3"></a><span class="kw">export</span>(river_means)</span>
+<span id="cb43-4"><a href="r-package.html#cb43-4"></a><span class="kw">export</span>(river_medians)</span>
+<span id="cb43-5"><a href="r-package.html#cb43-5"></a><span class="kw">import</span>(stats)</span></code></pre></div>
 </div>
 <div id="testthat" class="section level3">
 <h3><span class="header-section-number">1.2.10</span> testthat</h3>
 <p>Testing your code to make sure that it performs as intended is an important step in the package building process. Though this may seem like extra work upfront, implementing a rigorous testing procedure for your package is essential for its continued success. In R, testing is incorporated into your package through the testthat (<a href="https://testthat.r-lib.org/">external link</a>) package. To begin using testthat, run</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="r-package.html#cb43-1"></a>usethis<span class="op">::</span><span class="kw">use_testthat</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="r-package.html#cb44-1"></a>usethis<span class="op">::</span><span class="kw">use_testthat</span>()</span></code></pre></div>
 <pre><code>√ Adding &#39;testthat&#39; to Suggests field in DESCRIPTION
 √ Setting Config/testthat/edition field in DESCRIPTION to &#39;3&#39;
 √ Creating &#39;tests/testthat/&#39;
@@ -630,33 +634,33 @@ Imports:
 <p>The tests folder should look like
 <img src="images/newrpack_files4.PNG" width="100%" /></p>
 <p>Tests are generally written on a function-by-function basis. Tests for a function should be contained in an R script titled <code>test-function_name</code>. Luckily, <code>usethis::use_test()</code> creates an R script for you with the proper name! To start testing <code>river_means()</code>, run</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="r-package.html#cb45-1"></a>usethis<span class="op">::</span><span class="kw">use_test</span>(<span class="st">&quot;river_means&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="r-package.html#cb46-1"></a>usethis<span class="op">::</span><span class="kw">use_test</span>(<span class="st">&quot;river_means&quot;</span>)</span></code></pre></div>
 <pre><code>√ Writing &#39;tests/testthat/test-river_means.R&#39;
 * Modify &#39;tests/testthat/test-river_means.R&#39;</code></pre>
 <p>Your <code>testthat</code> folder should look like
 <img src="images/newrpack_files5.PNG" width="100%" /></p>
 <p>Tests can be fairly detailed and cover many components of a function (such as input types, output types, function output, etc.). The tests in testthat are prefixed with <code>expect_</code>. Here we write a simple test that calculates whether our function, <code>river_means()</code>, yields output that we would expect if we calculated the means “by hand”:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="r-package.html#cb47-1"></a><span class="kw">library</span>(testthat) <span class="co"># testthat is installed with devtools but we must load it</span></span>
-<span id="cb47-2"><a href="r-package.html#cb47-2"></a>testthat<span class="op">::</span><span class="kw">test_that</span>(<span class="st">&quot;the mean length is calculated correctly in a test case&quot;</span>, {</span>
-<span id="cb47-3"><a href="r-package.html#cb47-3"></a>  </span>
-<span id="cb47-4"><a href="r-package.html#cb47-4"></a>  <span class="co"># calculate values required for the test for length</span></span>
-<span id="cb47-5"><a href="r-package.html#cb47-5"></a></span>
-<span id="cb47-6"><a href="r-package.html#cb47-6"></a>  <span class="co">## calculate the means from the function</span></span>
-<span id="cb47-7"><a href="r-package.html#cb47-7"></a>  river_means_val &lt;-<span class="st"> </span><span class="kw">river_means</span>(river, <span class="st">&quot;Missouri|Mississippi&quot;</span>)</span>
-<span id="cb47-8"><a href="r-package.html#cb47-8"></a>  river_means_length &lt;-<span class="st"> </span>river_means_val[[<span class="dv">1</span>]]</span>
-<span id="cb47-9"><a href="r-package.html#cb47-9"></a></span>
-<span id="cb47-10"><a href="r-package.html#cb47-10"></a>  <span class="co">## calculate the means &quot;by hand&quot;</span></span>
-<span id="cb47-11"><a href="r-package.html#cb47-11"></a>  raw_vec_length &lt;-<span class="st"> </span><span class="kw">unlist</span>(river[<span class="st">&quot;length&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Missouri&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>)])</span>
-<span id="cb47-12"><a href="r-package.html#cb47-12"></a>  raw_means_length &lt;-<span class="st"> </span><span class="kw">mean</span>(raw_vec_length)</span>
-<span id="cb47-13"><a href="r-package.html#cb47-13"></a>  </span>
-<span id="cb47-14"><a href="r-package.html#cb47-14"></a>  <span class="co"># perform the actual test for length</span></span>
-<span id="cb47-15"><a href="r-package.html#cb47-15"></a></span>
-<span id="cb47-16"><a href="r-package.html#cb47-16"></a>  <span class="co">## check that the function and &quot;by hand&quot; output matches</span></span>
-<span id="cb47-17"><a href="r-package.html#cb47-17"></a>  <span class="kw">expect_equal</span>(river_means_length, raw_means_length)</span>
-<span id="cb47-18"><a href="r-package.html#cb47-18"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="r-package.html#cb48-1"></a><span class="kw">library</span>(testthat) <span class="co"># testthat is installed with devtools but we must load it</span></span>
+<span id="cb48-2"><a href="r-package.html#cb48-2"></a>testthat<span class="op">::</span><span class="kw">test_that</span>(<span class="st">&quot;the mean length is calculated correctly in a test case&quot;</span>, {</span>
+<span id="cb48-3"><a href="r-package.html#cb48-3"></a>  </span>
+<span id="cb48-4"><a href="r-package.html#cb48-4"></a>  <span class="co"># calculate values required for the test for length</span></span>
+<span id="cb48-5"><a href="r-package.html#cb48-5"></a></span>
+<span id="cb48-6"><a href="r-package.html#cb48-6"></a>  <span class="co">## calculate the means from the function</span></span>
+<span id="cb48-7"><a href="r-package.html#cb48-7"></a>  river_means_val &lt;-<span class="st"> </span><span class="kw">river_means</span>(river, <span class="st">&quot;Missouri|Mississippi&quot;</span>)</span>
+<span id="cb48-8"><a href="r-package.html#cb48-8"></a>  river_means_length &lt;-<span class="st"> </span>river_means_val[[<span class="dv">1</span>]]</span>
+<span id="cb48-9"><a href="r-package.html#cb48-9"></a></span>
+<span id="cb48-10"><a href="r-package.html#cb48-10"></a>  <span class="co">## calculate the means &quot;by hand&quot;</span></span>
+<span id="cb48-11"><a href="r-package.html#cb48-11"></a>  raw_vec_length &lt;-<span class="st"> </span><span class="kw">unlist</span>(river[<span class="st">&quot;length&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Missouri&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>)])</span>
+<span id="cb48-12"><a href="r-package.html#cb48-12"></a>  raw_means_length &lt;-<span class="st"> </span><span class="kw">mean</span>(raw_vec_length)</span>
+<span id="cb48-13"><a href="r-package.html#cb48-13"></a>  </span>
+<span id="cb48-14"><a href="r-package.html#cb48-14"></a>  <span class="co"># perform the actual test for length</span></span>
+<span id="cb48-15"><a href="r-package.html#cb48-15"></a></span>
+<span id="cb48-16"><a href="r-package.html#cb48-16"></a>  <span class="co">## check that the function and &quot;by hand&quot; output matches</span></span>
+<span id="cb48-17"><a href="r-package.html#cb48-17"></a>  <span class="kw">expect_equal</span>(river_means_length, raw_means_length)</span>
+<span id="cb48-18"><a href="r-package.html#cb48-18"></a>})</span></code></pre></div>
 <pre><code>#&gt; Test passed</code></pre>
 <p>If you have many tests, the <code>devtools::test()</code> function runs all of the tests in the <code>testthat</code> folder:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="r-package.html#cb49-1"></a>devtools<span class="op">::</span><span class="kw">test</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="r-package.html#cb50-1"></a>devtools<span class="op">::</span><span class="kw">test</span>()</span></code></pre></div>
 <pre><code>i Loading RPRW
 i Testing RPRW
 √ |  OK F W S | Context
@@ -665,7 +669,7 @@ i Testing RPRW
 == Results =========================================================================
 [ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ]</code></pre>
 <p>We can write a similar test for discharge and then repeat the process for <code>river_meadians()</code>. Then <code>devtools::test()</code> returns</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="r-package.html#cb51-1"></a>devtools<span class="op">::</span><span class="kw">test</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="r-package.html#cb52-1"></a>devtools<span class="op">::</span><span class="kw">test</span>()</span></code></pre></div>
 <pre><code>i Loading RPRW
 i Testing RPRW
 √ |  OK F W S | Context
@@ -686,26 +690,26 @@ i Testing RPRW
 <div id="license" class="section level3">
 <h3><span class="header-section-number">1.2.11</span> License</h3>
 <p>At some point, your package needs a license. The license places restrictions on how your package can be shared with others. Licensing can be rather technical and complicated, so I refer you here (<a href="https://r-pkgs.org/license.html">external link</a>) for more information. For illustration purposes, we will use a GPL-3 license for this package:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="r-package.html#cb53-1"></a>usethis<span class="op">::</span><span class="kw">use_gpl_license</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="r-package.html#cb54-1"></a>usethis<span class="op">::</span><span class="kw">use_gpl_license</span>()</span></code></pre></div>
 <pre><code>√ Setting License field in DESCRIPTION to &#39;GPL (&gt;= 3)&#39;
 √ Writing &#39;LICENSE.md&#39;
 √ Adding &#39;^LICENSE\\.md$&#39; to &#39;.Rbuildignore&#39;</code></pre>
-<p><code>usethis::use_gpl_license()</code> adds the license to <code>DESCRIPTION</code> and creates a <code>LICENSE.md</code> file at the root of your package that contains information about the license.</p>
+<p><code>usethis::use_gpl_license()</code> adds the license to <code>DESCRIPTION</code> and creates a <code>LICENSE.md</code> file at the root of your package that contains information about the license. Approved licenses for EPA repositories include CC0, MIT, GPL-3, and Apache 2.</p>
 </div>
 <div id="vignettes" class="section level3">
 <h3><span class="header-section-number">1.2.12</span> Vignettes</h3>
 <p>Vignettes act as high-level user guides for your package. They are the glue that binds together several components of your package to illustrate how the package can be used to solve a particular problem. Vignettes tend to be R Markdown documents. Though we cover R Markdown documents in more detail later, for now we note that they that interweave text and R code to create reproducible documents. You can recognize whether a document is an R markdown documents by the <code>.Rmd</code> extension that R documents have.</p>
 <p>The ggplot2 (<a href="https://ggplot2.tidyverse.org/">external link</a>) package is a popular package for visualizing data. After installing ggplot2</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="r-package.html#cb55-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="r-package.html#cb56-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
 <p>you can view its available vignettes by running</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="r-package.html#cb56-1"></a><span class="kw">vignette</span>(<span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="r-package.html#cb57-1"></a><span class="kw">vignette</span>(<span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
 <p>after which a file will pop up alongside your R scripts with the contents
 <img src="images/newrpack_files6.PNG" width="100%" /></p>
 <p>To then view a specific vignette, run <code>vignette("topic", "package")</code>. For example, to view the vignette regarding <strong>aes</strong>thetic specifications, run</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="r-package.html#cb57-1"></a><span class="kw">vignette</span>(<span class="st">&quot;ggplot2-specs&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="r-package.html#cb58-1"></a><span class="kw">vignette</span>(<span class="st">&quot;ggplot2-specs&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
 <p>The vignette can then be viewed in the “Help” tab of the bottom-right pane of RStudio. Vignettes are also available on a package’s CRAN page – for the ggplot2 aesthetic specifications vignette viewable on its CRAN page, see here (<a href="https://cran.r-project.org/web/packages/ggplot2/vignettes/ggplot2-specs.html">external link</a>).</p>
 <p>Suppose we want to include a vignette in RPRW that shows how to it to compute river statistics. Running</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="r-package.html#cb58-1"></a><span class="kw">use_vignette</span>(<span class="st">&quot;river-statistics&quot;</span>, <span class="st">&quot;River Statistics&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="r-package.html#cb59-1"></a><span class="kw">use_vignette</span>(<span class="st">&quot;river-statistics&quot;</span>, <span class="st">&quot;River Statistics&quot;</span>)</span></code></pre></div>
 <pre><code>√ Adding &#39;knitr&#39; to Suggests field in DESCRIPTION
 √ Setting VignetteBuilder field in DESCRIPTION to &#39;knitr&#39;
 √ Adding &#39;inst/doc&#39; to &#39;.gitignore&#39;
@@ -716,7 +720,7 @@ i Testing RPRW
 * Modify &#39;vignettes/river-statistics.Rmd&#39;</code></pre>
 <p>does a few things. It alters your <code>DESCRIPTION</code> file, most notably adding the knitr (<a href="https://yihui.org/knitr/">external link</a>) and rmarkdown packages to the <code>Suggests</code> field. It also creates a vignette folder at the root of your package and adds to that folder an rmarkdown vignette named <code>river-statistics.Rmd</code> (notice the <code>.Rmd</code> extension) whose title is “River Statistics”.</p>
 <p>While we won’t create a vignette for our package during the workshop, I have added a vignette to the RPRW package. To view it (after installation), run</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="r-package.html#cb60-1"></a><span class="kw">vignette</span>(<span class="st">&quot;river-statistics&quot;</span>, <span class="st">&quot;RPRW&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="r-package.html#cb61-1"></a><span class="kw">vignette</span>(<span class="st">&quot;river-statistics&quot;</span>, <span class="st">&quot;RPRW&quot;</span>)</span></code></pre></div>
 </div>
 <div id="check" class="section level3">
 <h3><span class="header-section-number">1.2.13</span> <code>devtools::check()</code></h3>
@@ -731,7 +735,7 @@ Duration: 34.4s
 <div id="install" class="section level3">
 <h3><span class="header-section-number">1.2.14</span> <code>devtools::install()</code></h3>
 <p>After <code>devtools::check()</code> identifies zero errors (and hopefully zero warnings and zero notes), you can install your package by running</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="r-package.html#cb62-1"></a>devtools<span class="op">::</span><span class="kw">install</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="r-package.html#cb63-1"></a>devtools<span class="op">::</span><span class="kw">install</span>()</span></code></pre></div>
 <p>After installing RPRW, you can use <code>library(RPRW)</code> to load it like you do for any other R package.</p>
 <div id="ex-set5" class="section level4">
 <h4><span class="header-section-number">1.2.14.1</span> Exercises</h4>
@@ -752,30 +756,30 @@ Duration: 34.4s
 <div id="error-onematch" class="section level3">
 <h3><span class="header-section-number">1.3.1</span> A Mysterious Error Message</h3>
 <p>We have already used <code>river_means()</code> and <code>river_medians()</code> to successfully find means and medians for several patterns. But running <code>river_means(river, "R")</code> yields a mystifying error:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="r-package.html#cb63-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="r-package.html#cb64-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt; Error in rowMeans(new_data): &#39;x&#39; must be an array of at least two dimensions</code></pre>
 <p>Something is wrong – and we need to figure out what. A good first step is to copy and paste the error into a Google search engine and see if anyone has solved the problem yet. If you are lucky, this approach will identify the bug for you. If you are not so lucky, you need to try a different approach. Fortunately, R has built-in tools that can help you track down bugs – we will explore a few of these tools next.</p>
 </div>
 <div id="traceback" class="section level3">
 <h3><span class="header-section-number">1.3.2</span> <code>traceback()</code></h3>
-<p>The <code>traceback()</code> function is generally run in the console after receiving an error. <code>traceback()</code> identifies where the error occured in the previous function call. Here we run <code>traceback()</code> after <code>river_means(river, "R")</code>:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="r-package.html#cb65-1"></a><span class="kw">traceback</span>()</span></code></pre></div>
+<p>The <code>traceback()</code> function is generally run in the console after receiving an error. <code>traceback()</code> identifies where the error occurred in the previous function call. Here we run <code>traceback()</code> after <code>river_means(river, "R")</code>:</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="r-package.html#cb66-1"></a><span class="kw">traceback</span>()</span></code></pre></div>
 <pre><code>3: stop(&quot;&#39;x&#39; must be an array of at least two dimensions&quot;)
 2: rowMeans(new_data) at #4
 1: river_means(river, &quot;R&quot;)</code></pre>
-<p>We now know that the error occurs in Line 4 of <code>river_means()</code> (the <code>rowMeans(new_data)</code> step). While this is very useful information, we still don’t know exactky why the error occurs.</p>
+<p>We now know that the error occurs in Line 4 of <code>river_means()</code> (the <code>rowMeans(new_data)</code> step). While this is very useful information, we still don’t know exactly why the error occurs.</p>
 </div>
 <div id="browser" class="section level3">
 <h3><span class="header-section-number">1.3.3</span> <code>browser()</code></h3>
 <p>In my early stages of debugging, I would save my arguments to a function in the global environment and then run through each line of the function returning the error, effectively “recreating” the environment in which the error occurred. Perhaps some of you have done this too. The bad news is that this approach is often error-prone and inefficient. The good news is that there is a better way – <code>browser()</code>. Inserting <code>browser()</code> into your code and then running it lets you interactively step into the function, starting at wherever <code>browser()</code> is located. No more saving arguments to the global environment and running code line-by-line! Let’s try this out with <code>river_means()</code>:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="r-package.html#cb67-1"></a>river_means &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern) {</span>
-<span id="cb67-2"><a href="r-package.html#cb67-2"></a>  <span class="kw">browser</span>()</span>
-<span id="cb67-3"><a href="r-package.html#cb67-3"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
-<span id="cb67-4"><a href="r-package.html#cb67-4"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span>
-<span id="cb67-5"><a href="r-package.html#cb67-5"></a>  <span class="kw">rowMeans</span>(new_data)</span>
-<span id="cb67-6"><a href="r-package.html#cb67-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="r-package.html#cb68-1"></a>river_means &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern) {</span>
+<span id="cb68-2"><a href="r-package.html#cb68-2"></a>  <span class="kw">browser</span>()</span>
+<span id="cb68-3"><a href="r-package.html#cb68-3"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
+<span id="cb68-4"><a href="r-package.html#cb68-4"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span>
+<span id="cb68-5"><a href="r-package.html#cb68-5"></a>  <span class="kw">rowMeans</span>(new_data)</span>
+<span id="cb68-6"><a href="r-package.html#cb68-6"></a>}</span></code></pre></div>
 <p>After using <code>devtools::load_all()</code> and running <code>river_means()</code>, you will step into the function before the first line of code. For example,</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="r-package.html#cb68-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="r-package.html#cb69-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
 <p>opens a new file in the editor (upper left-hand) window that looks like
 <img src="images/newrpack_files7.PNG" width="75%" /></p>
 <p>You will also see a few buttons in the R console (lower left-hand) window:
@@ -789,50 +793,50 @@ Duration: 34.4s
 <li>Stop (<code>Q</code>), which leaves the interactive context and terminates execution of the function</li>
 </ul>
 <p>Before navigating through any lines of <code>river_means()</code>, we see <code>data</code> and <code>pattern</code> are defined:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="r-package.html#cb69-1"></a><span class="kw">print</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="r-package.html#cb70-1"></a><span class="kw">print</span>(data)</span></code></pre></div>
 <pre><code>#&gt;           Missouri Mississippi Yukon Colorado Arkansas Columbia  Red Canadian
 #&gt; length        3768        3544  3190     2330     2322     2000 1811     1458
 #&gt; discharge     1956       18400  6340       40     1004     7730  852      174</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="r-package.html#cb71-1"></a><span class="kw">print</span>(pattern)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="r-package.html#cb72-1"></a><span class="kw">print</span>(pattern)</span></code></pre></div>
 <pre><code>#&gt; [1] &quot;R&quot;</code></pre>
 <p>Pressing <code>n</code> (Next) executes <code>browser()</code>. Pressing <code>n</code> (Next) again executes</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="r-package.html#cb73-1"></a>desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="r-package.html#cb74-1"></a>desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span></code></pre></div>
 <p>Inspecting <code>desired_rivers</code>, we see</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="r-package.html#cb74-1"></a><span class="kw">print</span>(desired_rivers)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="r-package.html#cb75-1"></a><span class="kw">print</span>(desired_rivers)</span></code></pre></div>
 <pre><code>#&gt; [1] 7</code></pre>
 <p>This seems correct, as the seventh river, “Red”, does match the pattern “R”. So the error isn’t here. Let’s press <code>n</code> (Next) to evaluate the next line</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="r-package.html#cb76-1"></a>new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="r-package.html#cb77-1"></a>new_data &lt;-<span class="st"> </span>data[, desired_rivers]</span></code></pre></div>
 <p>Inspecting <code>new_data</code>, we see</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="r-package.html#cb77-1"></a>new_data</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="r-package.html#cb78-1"></a>new_data</span></code></pre></div>
 <pre><code>#&gt; [1] 1811  852</code></pre>
 <p>Well this seems weird – <code>new_data</code> does not look like a data frame. Let’s inspect the structure</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="r-package.html#cb79-1"></a><span class="kw">str</span>(new_data)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="r-package.html#cb80-1"></a><span class="kw">str</span>(new_data)</span></code></pre></div>
 <pre><code>#&gt;  num [1:2] 1811 852</code></pre>
 <p><code>new_data</code> is in fact not a data frame, but rather it is a numeric vector. Because <code>rowMeans()</code> requires an array of two or more dimensions (e.g. a matrix or data frame), the next line of code, <code>rowMeans()</code>, fails. Pressing <code>n</code> again returns the error and removes you from the interactive mode:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="r-package.html#cb81-1"></a><span class="kw">rowMeans</span>(new_data)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="r-package.html#cb82-1"></a><span class="kw">rowMeans</span>(new_data)</span></code></pre></div>
 <pre><code>#&gt; Error in rowMeans(new_data): &#39;x&#39; must be an array of at least two dimensions</code></pre>
 <p>This is a good example of one of the reasons debugging can be so challenging: often, an error occurs because code from a few lines back runs in an unintended way (even though it runs successfully). Note that a similar error occurs when running <code>river_medians(river, "R")</code> because <code>apply()</code> requires an array of two or more dimensions.</p>
 <p>So what is happening here? We know the code works when the pattern yields at least two matches in <code>river</code>. But now, with one match, the code is failing. Let’s start with the <code>[</code> function called by <code>data[, desired_rivers]</code>, where we receive unintended output. Let’s look at the documentation of <code>[</code> by running</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="r-package.html#cb83-1"></a>?<span class="st">`</span><span class="dt">[</span><span class="st">`</span></span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="r-package.html#cb84-1"></a>?<span class="st">`</span><span class="dt">[</span><span class="st">`</span></span></code></pre></div>
 <p>A close look at the documentation reveals further documentation for the behavior of <code>[</code> when applied to a data frame</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="r-package.html#cb84-1"></a>?<span class="st">`</span><span class="dt">[.data.frame</span><span class="st">`</span></span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="r-package.html#cb85-1"></a>?<span class="st">`</span><span class="dt">[.data.frame</span><span class="st">`</span></span></code></pre></div>
 <p>Notice the <code>drop</code> argument in this documentation. The <code>drop</code> argument, when <code>TRUE</code>, coerces the object to the lowest possible dimension. When subsetting a data frame by one column, <code>drop</code> is <code>TRUE</code> by default and data frame structure is turned into a vector structure, which only has one dimension – this is why the error is occurring. So we need to force our subsetting to always keep the data frame structure by setting <code>drop = FALSE</code>. Accommodating this change in <code>river_means()</code> and <code>river_medians()</code> yields functions that look like</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="r-package.html#cb85-1"></a>river_means &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern) {</span>
-<span id="cb85-2"><a href="r-package.html#cb85-2"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
-<span id="cb85-3"><a href="r-package.html#cb85-3"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers, drop =<span class="st"> </span><span class="ot">FALSE</span>]</span>
-<span id="cb85-4"><a href="r-package.html#cb85-4"></a>  <span class="kw">rowMeans</span>(new_data)</span>
-<span id="cb85-5"><a href="r-package.html#cb85-5"></a>}</span>
-<span id="cb85-6"><a href="r-package.html#cb85-6"></a></span>
-<span id="cb85-7"><a href="r-package.html#cb85-7"></a>river_medians &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern) {</span>
-<span id="cb85-8"><a href="r-package.html#cb85-8"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
-<span id="cb85-9"><a href="r-package.html#cb85-9"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers, drop =<span class="st"> </span><span class="ot">FALSE</span>]</span>
-<span id="cb85-10"><a href="r-package.html#cb85-10"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, median)</span>
-<span id="cb85-11"><a href="r-package.html#cb85-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="r-package.html#cb86-1"></a>river_means &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern) {</span>
+<span id="cb86-2"><a href="r-package.html#cb86-2"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
+<span id="cb86-3"><a href="r-package.html#cb86-3"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers, drop =<span class="st"> </span><span class="ot">FALSE</span>]</span>
+<span id="cb86-4"><a href="r-package.html#cb86-4"></a>  <span class="kw">rowMeans</span>(new_data)</span>
+<span id="cb86-5"><a href="r-package.html#cb86-5"></a>}</span>
+<span id="cb86-6"><a href="r-package.html#cb86-6"></a></span>
+<span id="cb86-7"><a href="r-package.html#cb86-7"></a>river_medians &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern) {</span>
+<span id="cb86-8"><a href="r-package.html#cb86-8"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
+<span id="cb86-9"><a href="r-package.html#cb86-9"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers, drop =<span class="st"> </span><span class="ot">FALSE</span>]</span>
+<span id="cb86-10"><a href="r-package.html#cb86-10"></a>  <span class="kw">apply</span>(new_data, <span class="dv">1</span>, median)</span>
+<span id="cb86-11"><a href="r-package.html#cb86-11"></a>}</span></code></pre></div>
 <p>Now running <code>river_means()</code> and <code>river_medians()</code> with patterns only having one match behaves as intended</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="r-package.html#cb86-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="r-package.html#cb87-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;      1811       852</code></pre>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="r-package.html#cb88-1"></a><span class="kw">river_medians</span>(river, <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="r-package.html#cb89-1"></a><span class="kw">river_medians</span>(river, <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;      1811       852</code></pre>
 <p>For more information about debugging in R, watch this (<a href="https://www.rstudio.com/resources/rstudioconf-2020/object-of-type-closure-is-not-subsettable/">external link</a>) and/or read this (<a href="https://adv-r.hadley.nz/debugging.html">external link</a>).</p>
@@ -840,19 +844,19 @@ Duration: 34.4s
 <div id="error-zeromatch" class="section level3">
 <h3><span class="header-section-number">1.3.4</span> Another Error – No Mysterious Message</h3>
 <p>We previously received and fixed an error message that occurred when the pattern only matched one river. So we know our code works when the pattern matches at least one river. But what happens when the pattern matches zero rivers?</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="r-package.html#cb90-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;ZZZ&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="r-package.html#cb91-1"></a><span class="kw">river_means</span>(river, <span class="st">&quot;ZZZ&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt;    length discharge 
 #&gt;       NaN       NaN</code></pre>
 <p>The length and discharge means are <code>NaN</code>, which stands for “Not a Number” – this is certainly unintended (note that <code>river_medians(river, "ZZZ")</code> returns similar output.). These types of bugs are especially pernicious because there is no error message associated with them – we can’t use <code>traceback()</code>. Say <code>river_means()</code> was a small part of a much larger function, – this bug could be the root of a confusing error several lines later. Whenever function output is unexpected and you can’t immediately figure out why, use <code>browser()</code> to diagnose the bug. In this context, <code>desired_rivers</code> is a length-zero vector, which causes problems in the remaining parts of the function. To guard against these types of bugs, identify potentially problematic scenarios for your function and program defensively, forcing the function to return an informative error message when a problematic scenario is identified. Here we force <code>river_means()</code> to return an error message when the pattern matches zero rivers:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="r-package.html#cb92-1"></a>river_means &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern) {</span>
-<span id="cb92-2"><a href="r-package.html#cb92-2"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
-<span id="cb92-3"><a href="r-package.html#cb92-3"></a>  <span class="cf">if</span> (<span class="kw">length</span>(desired_rivers) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb92-4"><a href="r-package.html#cb92-4"></a>    <span class="kw">stop</span>(<span class="st">&quot;This is an error message that stops the function.&quot;</span>)</span>
-<span id="cb92-5"><a href="r-package.html#cb92-5"></a>  }</span>
-<span id="cb92-6"><a href="r-package.html#cb92-6"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers, drop =<span class="st"> </span><span class="ot">FALSE</span>]</span>
-<span id="cb92-7"><a href="r-package.html#cb92-7"></a>  <span class="kw">rowMeans</span>(new_data)</span>
-<span id="cb92-8"><a href="r-package.html#cb92-8"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="r-package.html#cb93-1"></a><span class="kw">river_means</span>(rivers, <span class="st">&quot;ZZZ&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="r-package.html#cb93-1"></a>river_means &lt;-<span class="st"> </span><span class="cf">function</span>(data, pattern) {</span>
+<span id="cb93-2"><a href="r-package.html#cb93-2"></a>  desired_rivers &lt;-<span class="st"> </span><span class="kw">grep</span>(pattern, <span class="kw">names</span>(data))</span>
+<span id="cb93-3"><a href="r-package.html#cb93-3"></a>  <span class="cf">if</span> (<span class="kw">length</span>(desired_rivers) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb93-4"><a href="r-package.html#cb93-4"></a>    <span class="kw">stop</span>(<span class="st">&quot;This is an error message that stops the function.&quot;</span>)</span>
+<span id="cb93-5"><a href="r-package.html#cb93-5"></a>  }</span>
+<span id="cb93-6"><a href="r-package.html#cb93-6"></a>  new_data &lt;-<span class="st"> </span>data[, desired_rivers, drop =<span class="st"> </span><span class="ot">FALSE</span>]</span>
+<span id="cb93-7"><a href="r-package.html#cb93-7"></a>  <span class="kw">rowMeans</span>(new_data)</span>
+<span id="cb93-8"><a href="r-package.html#cb93-8"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="r-package.html#cb94-1"></a><span class="kw">river_means</span>(rivers, <span class="st">&quot;ZZZ&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt; Error in river_means(rivers, &quot;ZZZ&quot;): This is an error message that stops the function.</code></pre>
 <div id="ex-set6" class="section level4">
 <h4><span class="header-section-number">1.3.4.1</span> Exercises</h4>

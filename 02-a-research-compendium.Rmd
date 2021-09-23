@@ -99,7 +99,7 @@ A compiled PDF of the manuscript is available here ([external link](https://gith
 
 ### Adding a Citation {#citation}
 
-Often times your research compendium may be centered around a particular publication. You may build an R package that deals with specific tasks and then write your manuscript using the research compendium structure. In this event, you may want your publication to be easily citeable. You can add a citation to your R package research compendium by running
+Often times your research compendium may be centered around a particular publication. You may build an R package that deals with specific tasks and then write your manuscript using the research compendium structure. In this event, you may want your publication to be easily citable. You can add a citation to your R package research compendium by running
 ```{r}
 use_citation()
 ```
@@ -186,7 +186,7 @@ So now you have a research compendium that combines your R functions with your d
 devtools::build()
 ```
 
-will build an R package for you. By default, the package will be located in the same folder as the folder containing your R package with name "package-name_version-number.tar.gz". Note that this is one level above the location of your R package's directory. For example, if folder "A" holds "RPRW", which is the folder containing all of the files associated with my R package, then using `devtools::build()` will install "RPRW_0.0.0.9000.tar.gz" in folder "A". 
+will build an R package for you. By default, the package will be located in the same folder as the folder containing your R package with name "package-name_version-number.tar.gz". Note that this is one level above the location of your R package's directory. For example, if folder "A" holds "RPRW", which is the folder containing all of the files associated with my R package, then using `devtools::build()` will install "RPRW_0.0.0.9000.tar.gz" in folder "A". If there are any files in your package folder that you do not present in the installed version of the package, place the file paths in the `.Rbuildignore` file. Fore more on `.Rbuildignore`, visit here ([external link](https://r-pkgs.org/package-structure-state.html#rbuildignore)).
 
 After building the package, you can send it to a colleague, they can save it on their machine, and then they can install it by running
 ```{r}
@@ -199,6 +199,15 @@ install.packages(file.choose(), repos = NULL, type = "source")
 ```
 
 Because R packages leverage R projects your colleague can immediately run any of your code on their machine (a reminder that we discuss R projects soon)!
+
+## Hosting Your Research Compendium
+
+You can host your research compendium in an open-access repository so that a broader audience may access it. One approach is to host it on GitHub, which we discuss more later. This approach has the advantage of being easy to install by running
+```{r}
+devtools::install_github("GitHub_user_name/repository_name", "repository_branch")
+```
+
+You can also put your research compendium on Zenodo ([external link](https://zenodo.org/)). Zenodo is an open-access repository designed to permanently archive research compendia. GitHub and Zenodo compliment each other nicely: GitHub acts as the "easy to access" version of the research compendium while Zenodo is the more permanent version. For an example of a research compendium that combines these approaches, visit the GitHub repository here ([external link](https://github.com/usepa/ri_wq_trends)) and Zenodo archive here ([external link](https://zenodo.org/record/4306765#.YUygPbhKhPY)). 
 
 ### Exercises {#ex-set10}
 

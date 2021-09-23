@@ -61,7 +61,7 @@ If the structure of `river` is atypical to you, see Exercise 3.7.1.1 ([internal 
 
 The first step is using devtools to create a package template for us. There are a two ways to easily create this template. First, in editor window (upper-left pane in RStudio), click "File -> New Project -> New Directory -> R Package -> Create Project". An alternative approach is to run
 ```{r}
-devtools::create_package("path_to_RPRW_package/RPRW")
+usethis::create_package("path_to_RPRW_package/RPRW")
 ```
 
 ```{}
@@ -141,7 +141,7 @@ There are three lines of code in `river_means()`:
 
 By default, the function returns the object evaluated by its last line of code. So `river_means()` returns the output from `rowMeans()`. You can force the function to return a different object earlier using `return(object)`.
 
-You can leave comments in your function by prefixing a line with `#`. Comments are used to communicate in plain verbage the intent of your code. Leaving comments is usually good practice because it helps others (including future you) better understand the goals of your code.
+You can leave comments in your function by prefixing a line with `#`. Comments are used to communicate in plain language the intent of your code. Leaving comments is usually good practice because it helps others (including future you) better understand the goals of your code.
 
 ### `devtools::load_all()` {#load-all}
 
@@ -157,7 +157,7 @@ An alternative approach is to leverage devtools, since after all, you are bother
 devtools::load_all()
 ```
 
-Now we get to try out `river_means()`! Suppose we want to summarize the rivers whose names start with "Mi" (in `river`, this is only Missiouri and Mississippi).
+Now we get to try out `river_means()`! Suppose we want to summarize the rivers whose names start with "Mi" (in `river`, this is only Missouri and Mississippi).
 ```{r, eval = TRUE}
 river_means(river, "Mi")
 ```
@@ -384,6 +384,11 @@ river_medians <- function(data, pattern) {
 
 Be careful when using `@importFrom` or `@import` (especially `@import`). If two functions from different packages have the same name and you try to use one it in your function, R may use the wrong one. In these contexts, using the `package::` prefix is crucial.
 
+To finish creating the `river_medians()` documentation, run
+```{r}
+devtools::document()
+```
+
 #### Exercises {#ex-set3}
 
 These exercises are challenging, so if they don't make sense now, that is okay! Make sure to re-review the solutions after the workshop.
@@ -571,7 +576,7 @@ usethis::use_gpl_license()
 √ Adding '^LICENSE\\.md$' to '.Rbuildignore'
 ```
 
-`usethis::use_gpl_license()` adds the license to `DESCRIPTION` and creates a `LICENSE.md` file at the root of your package that contains information about the license. 
+`usethis::use_gpl_license()` adds the license to `DESCRIPTION` and creates a `LICENSE.md` file at the root of your package that contains information about the license. Approved licenses for EPA repositories include CC0, MIT, GPL-3, and Apache 2.
 
 ### Vignettes {#vignettes}
 
@@ -671,7 +676,7 @@ Something is wrong -- and we need to figure out what. A good first step is to co
 
 ### `traceback()` {#traceback}
 
-The `traceback()` function is generally run in the console after receiving an error. `traceback()` identifies where the error occured in the previous function call. Here we run `traceback()` after `river_means(river, "R")`:
+The `traceback()` function is generally run in the console after receiving an error. `traceback()` identifies where the error occurred in the previous function call. Here we run `traceback()` after `river_means(river, "R")`:
 ```{r}
 traceback()
 ```
@@ -682,7 +687,7 @@ traceback()
 1: river_means(river, "R")
 ```
 
-We now know that the error occurs in Line 4 of `river_means()` (the `rowMeans(new_data)` step). While this is very useful information, we still don't know exactky why the error occurs.
+We now know that the error occurs in Line 4 of `river_means()` (the `rowMeans(new_data)` step). While this is very useful information, we still don't know exactly why the error occurs.
 
 ### `browser()` {#browser}
 

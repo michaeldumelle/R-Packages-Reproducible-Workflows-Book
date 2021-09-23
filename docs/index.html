@@ -201,10 +201,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.2" data-path="r-package-rc.html"><a href="r-package-rc.html#citation"><i class="fa fa-check"></i><b>2.4.2</b> Adding a Citation</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="r-package-rc.html"><a href="r-package-rc.html#rc-recap"><i class="fa fa-check"></i><b>2.5</b> Research Compendium Recap</a></li>
-<li class="chapter" data-level="2.6" data-path="r-package-rc.html"><a href="r-package-rc.html#sharing-rc"><i class="fa fa-check"></i><b>2.6</b> Sharing Your Research Compendium</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-set10"><i class="fa fa-check"></i><b>2.6.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.6" data-path="r-package-rc.html"><a href="r-package-rc.html#sharing-rc"><i class="fa fa-check"></i><b>2.6</b> Sharing Your Research Compendium</a></li>
+<li class="chapter" data-level="2.7" data-path="r-package-rc.html"><a href="r-package-rc.html#hosting-your-research-compendium"><i class="fa fa-check"></i><b>2.7</b> Hosting Your Research Compendium</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-set10"><i class="fa fa-check"></i><b>2.7.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-rc"><i class="fa fa-check"></i><b>2.7</b> An Example R Package Reserach Compendium</a></li>
+<li class="chapter" data-level="2.8" data-path="r-package-rc.html"><a href="r-package-rc.html#ex-rc"><i class="fa fa-check"></i><b>2.8</b> An Example R Package Reserach Compendium</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="extensions.html"><a href="extensions.html"><i class="fa fa-check"></i><b>3</b> Extensions</a><ul>
 <li class="chapter" data-level="3.1" data-path="extensions.html"><a href="extensions.html#r-projects"><i class="fa fa-check"></i><b>3.1</b> R Projects</a><ul>
@@ -219,9 +220,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="extensions.html"><a href="extensions.html#git-github"><i class="fa fa-check"></i><b>3.4</b> Git and GitHub</a><ul>
 <li class="chapter" data-level="3.4.1" data-path="extensions.html"><a href="extensions.html#cloning-a-github-repository-in-rstudio"><i class="fa fa-check"></i><b>3.4.1</b> Cloning a GitHub Repository in RStudio</a></li>
+<li class="chapter" data-level="3.4.2" data-path="extensions.html"><a href="extensions.html#gitignore"><i class="fa fa-check"></i><b>3.4.2</b> <code>.gitignore</code></a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="extensions.html"><a href="extensions.html#ci"><i class="fa fa-check"></i><b>3.5</b> Continuous Integration</a></li>
-<li class="chapter" data-level="3.6" data-path="extensions.html"><a href="extensions.html#style"><i class="fa fa-check"></i><b>3.6</b> Cody Style</a></li>
+<li class="chapter" data-level="3.6" data-path="extensions.html"><a href="extensions.html#style"><i class="fa fa-check"></i><b>3.6</b> Code Style</a></li>
 <li class="chapter" data-level="3.7" data-path="extensions.html"><a href="extensions.html#add-tips"><i class="fa fa-check"></i><b>3.7</b> Additional Tips</a><ul>
 <li class="chapter" data-level="3.7.1" data-path="extensions.html"><a href="extensions.html#ex-set14"><i class="fa fa-check"></i><b>3.7.1</b> Exercises</a></li>
 </ul></li>
@@ -260,11 +262,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="welcome" class="section level1 unnumbered">
 <h1>Welcome</h1>
-<p>Welcome to the 2021 EPA R Workshop titled “Using R Packages for Reproducible Workflows” by me, Michael Dumelle – I am glad to have you here! You should have R and RStudio installed before starting this workshop. If not, no problem – just follow along with me as we proceed through the workshop and revisit this book later. R code and output from this workshop are in blocks with grey background like this</p>
+<p>Welcome to the 2021 EPA R Workshop titled “Using R Packages for Reproducible Workflows” by me, Michael Dumelle – I am glad to have you here! You should have R and RStudio installed before starting this workshop. If not, no problem – just follow along with me as we proceed through the workshop and revisit this book later. R code and output from this workshop are in blocks with gray background like this</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
 <span id="cb1-2"><a href="index.html#cb1-2"></a><span class="kw">print</span>(x)</span></code></pre></div>
 <pre><code>#&gt; [1] 1 2 3</code></pre>
-<p>You can copy and paste these blocks by hovering your cursor in the upper-right portion of the block and clicking the copy button (which looks like two pages that slightly overlap). You can either follow along throughout the workshop by copying and pasting the R code onto your machine and/or by reading the R code output the book provides. Sometimes when I use functions, I will prefix the function call <code>packagename::</code> so that it is clear what package the function is from. For example, <code>ggplot2::ggsave()</code> calls the <code>ggsave()</code> function in the <code>ggplot2</code> package.</p>
+<p>You can copy and paste these blocks by hovering your cursor in the upper-right portion of the block and clicking the copy button (which looks like two pages that slightly overlap). You can either follow along throughout the workshop by copying and pasting the R code onto your machine and/or by reading the R code output the book provides. Sometimes when I use functions, I will prefix the function call <code>package::</code> so that it is clear what package the function is from. For example, <code>ggplot2::ggsave()</code> calls the <code>ggsave()</code> function in the <code>ggplot2</code> package.</p>
 <p>There are two types of hyperlinks in this book: internal and external. Internal hyperlinks take you to the place in the book. External hyperlinks will take you to a webpage outside of the book. Both internal and external links will be described in text but the actual link will follow the relevant text and read (<a href="">internal link</a>) or (<a href="">external link</a>). There are several options in the upper-left toolbar of the book.
 <img src="images/newrpack_files0.PNG" width="100%" /></p>
 <p>From left to right, they let you:</p>
@@ -273,7 +275,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Search throughout the document</li>
 <li>Adjust font size (small or large), font type (Serif or Sans), and color scheme (White, Sepia, or Night)</li>
 <li>Edit the book (you don’t have access to this one)</li>
-<li>Download the book as a PDF or EPUB book (formatting warning: the book was built for a workshop format, not a PDF or EPUB format)</li>
+<li>Download the book as a PDF or EPUB book (formatting warning: the book was built for a workshop format, not a PDF or EPUB format)
+<ul>
+<li>If you are unable to download the PDF via this link, it is also available here (<a href="https://github.com/michaeldumelle/R-Packages-Reproducible-Workflows-Book/blob/main/docs/_main.pdf">external link</a>)</li>
+</ul></li>
 <li>Use a Javascript keyboard shortcut helper</li>
 </ul>
 <p>This workshop book was published using Bookdown <span class="citation">(Xie <a href="#ref-xie2016bookdown" role="doc-biblioref">2016</a>)</span>. The book will be maintained for an indefinite amount of time after the workshop, so feel free to check back in for a refresher whenever you would like!</p>

@@ -84,7 +84,7 @@ plot(pressure)
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 ````
 
-* The part surrounded by ```---``` is the YAML header, which contains metadata about your document -- big picture options are controlled here. 
+* The part surrounded by ```---``` is the YAML header, which contains metadata about your document -- big picture options are controlled here. For more on YAML headers, check out the ymlthis package and its associated vignettes here ([external link](https://cran.r-project.org/web/packages/ymlthis/index.html)).
 
 * The parts prefixed by `#` are first-level (section-level) headers, and the parts prefixed by `##` are second level (subsection-level) headers.
 
@@ -154,6 +154,10 @@ knitr::include_graphics("images/newrpack_github1.PNG")
 
 Then go to "File -> New Project -> Version Control -> Git". Copying and pasting the HTTPS URL in the "Repository URL:" field and pressing "Create Project" clones the repository and creates an R project in a folder with name given by the "Project directory name:" field (which defaults to the repository name) located at the "Create project as subdirectory of:" field. You can then use `usethis::create_package()` to turn the repository into an R package (note that `usethis::create_package(".")` creates a package in the current working directory).
 
+### `.gitignore`
+
+The `.gitignore` file in your package files deserves some special attention. Similar to `.Rbuildignore`, `.gitignore` contains file paths that are stored locally but not meant to be put on GitHub. For more on `.gitignore`, visit here ([external link](https://r-pkgs.org/git.html#git-ignore)).
+
 ## Continuous Integration {#ci}
 
 Continuous integration (often abbreviated CI) is the process of performing automated checks on code anytime it is updated. This may seem cumbersome, but it is a really good idea because it forces you to check for errors with every new version of code. One option for continuous integration in your R package's GitHub repository is GitHub Actions ([external link](https://github.com/features/actions)). devtools has several tools to help you set up GitHub actions. I recommend using their "standard" GitHub actions template, which can be added to your R project by running
@@ -173,7 +177,7 @@ use_github_action(name = "check-standard")
 
 You will notice that this code created a new folder at the root of our package named `.github`. The .github folder may be hidden so you may need to enable the viewing of hidden files to look through its contents on your machine (in the files pane of R studio click more and check "show hidden files". Then every time you push to GitHub, GitHub actions will simulate `devtools::check()` on several operating systems (Windows, Mac, Linux) and return the results. To view this approach implemented for the RPRW package, visit this ([external link](https://github.com/michaeldumelle/RPRW/actions)).  Another option for continuous integration is Travis CI ([external link](https://travis-ci.org/)).
 
-## Cody Style {#style}
+## Code Style {#style}
 
 The tidyverse style guide ([external link](https://style.tidyverse.org/)) provides a set of code-writing guidelines that help make your code as easy to read as possible. The tidyverse style guide claims "Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread."
 
