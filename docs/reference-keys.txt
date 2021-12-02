@@ -4,6 +4,7 @@ ex-set1
 creating-an-r-package
 the-motivating-dataset
 first-step
+some-prelminaries
 first-function
 load-all
 ex-set2
@@ -21,6 +22,7 @@ check
 install
 ex-set5
 congratulations
+a-recap
 debugging
 error-onematch
 traceback
@@ -58,4 +60,9 @@ style
 add-tips
 ex-set14
 thank-you
+your-compendia
 exercise-solutions
+sharing-your-book
+publishing
+pages
+metadata-for-sharing

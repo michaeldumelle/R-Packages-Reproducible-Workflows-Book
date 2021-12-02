@@ -213,7 +213,7 @@ I finished my PhD in statistics at Oregon State University in 2020. I now work i
 \section*{Acknowledgements}\label{acknowledgements}}
 \addcontentsline{toc}{section}{Acknowledgements}
 
-I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me create and give this workshop.
+I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me create and give this workshop. A special thanks to for providing feedback after the first version of the workshop that significantly improved future versions.
 
 \hypertarget{getting-started}{%
 \section*{Getting Started}\label{getting-started}}
@@ -232,23 +232,25 @@ The devtools package contains tools to make developing R packages easier, and we
 
 In this workshop we will build an R package named RPRW (\textbf{R} \textbf{P}ackages for \textbf{R}eproducible \textbf{W}orkflows) designed to quantify properties of rivers in North America. Then we will turn RPRW into a research compendium, a standard by which to organize a body of work.
 
-Though we will build RPRW together, you can download in its entirety by running
+If you don't want to build RPRW now and just want to look at the finished product, you can download in its entirety by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}
-  \DataTypeTok{repo =} \StringTok{"michaeldumelle/RPRW"}\NormalTok{,}
+  \DataTypeTok{repo =} \StringTok{"michaeldumelle/cRPRW"}\NormalTok{,}
   \DataTypeTok{ref =} \StringTok{"main"}\NormalTok{,}
   \DataTypeTok{build_vignettes =} \OtherTok{TRUE}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-Then you can load RPRW by running
+Notice that it has a ``c'' (short for ``companion'') prefix to RPRW to avoid conflicts with the version you build yourself today.
+
+Then you can load cRPRW by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(RPRW)}
+\KeywordTok{library}\NormalTok{(cRPRW)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -286,6 +288,8 @@ and get help by running
 \end{Highlighting}
 \end{Shaded}
 
+After loading packages, you can refer to functions within them by interactively running \texttt{function\_name()}. To be explicit about which functions come from which packages, I tend to refer to them as \texttt{package\_name::function\_name()}. The package name prefix actually prevents the need to explicitly load the package using \texttt{library()}.
+
 One of the many reasons R packages are so useful is because they are the fundamental vessel by which to share R code. If your code is in a package, others can easily download and use it -- this is the essence of open-source software! Most R users have some experience with at least one package, so they will likely be familiar with how to use yours after you share it. But sharing code is not the only benefit of creating packages -- a major benefit of using packages is that they enforce your code is built using a certain structure. Adhering to this structure:
 
 \begin{enumerate}
@@ -315,6 +319,8 @@ One of the many reasons R packages are so useful is because they are the fundame
   \item
     Before I started using R packages, when I would come back my old code, I was convinced someone else wrote it -- I basically had to rewrite it all to understand it. R packages help prevent this.
   \end{itemize}
+\item
+  keeps your code, documentation, and package dependencies all in sync
 \item
   guides your research compendium
 \item
@@ -348,23 +354,6 @@ Next we will create the RPRW package together! If this is your first R package, 
 
 Suppose we want RPRW to summarize the length (in kilometers) and discharge (meters per second cubed) of North American rivers. Suppose we also want RPRW to easily accommodate many subsets of rivers based on their name. Below are our data of interest:
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{river <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
-  \DataTypeTok{Missouri =} \KeywordTok{c}\NormalTok{(}\DecValTok{3768}\NormalTok{, }\DecValTok{1956}\NormalTok{),}
-  \DataTypeTok{Mississippi =} \KeywordTok{c}\NormalTok{(}\DecValTok{3544}\NormalTok{, }\DecValTok{18400}\NormalTok{),}
-  \DataTypeTok{Yukon =} \KeywordTok{c}\NormalTok{(}\DecValTok{3190}\NormalTok{, }\DecValTok{6340}\NormalTok{),}
-  \DataTypeTok{Colorado =} \KeywordTok{c}\NormalTok{(}\DecValTok{2330}\NormalTok{, }\DecValTok{40}\NormalTok{),}
-  \DataTypeTok{Arkansas =} \KeywordTok{c}\NormalTok{(}\DecValTok{2322}\NormalTok{, }\DecValTok{1004}\NormalTok{),}
-  \DataTypeTok{Columbia =} \KeywordTok{c}\NormalTok{(}\DecValTok{2000}\NormalTok{, }\DecValTok{7730}\NormalTok{),}
-  \DataTypeTok{Red =} \KeywordTok{c}\NormalTok{(}\DecValTok{1811}\NormalTok{, }\DecValTok{852}\NormalTok{),}
-  \DataTypeTok{Canadian =} \KeywordTok{c}\NormalTok{(}\DecValTok{1458}\NormalTok{, }\DecValTok{174}\NormalTok{)}
-\NormalTok{) }
-\KeywordTok{rownames}\NormalTok{(river) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"length"}\NormalTok{, }\StringTok{"discharge"}\NormalTok{)}
-\KeywordTok{print}\NormalTok{(river)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{verbatim}
 #>           Missouri Mississippi Yukon Colorado Arkansas Columbia  Red Canadian
 #> length        3768        3544  3190     2330     2322     2000 1811     1458
@@ -376,7 +365,7 @@ If the structure of \texttt{river} is atypical to you, see Exercise 3.7.1.1 (\pr
 \hypertarget{first-step}{%
 \subsection{The First Step}\label{first-step}}
 
-The first step is using devtools to create a package template for us. There are a two ways to easily create this template. First, in editor window (upper-left pane in RStudio), click ``File -\textgreater{} New Project -\textgreater{} New Directory -\textgreater{} R Package -\textgreater{} Create Project''. An alternative approach is to run
+The first step is using devtools to create a package template for us. There are a two ways to easily create this template: \texttt{usethis::create\_package()} and the RStudio toolbar. In this class we will use \texttt{usethis::create\_package()}. Suppose you want the R package to be contained in the folder ``RPRW'' at the location on your computer specified by ``path\_to\_RPRW\_package'' (which must exist). To create the R package, run
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -411,16 +400,54 @@ RoxygenNote: 7.1.1
 √ Setting active project to 'path_to_RPRW_package/RPRW'
 \end{verbatim}
 
-The package is placed inside a folder named ``RPRW'' created at the the path on your computer named ``path\_to\_RPRW\_package''. RStudio will automatically create a new window and you will see that in the ``Files'' tab of the bottom-right RStudio pane, there are several files (located in ``path\_to\_RPRW\_package/RPRW'')
+RStudio will automatically create a new window, and you can safely close the old RStudio window. As you can see in the ``Files'' tab of the bottom-right RStudio pane, this new window is ``placed'' within ``path\_to\_RPRW\_package/RPRW'' and you can see several newly created files.
 
 \includegraphics[width=1\linewidth]{images/newrpack_files}
 
-Notice the \texttt{.Rproj} file, which indicates that your package is also an R project. Also notice that the top-right RStudio pane now has a ``Build'' tab, which contains some useful tools for your R package.
+Notice the \texttt{.Rproj} file, which indicates that your package is also an R project. We talk about R projects later, but the takeaway is that they provide a convenient default place for R to look for files (more formally, this default place is called a working directory). This is convenient because the functions in devtools and usethis we explore later will operate on the files in our working directory, which is forced to be the root of the ``RPRW'' folder by the package structure. Finally, notice that the top-right RStudio pane now has a ``Build'' tab, which contains some useful tools for your R package.
+
+If you instead want to use the RStudio toolbar approach, navigate to ``File -\textgreater{} New Project -\textgreater{} New Directory -\textgreater{} R Package -\textgreater{} Create Project'' in the RStudio toolbar. With this approach, you will not see any output in the R console of your original RStudio window.
+
+\hypertarget{some-prelminaries}{%
+\subsection{Some prelminaries}\label{some-prelminaries}}
+
+Because \texttt{usethis::create\_package()} created a new RStudio window for us, we need to reload devtools (which also loads usethis:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(devtools)}
+\end{Highlighting}
+\end{Shaded}
+
+Next we will store the river data (the motivating dataset) in the global environment so we can work with it:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{river <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{Missouri =} \KeywordTok{c}\NormalTok{(}\DecValTok{3768}\NormalTok{, }\DecValTok{1956}\NormalTok{),}
+  \DataTypeTok{Mississippi =} \KeywordTok{c}\NormalTok{(}\DecValTok{3544}\NormalTok{, }\DecValTok{18400}\NormalTok{),}
+  \DataTypeTok{Yukon =} \KeywordTok{c}\NormalTok{(}\DecValTok{3190}\NormalTok{, }\DecValTok{6340}\NormalTok{),}
+  \DataTypeTok{Colorado =} \KeywordTok{c}\NormalTok{(}\DecValTok{2330}\NormalTok{, }\DecValTok{40}\NormalTok{),}
+  \DataTypeTok{Arkansas =} \KeywordTok{c}\NormalTok{(}\DecValTok{2322}\NormalTok{, }\DecValTok{1004}\NormalTok{),}
+  \DataTypeTok{Columbia =} \KeywordTok{c}\NormalTok{(}\DecValTok{2000}\NormalTok{, }\DecValTok{7730}\NormalTok{),}
+  \DataTypeTok{Red =} \KeywordTok{c}\NormalTok{(}\DecValTok{1811}\NormalTok{, }\DecValTok{852}\NormalTok{),}
+  \DataTypeTok{Canadian =} \KeywordTok{c}\NormalTok{(}\DecValTok{1458}\NormalTok{, }\DecValTok{174}\NormalTok{)}
+\NormalTok{) }
+\KeywordTok{rownames}\NormalTok{(river) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"length"}\NormalTok{, }\StringTok{"discharge"}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(river)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#>           Missouri Mississippi Yukon Colorado Arkansas Columbia  Red Canadian
+#> length        3768        3544  3190     2330     2322     2000 1811     1458
+#> discharge     1956       18400  6340       40     1004     7730  852      174
+\end{verbatim}
 
 \hypertarget{first-function}{%
 \subsection{The First Function}\label{first-function}}
 
-R packages are composed of several functions that work together to accomplish a set of goals. The folder named ``R'' is where functions in your package live. Let's create our first function, \texttt{river\_means()}, which finds the mean river length and discharge of desired rivers. To create an R script in the R folder named \texttt{river\_means.R}, run
+R packages are composed of several functions that work together to accomplish a set of goals. Within your R package, the folder named ``R'' is where functions live. Let's create our first function, \texttt{river\_means()}, which finds the mean river length and discharge of desired rivers. To create an R script named \texttt{river\_means.R} in the package's R folder, run
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -435,7 +462,7 @@ You will see some output in the console
 * Call `use_test()` to create a matching test file 
 \end{verbatim}
 
-and the appropriate file now in your R folder.
+and the R script is opened in the editor window of RStudio and placed in the R folder.
 
 \includegraphics[width=1\linewidth]{images/newrpack_function}
 
@@ -487,10 +514,12 @@ By default, the function returns the object evaluated by its last line of code. 
 
 You can leave comments in your function by prefixing a line with \texttt{\#}. Comments are used to communicate in plain language the intent of your code. Leaving comments is usually good practice because it helps others (including future you) better understand the goals of your code.
 
+Paste this code into your version of \texttt{river\_means.R} and click the save icon (or \texttt{Ctrl\ +\ S}).
+
 \hypertarget{load-all}{%
 \subsection{\texorpdfstring{\texttt{devtools::load\_all()}}{devtools::load\_all()}}\label{load-all}}
 
-Now that we have written \texttt{river\_means()}, it is natural to want to try it out. One approach is to run \texttt{river\_means()} (either in the ``R/river\_means.R'' script or by copying and pasting \texttt{river\_means()} into the console). Another approach is to load \texttt{river\_means()} by running
+Now that we have written \texttt{river\_means()}, it is natural to want to try it out. Though we wrote our function in \texttt{river\_means.R}, to use it interactively we must tell R that it is an object we want to use. If you were not making an R package, you may store \texttt{river\_means()} by running \texttt{river\_means()} in ``R/river\_means.R'' script, copying and pasting \texttt{river\_means()} into the console and pressing \texttt{Enter}, or by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -500,13 +529,15 @@ Now that we have written \texttt{river\_means()}, it is natural to want to try i
 
 These approaches put \texttt{river\_means()} in the global environment (look at the environment tab in the upper-right pane of RStudio). Unfortunately messing around too much in the global environment can easily introduce errors in your functions or have them behave in unexpected ways.
 
-An alternative approach is to leverage devtools, since after all, you are bothering to create a package, so you may as well use the tools designed for them! The devtools function \texttt{devtools::load\_all()} emulates the process of building, installing, and loading a package. This has a few benefits. First, the functions are ``sourced'' into a better spot (not the global environment). Second, it makes all of your functions available through a single line of code rather than running and/or sourcing several functions separately. I highly recommend you practice using \texttt{devtools::load\_all()} instead of navigating the dangerous global environment.
+To approach we use here is to leverage devtools, since after all, you are bothering to create a package, so you may as well use the tools designed for them! The devtools function \texttt{devtools::load\_all()} emulates the process of building, installing, and loading a package. This has a few benefits. First, the functions are ``sourced'' into a better spot (not the global environment). Second, it makes all of your functions (and data, which we get to soon) available through a single line of code rather than running and/or sourcing several functions separately. I highly recommend you practice using \texttt{devtools::load\_all()} instead of navigating the global environment.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{devtools}\OperatorTok{::}\KeywordTok{load_all}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
+
+By running \texttt{search()} or selecting the drop-down ``Global Environment'' window in the ``Environment'' pane (upper-right pane in RStudio), you see \texttt{package:RPRW}, which indicates \texttt{devtools::load\_all()} is treating RPRW like a package. If you make any changes to your functions, make sure to save them and rerun \texttt{devtools::load\_all()}.
 
 Now we get to try out \texttt{river\_means()}! Suppose we want to summarize the rivers whose names start with ``Mi'' (in \texttt{river}, this is only Missouri and Mississippi).
 
@@ -550,7 +581,7 @@ Hooray -- our function works! Give yourself a congratulations :)! And for more o
 \hypertarget{creating-data}{%
 \subsection{Creating Package Data}\label{creating-data}}
 
-So far the \texttt{river} data has been stored in global environment. What if you want to save this data in an easily accessible location and/or share it with others? Another package development tool to the rescue -- \texttt{usethis::use\_data()} (are you starting to notice the benefits of the additional tools the package structure provides?).
+So far the \texttt{river} data has been stored in our global environment. What if you want to save this data in an easily accessible location and/or share it with others? Another package development tool to the rescue -- \texttt{usethis::use\_data()} (are you starting to notice the benefits of the additional tools devtools and usethis provide packages?).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -563,12 +594,12 @@ So far the \texttt{river} data has been stored in global environment. What if yo
 √ Saving 'river' to 'data/river.rda'
 \end{verbatim}
 
-You will see that at the root of your R package (inside ``path\_to\_RPRW\_package/RPRW''), there is now a folder called \texttt{data}. In \texttt{data}, there is a file called \texttt{river.rda}. \texttt{river\_rda} contains the \texttt{river} data and can now be loaded by running \texttt{utils::data("river")}. For illustration, let's remove \texttt{river} from our global environment and then load it using \texttt{utils::data("river")} (similar to how we load data from other packages):
+You will see that at the root of your R package (inside ``path\_to\_RPRW\_package/RPRW''), there is now a folder called \texttt{data}. In \texttt{data}, there is a file called \texttt{river.rda}. \texttt{river\_rda} contains the \texttt{river} data (in a compressed format built for R objects) and can now be loaded alongside your functions when running \texttt{devtools::load\_all()}. For illustration, let's remove \texttt{river} from our global environment and then load it using \texttt{devtools::load\_all()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{rm}\NormalTok{(river) }\CommentTok{# remove the river data from our global environment}
-\NormalTok{utils}\OperatorTok{::}\KeywordTok{data}\NormalTok{(}\StringTok{"river"}\NormalTok{) }\CommentTok{# load the river data}
+\StringTok{`}\DataTypeTok{devtools::load_all()}\StringTok{`} \CommentTok{# load the river data}
 \KeywordTok{print}\NormalTok{(river) }\CommentTok{# view the river data}
 \end{Highlighting}
 \end{Shaded}
@@ -582,7 +613,7 @@ You will see that at the root of your R package (inside ``path\_to\_RPRW\_packag
 \hypertarget{roxygen}{%
 \subsection{roxygen Comments}\label{roxygen}}
 
-After writing \texttt{river\_means()}, you should document it while its structure is fresh in your mind. This makes it easier for others (including future you) to understand how to use \texttt{river\_means()}. Documenting R functions is a bit more complicated than leaving standard comments (\texttt{\#}). It requires using of a special type of comment, \emph{roxygen} comments (view the roxygen2 (\href{https://roxygen2.r-lib.org/}{external link}) package for more). roxygen comments are prefixed with \texttt{\#\textquotesingle{}} (instead of \texttt{\#}) and have special \textbf{tags} associated with them. roxygen comment templates can be automatically inserted into your R script by putting your cursor somewhere in the body of a function and either:
+After writing \texttt{river\_means()}, you should document it while its structure is fresh in your mind. This makes it easier for others (including future you) to understand how to use \texttt{river\_means()}. Documenting R functions is a bit more complicated than leaving standard comments (\texttt{\#}). R package documentation must be written in "R documentation (.Rd) formuat. The simplest way to write R documentation for functions is to use a special type of comment with your functions: \emph{roxygen} comments (view the roxygen2 (\href{https://roxygen2.r-lib.org/}{external link}) package for more). roxygen comments are prefixed with \texttt{\#\textquotesingle{}} (instead of \texttt{\#}) and have special \textbf{tags} associated with them. roxygen comment templates can be automatically inserted into your R script by putting your cursor somewhere in the body of a function and do either of:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -674,11 +705,11 @@ Writing NAMESPACE
 Writing river_means.Rd
 \end{verbatim}
 
-From now on I'll stop reminding you every time, but again, notice the benefits of leveraging tools that use the package structure. \texttt{devtools::document()} creates a new folder at the root of the package called \texttt{man} that now contains a file called \texttt{river\_means.Rd}
+\texttt{devtools::document()} creates a new folder at the root of the package called \texttt{man} that now contains a file called \texttt{river\_means.Rd}
 
 \includegraphics[width=1\linewidth]{images/newrpack_files2}
 
-The \texttt{river\_means.md} file is the result of transforming the roxygen comments to documentation that packages use. As you can see, \texttt{river\_means.Rd} is a bit more complicated than the roxygen comments in \texttt{river\_means()}. Luckily, \texttt{river\_means.Rd} is automatically generated. The broader, important point of all this is that after running \texttt{devtools::document()}, you can view the documentation of \texttt{river\_means()}!
+The \texttt{river\_means.Rd} file is the result of transforming the roxygen comments to documentation that packages use. As you can see, \texttt{river\_means.Rd} is a bit more complicated than the roxygen comments in \texttt{river\_means()}. Luckily, \texttt{river\_means.Rd} is automatically generated. The broader, important point of all this is that after running \texttt{devtools::document()}, you can view the documentation of \texttt{river\_means()}!
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -687,6 +718,8 @@ The \texttt{river\_means.md} file is the result of transforming the roxygen comm
 \end{Shaded}
 
 \includegraphics[width=1\linewidth]{images/newrpack_example}
+
+Note that \texttt{devtools::document()} simultaneously updates documentation for all of the \texttt{.R} files in the R folder that have roxygen comments. From now on I'll stop reminding you every time, but again, notice the benefits of leveraging the tools that devtools and usethis provide.
 
 For more on documentation in R packages (including documenting data), visit here (\href{https://r-pkgs.org/man.html\#man}{external link}) and the vignettes here (\href{https://cran.r-project.org/web/packages/roxygen2/index.html}{external link}). Though we skip documenting the river data here, the RPRW package available from GitHub does document it (the documentation can be viewed by running \texttt{?river} after \texttt{library(RPRW)}).
 
@@ -738,9 +771,9 @@ The first step is to tell your package that at least one function from the stats
 * Refer to functions with `stats::fun()`
 \end{verbatim}
 
-The package stats was added to the Imports field in the \texttt{DESCRIPTION} file at the root of your package. We will talk more about \texttt{DESCRIPTION} in a bit, but for now just remember that it contains metadata (high-level data) about your package. No matter how many times your package uses any function from stats, you only need to run \texttt{usethis::use\_package("stats")} once.
+The package stats was added to the Imports field in the \texttt{DESCRIPTION} file at the root of your package. We will talk more about \texttt{DESCRIPTION} in a bit, but for now just remember that it contains metadata (high-level data) about your package. No matter how many times your package uses any function from stats, you only need to run \texttt{usethis::use\_package("stats")} once. If you accidentally misspell a package name in here, you should delete the misspelled name in the \texttt{Imports} section of the \texttt{DESCRIPTION} file, which we cover later.
 
-The second step is to tell the \texttt{river\_medians()} function to use the \texttt{median()} function from stats. There are a few ways to do this. The way that is considered ``best practice'' is to preface any outside functions (aside from those in base) with \texttt{package::}. Incorporating this into \texttt{river\_medians()} and inserting roxygen documentation yields
+The second step is to tell the \texttt{river\_medians()} function to use the \texttt{median()} function from stats. There are a few ways to do this. The way that some consider ``best practice'' is to preface any outside functions (aside from those in base) with \texttt{package::}. Incorporating this into \texttt{river\_medians()} and inserting roxygen documentation yields
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -764,7 +797,7 @@ The second step is to tell the \texttt{river\_medians()} function to use the \te
 \end{Highlighting}
 \end{Shaded}
 
-Though \texttt{package::function} is considered best practice, it does add some extra typing and can be cumbersome if you are using many outside functions. The \texttt{package::} prefix can be avoided by importing \texttt{median()} from stats to \texttt{river\_median()} using the roxygen tag \texttt{@importFrom}:
+This approach does add some extra typing and can be cumbersome if you are using many outside functions. The \texttt{package::} prefix can be avoided by importing \texttt{median()} from stats to \texttt{river\_median()} using the roxygen tag \texttt{@importFrom}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -824,6 +857,14 @@ To finish creating the \texttt{river\_medians()} documentation, run
 \end{Highlighting}
 \end{Shaded}
 
+The \texttt{@importFrom} and \texttt{@import} tags affect the \texttt{NAMESPACE} file, which we get to later. This file is updated by running \texttt{devtools::document()}. Note that if you want to use \texttt{river\_medians()} interactively, make sure to run \texttt{devtools::load\_all()} again (for our example, this is not \emph{strictly necessary} because stats comes loaded alongside R, but it is a good habit).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{load_all}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{ex-set3}{%
 \subsubsection{Exercises}\label{ex-set3}}
 
@@ -840,7 +881,7 @@ These exercises are challenging, so if they don't make sense now, that is okay! 
 \hypertarget{description}{%
 \subsection{\texorpdfstring{\texttt{DESCRIPTION}}{DESCRIPTION}}\label{description}}
 
-The \texttt{DESCRIPTION} file contains the R package's metadata (and was automatically installed when we created the R package). The \texttt{DESCRIPTION} file lets you easily track version numbers, authorship, and additional R packages that your R package uses. There are two fields in \texttt{DESCRIPTION} that do most of the communication regarding how your R package uses additional R packages:
+The \texttt{DESCRIPTION} file contains the R package's metadata (and was automatically created alongside the R package). The \texttt{DESCRIPTION} file lets you easily track version numbers, authorship, and additional R packages that your R package uses. There are two fields in \texttt{DESCRIPTION} that do most of the communication regarding how your R package uses additional R packages:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -850,7 +891,7 @@ The \texttt{DESCRIPTION} file contains the R package's metadata (and was automat
   \texttt{Suggests}: Packages here enhance your package but are not required for your package to work. You might use suggested packages for enhanced plotting, additional data sets, or more. Packages in \texttt{Suggests} can add finishing touches to your package, but they are not part of your package's foundation -- they are like a home's paint color, not its framing.
 \end{enumerate}
 
-Other fields used to communicate how your R package uses additional R packages are \texttt{Depends}, \texttt{LinkingTo}, and \texttt{Enhances}. The difference between \texttt{Depends} and \texttt{Imports} is subtle -- the general advice is to use \texttt{Imports} instead of \texttt{Depends}.
+Other fields used to communicate how your R package uses additional R packages are \texttt{Depends}, \texttt{LinkingTo}, and \texttt{Enhances}. The difference between \texttt{Depends} and \texttt{Imports} is subtle -- the general advice is to use \texttt{Imports} instead of \texttt{Depends}. For more information about these fields, see Package Dependencies (\href{https://cran.r-project.org/doc/manuals/r-release/R-exts.html\#Package-Dependencies}{external link}).
 
 Editing the package, title, author, and description fields of this package yield a \texttt{DESCRIPTION} file that looks like
 
@@ -882,7 +923,7 @@ We will talk about some of the remaining parts of \texttt{DESCRIPTION} later.
 \hypertarget{namespace}{%
 \subsection{\texorpdfstring{\texttt{NAMESPACE}}{NAMESPACE}}\label{namespace}}
 
-While the \texttt{DESCRIPTION} file communicates what packages your package \emph{uses}, the \texttt{NAMESPACE} file communicates \emph{how} your package uses these packages. More specifically, the \texttt{NAMESPACE} file controls which functions your package exports (making them available to others when your package is installed) and what functions from what packages must be available for your exported functions to work. The \texttt{NAMESPACE} file is automatically updated while running \texttt{devtools::document()} and should not be edited by hand (in fact, there is a warning in the \texttt{NAMESPACE} file to warn against editing the file by hand).
+While the \texttt{DESCRIPTION} file communicates which other packages your package \emph{uses}, the \texttt{NAMESPACE} file communicates \emph{how} your package uses these packages. More specifically, the \texttt{NAMESPACE} file controls which functions your package exports (making them available to others when your package is installed) and which packages from which functions must be available for your exported functions to work. The \texttt{NAMESPACE} file is automatically updated while running \texttt{devtools::document()} and should not be edited by hand (in fact, there is a warning in the \texttt{NAMESPACE} file to warn against editing the file by hand). This illustrates another advantage of using roxygen comments and \texttt{devtools::document}: documentation for a function from the \texttt{.R} file is used to generate \texttt{.Rd} documentation and the \texttt{NAMESPACE} imports and exports, so they all remain consistent.
 
 In \texttt{river\_median()}, if you called \texttt{median} using \texttt{stats::median}, your \texttt{NAMESPACE} file will look like
 
@@ -945,7 +986,7 @@ The tests folder should look like
 
 \includegraphics[width=1\linewidth]{images/newrpack_files4}
 
-Tests are generally written on a function-by-function basis. Tests for a function should be contained in an R script titled \texttt{test-function\_name}. Luckily, \texttt{usethis::use\_test()} creates an R script for you with the proper name! To start testing \texttt{river\_means()}, run
+Tests are generally written on a function-by-function basis. Tests for a function should be contained in an R script titled \texttt{test-function\_name}. Luckily, \texttt{usethis::use\_test()} creates an R script for you with the proper name! To start setting up tests for \texttt{river\_means()}, run
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -962,12 +1003,11 @@ Your \texttt{testthat} folder should look like
 
 \includegraphics[width=1\linewidth]{images/newrpack_files5}
 
-Tests can be fairly detailed and cover many components of a function (such as input types, output types, function output, etc.). The tests in testthat are prefixed with \texttt{expect\_}. Here we write a simple test that calculates whether our function, \texttt{river\_means()}, yields output that we would expect if we calculated the means ``by hand'':
+Tests can be fairly detailed and cover many components of a function (such as input types, output types, function output, etc.). The tests in testthat are prefixed with \texttt{expect\_}. Here we write a simple test that calculates whether our function, \texttt{river\_means()}, yields output that we would expect if we calculated the means ``by hand''. Copy and paste this into \texttt{test-river\_means.R}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(testthat) }\CommentTok{# testthat is installed with devtools but we must load it}
-\NormalTok{testthat}\OperatorTok{::}\KeywordTok{test_that}\NormalTok{(}\StringTok{"the mean length is calculated correctly in a test case"}\NormalTok{, \{}
+\KeywordTok{test_that}\NormalTok{(}\StringTok{"the mean length is calculated correctly in a test case"}\NormalTok{, \{}
   
   \CommentTok{# calculate values required for the test for length}
 
@@ -988,7 +1028,20 @@ Tests can be fairly detailed and cover many components of a function (such as in
 \end{Shaded}
 
 \begin{verbatim}
-#> Test passed
+#> Error in test_that("the mean length is calculated correctly in a test case", : could not find function "test_that"
+\end{verbatim}
+
+You should then see a ``Run Tests'' button in the editor window. Clicking on that button runs the tests and prints the results in the ``Build'' tab of the environment window, which should look like
+
+\begin{verbatim}
+==> Testing R file using 'testthat'
+
+i Loading cRPRW
+
+== Testing test-river_means.R ==================================================
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ] Done!
+
+Test complete
 \end{verbatim}
 
 If you have many tests, the \texttt{devtools::test()} function runs all of the tests in the \texttt{testthat} folder:
@@ -1065,15 +1118,7 @@ At some point, your package needs a license. The license places restrictions on 
 
 Vignettes act as high-level user guides for your package. They are the glue that binds together several components of your package to illustrate how the package can be used to solve a particular problem. Vignettes tend to be R Markdown documents. Though we cover R Markdown documents in more detail later, for now we note that they that interweave text and R code to create reproducible documents. You can recognize whether a document is an R markdown documents by the \texttt{.Rmd} extension that R documents have.
 
-The ggplot2 (\href{https://ggplot2.tidyverse.org/}{external link}) package is a popular package for visualizing data. After installing ggplot2
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-you can view its available vignettes by running
+The ggplot2 (\href{https://ggplot2.tidyverse.org/}{external link}) package is a popular package for visualizing data. After installing ggplot2 (you can check to see if it is already installed by running \texttt{"ggplot2"\ \%in\%\ installed.packages()}), you can view its available vignettes by running
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1116,7 +1161,7 @@ Suppose we want to include a vignette in RPRW that shows how to it to compute ri
 
 does a few things. It alters your \texttt{DESCRIPTION} file, most notably adding the knitr (\href{https://yihui.org/knitr/}{external link}) and rmarkdown packages to the \texttt{Suggests} field. It also creates a vignette folder at the root of your package and adds to that folder an rmarkdown vignette named \texttt{river-statistics.Rmd} (notice the \texttt{.Rmd} extension) whose title is ``River Statistics''.
 
-While we won't create a vignette for our package during the workshop, I have added a vignette to the RPRW package. To view it (after installation), run
+While we won't create a vignette for our package during the workshop, I have added a vignette to the RPRW package. To view it (after installation, which we discuss later), run
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1151,7 +1196,13 @@ After \texttt{devtools::check()} identifies zero errors (and hopefully zero warn
 \end{Highlighting}
 \end{Shaded}
 
-After installing RPRW, you can use \texttt{library(RPRW)} to load it like you do for any other R package.
+After installing RPRW, you can use \texttt{library(RPRW)} to load it as you do for any other R package. To uninstall, you can run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{remove.packages}\NormalTok{(}\StringTok{"RPRW"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{ex-set5}{%
 \subsubsection{Exercises}\label{ex-set5}}
@@ -1169,6 +1220,53 @@ After installing RPRW, you can use \texttt{library(RPRW)} to load it like you do
 Congratulations on building an R package! If this was your first one, then an extra special congratulations to you! Hopefully stepping through the process together made it all less intimidating.
 
 \begin{center}\includegraphics[width=0.5\linewidth]{images/well_done} \end{center}
+
+\hypertarget{a-recap}{%
+\subsection{A Recap}\label{a-recap}}
+
+Here is a table that walks through the tools we discussed today, step-by-step (omitting the \texttt{devtools::} and \texttt{usethis::} prefixes):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rpack_table <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{Task =} \KeywordTok{c}\NormalTok{(}\StringTok{"Creation"}\NormalTok{, }\StringTok{"Add Function"}\NormalTok{, }\StringTok{"Add Package"}\NormalTok{, }\StringTok{"Load Package"}\NormalTok{, }\StringTok{"Add Data"}\NormalTok{, }\StringTok{"Documentation"}\NormalTok{, }\StringTok{"Testing (Setup)"}\NormalTok{, }\StringTok{"Testing (Create)"}\NormalTok{, }\StringTok{"Testing (Perform)"}\NormalTok{, }\StringTok{"License (GPL-3)"}\NormalTok{, }\StringTok{"Vignette"}\NormalTok{, }\StringTok{"Check"}\NormalTok{, }\StringTok{"Install"}\NormalTok{),}
+  \DataTypeTok{Command =} \KeywordTok{c}\NormalTok{(}\StringTok{"create_package()"}\NormalTok{, }\StringTok{"use_r()"}\NormalTok{, }\StringTok{"use_package()"}\NormalTok{, }\StringTok{"load_all()"}\NormalTok{, }\StringTok{"use_data()"}\NormalTok{, }\StringTok{"document()"}\NormalTok{, }\StringTok{"use_testthat()"}\NormalTok{, }\StringTok{"use_test()"}\NormalTok{, }\StringTok{"test()"}\NormalTok{, }\StringTok{"use_gpl_license()"}\NormalTok{, }\StringTok{"use_vignette()"}\NormalTok{, }\StringTok{"check()"}\NormalTok{, }\StringTok{"install()"}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(rpack_table)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|l}
+\hline
+Task & Command\\
+\hline
+Creation & create\_package()\\
+\hline
+Add Function & use\_r()\\
+\hline
+Add Package & use\_package()\\
+\hline
+Load Package & load\_all()\\
+\hline
+Add Data & use\_data()\\
+\hline
+Documentation & document()\\
+\hline
+Testing (Setup) & use\_testthat()\\
+\hline
+Testing (Create) & use\_test()\\
+\hline
+Testing (Perform) & test()\\
+\hline
+License (GPL-3) & use\_gpl\_license()\\
+\hline
+Vignette & use\_vignette()\\
+\hline
+Check & check()\\
+\hline
+Install & install()\\
+\hline
+\end{tabular}
 
 \hypertarget{debugging}{%
 \section{Debugging}\label{debugging}}
@@ -1214,7 +1312,7 @@ We now know that the error occurs in Line 4 of \texttt{river\_means()} (the \tex
 \hypertarget{browser}{%
 \subsection{\texorpdfstring{\texttt{browser()}}{browser()}}\label{browser}}
 
-In my early stages of debugging, I would save my arguments to a function in the global environment and then run through each line of the function returning the error, effectively ``recreating'' the environment in which the error occurred. Perhaps some of you have done this too. The bad news is that this approach is often error-prone and inefficient. The good news is that there is a better way -- \texttt{browser()}. Inserting \texttt{browser()} into your code and then running it lets you interactively step into the function, starting at wherever \texttt{browser()} is located. No more saving arguments to the global environment and running code line-by-line! Let's try this out with \texttt{river\_means()}:
+In my early stages of debugging, I would save my arguments to a function in the global environment and then run through each line of the function returning the error, effectively ``recreating'' the environment in which the error occurred. Perhaps some of you have done this too. The bad news is that this approach is often error-prone and inefficient. The good news is that there is a better way -- \texttt{browser()}. Inserting \texttt{browser()} into your code and then running it lets you interactively step into the function, starting at wherever \texttt{browser()} is located. No more saving arguments to the global environment and running code line-by-line! Let's try this out with by changing the body of \texttt{river\_means()} to be:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1227,7 +1325,7 @@ In my early stages of debugging, I would save my arguments to a function in the 
 \end{Highlighting}
 \end{Shaded}
 
-After using \texttt{devtools::load\_all()} and running \texttt{river\_means()}, you will step into the function before the first line of code. For example,
+After using \texttt{devtools::load\_all()}, caling \texttt{river\_means()} will let you step into the function before the first line of code. For example,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1237,7 +1335,8 @@ After using \texttt{devtools::load\_all()} and running \texttt{river\_means()}, 
 
 opens a new file in the editor (upper left-hand) window that looks like
 
-\includegraphics[width=0.75\linewidth]{images/newrpack_files7}
+\includegraphics[width=0.75\linewidth]{images/newrpack_files7_2}
+which highlights the most recently executed line in the file, as seen above. The Environment tab shows objects in the function's current environment (in this case, the argument values and any objects the function defines).
 
 You will also see a few buttons in the R console (lower left-hand) window:
 
@@ -1335,7 +1434,7 @@ Well this seems weird -- \texttt{new\_data} does not look like a data frame. Let
 #>  num [1:2] 1811 852
 \end{verbatim}
 
-\texttt{new\_data} is in fact not a data frame, but rather it is a numeric vector. Because \texttt{rowMeans()} requires an array of two or more dimensions (e.g.~a matrix or data frame), the next line of code, \texttt{rowMeans()}, fails. Pressing \texttt{n} again returns the error and removes you from the interactive mode:
+\texttt{new\_data} is in fact not a data frame, but rather it is a numeric vector. Because \texttt{rowMeans()} requires an array of two or more dimensions (e.g.~a matrix or data frame), the next line of code, \texttt{rowMeans()}, fails. Pressing \texttt{n} again runs
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1346,6 +1445,8 @@ Well this seems weird -- \texttt{new\_data} does not look like a data frame. Let
 \begin{verbatim}
 #> Error in rowMeans(new_data): 'x' must be an array of at least two dimensions
 \end{verbatim}
+
+and returns the error while removing you from the interactive mode.
 
 This is a good example of one of the reasons debugging can be so challenging: often, an error occurs because code from a few lines back runs in an unintended way (even though it runs successfully). Note that a similar error occurs when running \texttt{river\_medians(river,\ "R")} because \texttt{apply()} requires an array of two or more dimensions.
 
@@ -2126,6 +2227,9 @@ Thank you so much for attending this workshop! I do genuinely appreciate you tak
 
 \begin{center}\includegraphics[width=0.5\linewidth]{images/thank_you} \end{center}
 
+\hypertarget{your-compendia}{%
+\chapter{Turning An R Package into a Reproducible Research Compendia}\label{your-compendia}}
+
 \hypertarget{exercise-solutions}{%
 \chapter{Exercise Solutions}\label{exercise-solutions}}
 
@@ -2333,7 +2437,8 @@ Answer 1.2.10.1
 \end{Shaded}
 
 \begin{verbatim}
-#> Test passed
+#> -- Error (<text>:16:3): the mean discharge is calculated correctly in a test case --
+#> Error: could not find function "expect_equal"
 \end{verbatim}
 
 \begin{Shaded}
@@ -2359,7 +2464,8 @@ Answer 1.2.10.1
 \end{Shaded}
 
 \begin{verbatim}
-#> Test passed
+#> -- Error (<text>:16:3): the median length is calculated correctly in a test case --
+#> Error: could not find function "expect_equal"
 \end{verbatim}
 
 \begin{Shaded}
@@ -2385,7 +2491,8 @@ Answer 1.2.10.1
 \end{Shaded}
 
 \begin{verbatim}
-#> Test passed
+#> -- Error (<text>:16:3): the mean discharge is calculated correctly in a test case --
+#> Error: could not find function "expect_equal"
 \end{verbatim}
 
 \textbf{Exercise 1.2.10.2} (\protect\hyperlink{ex-set4}{internal link})
@@ -2589,6 +2696,40 @@ Answer 3.7.1.1
 #> 15 Red         discharge   852
 #> 16 Canadian    discharge   174
 \end{verbatim}
+
+\hypertarget{sharing-your-book}{%
+\chapter{Sharing your book}\label{sharing-your-book}}
+
+\hypertarget{publishing}{%
+\section{Publishing}\label{publishing}}
+
+HTML books can be published online, see: \url{https://bookdown.org/yihui/bookdown/publishing.html}
+
+\hypertarget{pages}{%
+\section{404 pages}\label{pages}}
+
+By default, users will be directed to a 404 page if they try to access a webpage that cannot be found. If you'd like to customize your 404 page instead of using the default, you may add either a \texttt{\_404.Rmd} or \texttt{\_404.md} file to your project root and use code and/or Markdown syntax.
+
+\hypertarget{metadata-for-sharing}{%
+\section{Metadata for sharing}\label{metadata-for-sharing}}
+
+Bookdown HTML books will provide HTML metadata for social sharing on platforms like Twitter, Facebook, and LinkedIn, using information you provide in the \texttt{index.Rmd} YAML. To setup, set the \texttt{url} for your book and the path to your \texttt{cover-image} file. Your book's \texttt{title} and \texttt{description} are also used.
+
+This \texttt{gitbook} uses the same social sharing data across all chapters in your book- all links shared will look the same.
+
+Specify your book's source repository on GitHub using the \texttt{edit} key under the configuration options in the \texttt{\_output.yml} file, which allows users to suggest an edit by linking to a chapter's source file.
+
+Read more about the features of this output format here:
+
+\url{https://pkgs.rstudio.com/bookdown/reference/gitbook.html}
+
+Or use:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?bookdown}\OperatorTok{::}\NormalTok{gitbook}
+\end{Highlighting}
+\end{Shaded}
 
   \bibliography{book.bib,packages.bib}
 

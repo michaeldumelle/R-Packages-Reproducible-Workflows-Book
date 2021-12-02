@@ -15,6 +15,8 @@ and get help by running
 ?package_name
 ```
 
+After loading packages, you can refer to functions within them by interactively running `function_name()`. To be explicit about which functions come from which packages, I tend to refer to them as `package_name::function_name()`. The package name prefix actually prevents the need to explicitly load the package using `library()`.
+
 One of the many reasons R packages are so useful is because they are the fundamental vessel by which to share R code. If your code is in a package, others can easily download and use it -- this is the essence of open-source software! Most R users have some experience with at least one package, so they will likely be familiar with how to use yours after you share it. But sharing code is not the only benefit of creating packages -- a major benefit of using packages is that they enforce your code is built using a certain structure. Adhering to this structure:
 
 1. saves you time -- You don't need to think about how to organize your files because packages tell you how these files must be organized!
@@ -23,8 +25,9 @@ One of the many reasons R packages are so useful is because they are the fundame
     * e.g. devtools and usethis
 3. forces you to frequently document your work
     * Before I started using R packages, when I would come back my old code, I was convinced someone else wrote it -- I basically had to rewrite it all to understand it. R packages help prevent this.
-4. guides your research compendium
-5. can make your research compendium completely reproducible and easy to share
+4. keeps your code, documentation, and package dependencies all in sync
+5. guides your research compendium
+6. can make your research compendium completely reproducible and easy to share
     * This is because packages are built upon R projects, which we discuss more later.
 
 ### Exercises {#ex-set1}
@@ -40,7 +43,7 @@ Next we will create the RPRW package together! If this is your first R package, 
 ### The Motivating Dataset
 
 Suppose we want RPRW to summarize the length (in kilometers) and discharge (meters per second cubed) of North American rivers. Suppose we also want RPRW to easily accommodate many subsets of rivers based on their name. Below are our data of interest:
-```{r, eval = TRUE}
+```{r, eval = TRUE, echo = FALSE}
 river <- data.frame(
   Missouri = c(3768, 1956),
   Mississippi = c(3544, 18400),
@@ -59,7 +62,7 @@ If the structure of `river` is atypical to you, see Exercise 3.7.1.1 ([internal 
 
 ### The First Step {#first-step}
 
-The first step is using devtools to create a package template for us. There are a two ways to easily create this template. First, in editor window (upper-left pane in RStudio), click "File -> New Project -> New Directory -> R Package -> Create Project". An alternative approach is to run
+The first step is using devtools to create a package template for us. There are a two ways to easily create this template: `usethis::create_package()` and the RStudio toolbar. In this class we will use `usethis::create_package()`. Suppose you want the R package to be contained in the folder "RPRW" at the location on your computer specified by "path_to_RPRW_package" (which must exist). To create the R package, run
 ```{r}
 usethis::create_package("path_to_RPRW_package/RPRW")
 ```
@@ -91,16 +94,41 @@ RoxygenNote: 7.1.1
 √ Setting active project to 'path_to_RPRW_package/RPRW'
 ```
 
-The package is placed inside a folder named "RPRW" created at the the path on your computer named "path_to_RPRW_package". RStudio will automatically create a new window and you will see that in the "Files" tab of the bottom-right RStudio pane, there are several files (located in "path_to_RPRW_package/RPRW")
+RStudio will automatically create a new window, and you can safely close the old RStudio window. As you can see in the "Files" tab of the bottom-right RStudio pane, this new window is "placed" within "path_to_RPRW_package/RPRW" and you can see several newly created files.
 ```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
 knitr::include_graphics("images/newrpack_files.PNG")
 ```
 
-Notice the `.Rproj` file, which indicates that your package is also an R project. Also notice that the top-right RStudio pane now has a "Build" tab, which contains some useful tools for your R package.
+Notice the `.Rproj` file, which indicates that your package is also an R project. We talk about R projects later, but the takeaway is that they provide a convenient default place for R to look for files (more formally, this default place is called a working directory). This is convenient because the functions in devtools and usethis we explore later will operate on the files in our working directory, which is forced to be the root of the "RPRW" folder by the package structure.  Finally, notice that the top-right RStudio pane now has a "Build" tab, which contains some useful tools for your R package.
+
+If you instead want to use the RStudio toolbar approach, navigate to "File -> New Project -> New Directory -> R Package -> Create Project" in the RStudio toolbar. With this approach, you will not see any output in the R console of your original RStudio window.
+
+### Some prelminaries
+
+Because `usethis::create_package()` created a new RStudio window for us, we need to reload devtools (which also loads usethis:
+```{r}
+library(devtools)
+```
+
+Next we will store the river data (the motivating dataset) in the global environment so we can work with it:
+```{r, eval = TRUE}
+river <- data.frame(
+  Missouri = c(3768, 1956),
+  Mississippi = c(3544, 18400),
+  Yukon = c(3190, 6340),
+  Colorado = c(2330, 40),
+  Arkansas = c(2322, 1004),
+  Columbia = c(2000, 7730),
+  Red = c(1811, 852),
+  Canadian = c(1458, 174)
+) 
+rownames(river) <- c("length", "discharge")
+print(river)
+```
 
 ### The First Function {#first-function}
 
-R packages are composed of several functions that work together to accomplish a set of goals. The folder named "R" is where functions in your package live. Let's create our first function, `river_means()`, which finds the mean river length and discharge of desired rivers. To create an R script in the R folder named `river_means.R`, run
+R packages are composed of several functions that work together to accomplish a set of goals. Within your R package, the folder named "R" is where functions live. Let's create our first function, `river_means()`, which finds the mean river length and discharge of desired rivers. To create an R script named `river_means.R` in the package's R folder, run
 ```{r}
 usethis::use_r("river_means")
 ```
@@ -111,7 +139,7 @@ You will see some output in the console
 * Call `use_test()` to create a matching test file 
 ```
 
-and the appropriate file now in your R folder.
+and the R script is opened in the editor window of RStudio and placed in the R folder.
 ```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
 knitr::include_graphics("images/newrpack_function.PNG")
 ```
@@ -143,19 +171,22 @@ By default, the function returns the object evaluated by its last line of code. 
 
 You can leave comments in your function by prefixing a line with `#`. Comments are used to communicate in plain language the intent of your code. Leaving comments is usually good practice because it helps others (including future you) better understand the goals of your code.
 
+Paste this code into your version of `river_means.R` and click the save icon (or `Ctrl + S`).
+
 ### `devtools::load_all()` {#load-all}
 
-Now that we have written `river_means()`, it is natural to want to try it out. One approach is to run `river_means()` (either in the "R/river_means.R" script or by copying and pasting `river_means()` into the console). Another approach is to load `river_means()` by running
+Now that we have written `river_means()`, it is natural to want to try it out. Though we wrote our function in `river_means.R`, to use it interactively we must tell R that it is an object we want to use. If you were not making an R package, you may store `river_means()` by running `river_means()` in "R/river_means.R" script, copying and pasting `river_means()` into the console and pressing `Enter`, or by running
 ```{r}
 source("R/river_means.R")
 ```
 
 These approaches put `river_means()` in the global environment (look at the environment tab in the upper-right pane of RStudio). Unfortunately messing around too much in the global environment can easily introduce errors in your functions or have them behave in unexpected ways.
 
-An alternative approach is to leverage devtools, since after all, you are bothering to create a package, so you may as well use the tools designed for them! The devtools function `devtools::load_all()` emulates the process of building, installing, and loading a package. This has a few benefits. First, the functions are "sourced" into a better spot (not the global environment). Second, it makes all of your functions available through a single line of code rather than running and/or sourcing several functions separately. I highly recommend you practice using `devtools::load_all()` instead of navigating the dangerous global environment. 
+To approach we use here is to leverage devtools, since after all, you are bothering to create a package, so you may as well use the tools designed for them! The devtools function `devtools::load_all()` emulates the process of building, installing, and loading a package. This has a few benefits. First, the functions are "sourced" into a better spot (not the global environment). Second, it makes all of your functions (and data, which we get to soon) available through a single line of code rather than running and/or sourcing several functions separately. I highly recommend you practice using `devtools::load_all()` instead of navigating the global environment. 
 ```{r}
 devtools::load_all()
 ```
+By running `search()` or selecting the drop-down "Global Environment" window in the "Environment" pane (upper-right pane in RStudio), you see `package:RPRW`, which indicates `devtools::load_all()` is treating RPRW like a package. If you make any changes to your functions, make sure to save them and rerun `devtools::load_all()`.
 
 Now we get to try out `river_means()`! Suppose we want to summarize the rivers whose names start with "Mi" (in `river`, this is only Missouri and Mississippi).
 ```{r, eval = TRUE}
@@ -177,7 +208,7 @@ Hooray -- our function works! Give yourself a congratulations :)! And for more o
 
 ### Creating Package Data {#creating-data}
 
-So far the `river` data has been stored in global environment. What if you want to save this data in an easily accessible location and/or share it with others? Another package development tool to the rescue -- `usethis::use_data()` (are you starting to notice the benefits of the additional tools the package structure provides?). 
+So far the `river` data has been stored in our global environment. What if you want to save this data in an easily accessible location and/or share it with others? Another package development tool to the rescue -- `usethis::use_data()` (are you starting to notice the benefits of the additional tools devtools and usethis provide packages?). 
 ```{r}
 usethis::use_data(river)
 ```
@@ -187,10 +218,10 @@ usethis::use_data(river)
 √ Saving 'river' to 'data/river.rda'
 ```
 
-You will see that at the root of your R package (inside "path_to_RPRW_package/RPRW"), there is now a folder called `data`. In `data`, there is a file called `river.rda`. `river_rda` contains the `river` data and can now be loaded by running `utils::data("river")`. For illustration, let's remove `river` from our global environment and then load it using `utils::data("river")` (similar to how we load data from other packages):
+You will see that at the root of your R package (inside "path_to_RPRW_package/RPRW"), there is now a folder called `data`. In `data`, there is a file called `river.rda`. `river_rda` contains the `river` data (in a compressed format built for R objects) and can now be loaded alongside your functions when running `devtools::load_all()`. For illustration, let's remove `river` from our global environment and then load it using `devtools::load_all()`:
 ```{r}
 rm(river) # remove the river data from our global environment
-utils::data("river") # load the river data
+`devtools::load_all()` # load the river data
 print(river) # view the river data
 ```
 
@@ -200,7 +231,7 @@ river
 
 ### roxygen Comments {#roxygen}
 
-After writing `river_means()`, you should document it while its structure is fresh in your mind. This makes it easier for others (including future you) to understand how to use `river_means()`. Documenting R functions is a bit more complicated than leaving standard comments (`#`). It requires using of a special type of comment, *roxygen* comments (view the roxygen2 ([external link](https://roxygen2.r-lib.org/)) package for more). roxygen comments are prefixed with `#'` (instead of `#`) and have special **tags** associated with them. roxygen comment templates can be automatically inserted into your R script by putting your cursor somewhere in the body of a function and either:
+After writing `river_means()`, you should document it while its structure is fresh in your mind. This makes it easier for others (including future you) to understand how to use `river_means()`. Documenting R functions is a bit more complicated than leaving standard comments (`#`). R package documentation must be written in "R documentation (.Rd) formuat. The simplest way to write R documentation for functions is to use a special type of comment with your functions: *roxygen* comments (view the roxygen2 ([external link](https://roxygen2.r-lib.org/)) package for more). roxygen comments are prefixed with `#'` (instead of `#`) and have special **tags** associated with them. roxygen comment templates can be automatically inserted into your R script by putting your cursor somewhere in the body of a function and do either of:
 
 1. In the upper-left toolbar, go to "Code -> Insert Roxygen Skeleton"
 2. Pressing `Ctrl/Cmd + Alt + Shift + R`
@@ -264,12 +295,12 @@ Writing NAMESPACE
 Writing river_means.Rd
 ```
 
-From now on I'll stop reminding you every time, but again, notice the benefits of leveraging tools that use the package structure. `devtools::document()` creates a new folder at the root of the package called `man` that now contains a file called `river_means.Rd`
+`devtools::document()` creates a new folder at the root of the package called `man` that now contains a file called `river_means.Rd`
 ```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
 knitr::include_graphics("images/newrpack_files2.PNG")
 ```
 
-The `river_means.md` file is the result of transforming the roxygen comments to documentation that packages use. As you can see, `river_means.Rd` is a bit more complicated than the roxygen comments in `river_means()`. Luckily, `river_means.Rd` is automatically generated. The broader, important point of all this is that after running `devtools::document()`, you can view the documentation of `river_means()`! 
+The `river_means.Rd` file is the result of transforming the roxygen comments to documentation that packages use. As you can see, `river_means.Rd` is a bit more complicated than the roxygen comments in `river_means()`. Luckily, `river_means.Rd` is automatically generated. The broader, important point of all this is that after running `devtools::document()`, you can view the documentation of `river_means()`! 
 ```{r}
 ?river_means
 ```
@@ -277,6 +308,8 @@ The `river_means.md` file is the result of transforming the roxygen comments to 
 ```{r, eval = TRUE, echo = FALSE, out.width = "100%"}
 knitr::include_graphics("images/newrpack_example.PNG")
 ```
+
+Note that `devtools::document()` simultaneously updates documentation for all of the `.R` files in the R folder that have roxygen comments. From now on I'll stop reminding you every time, but again, notice the benefits of leveraging the tools that devtools and usethis provide. 
 
 For more on documentation in R packages (including documenting data), visit here ([external link](https://r-pkgs.org/man.html#man)) and the vignettes here ([external link](https://cran.r-project.org/web/packages/roxygen2/index.html)). Though we skip documenting the river data here, the RPRW package available from GitHub does document it (the documentation can be viewed by running `?river` after `library(RPRW)`).
 
@@ -315,9 +348,9 @@ usethis::use_package("stats")
 * Refer to functions with `stats::fun()`
 ```
 
-The package stats was added to the Imports field in the `DESCRIPTION` file at the root of your package. We will talk more about `DESCRIPTION` in a bit, but for now just remember that it contains metadata (high-level data) about your package. No matter how many times your package uses any function from stats, you only need to run `usethis::use_package("stats")` once.  
+The package stats was added to the Imports field in the `DESCRIPTION` file at the root of your package. We will talk more about `DESCRIPTION` in a bit, but for now just remember that it contains metadata (high-level data) about your package. No matter how many times your package uses any function from stats, you only need to run `usethis::use_package("stats")` once. If you accidentally misspell a package name in here, you should delete the misspelled name in the `Imports` section of the `DESCRIPTION` file, which we cover later.
 
-The second step is to tell the `river_medians()` function to use the `median()` function from stats. There are a few ways to do this. The way that is considered "best practice" is to preface any outside functions (aside from those in base) with `package::`. Incorporating this into `river_medians()` and inserting roxygen documentation yields
+The second step is to tell the `river_medians()` function to use the `median()` function from stats. There are a few ways to do this. The way that some consider "best practice" is to preface any outside functions (aside from those in base) with `package::`. Incorporating this into `river_medians()` and inserting roxygen documentation yields
 ```{r}
 #' Medians of river lengths and discharges
 #'
@@ -338,7 +371,7 @@ river_medians <- function(data, pattern) {
 }
 ```
 
-Though `package::function` is considered best practice, it does add some extra typing and can be cumbersome if you are using many outside functions. The `package::` prefix can be avoided by importing `median()` from stats to `river_median()` using the roxygen tag `@importFrom`:
+This approach does add some extra typing and can be cumbersome if you are using many outside functions. The `package::` prefix can be avoided by importing `median()` from stats to `river_median()` using the roxygen tag `@importFrom`:
 ```{r}
 #' Medians of river lengths and discharges
 #'
@@ -389,6 +422,12 @@ To finish creating the `river_medians()` documentation, run
 devtools::document()
 ```
 
+The `@importFrom` and `@import` tags affect the `NAMESPACE` file, which we get to later. This file is updated by running `devtools::document()`. Note that if you want to use `river_medians()` interactively, make sure to run `devtools::load_all()` again (for our example, this is not *strictly necessary* because stats comes loaded alongside R, but it is a good habit).
+```{r}
+devtools::load_all()
+```
+
+
 #### Exercises {#ex-set3}
 
 These exercises are challenging, so if they don't make sense now, that is okay! Make sure to re-review the solutions after the workshop.
@@ -399,13 +438,13 @@ These exercises are challenging, so if they don't make sense now, that is okay! 
 
 ### `DESCRIPTION` {#description}
 
-The `DESCRIPTION` file contains the R package's metadata (and was automatically installed when we created the R package). The `DESCRIPTION` file lets you easily track version numbers, authorship, and additional R packages that your R package uses. There are two fields in `DESCRIPTION` that do most of the communication regarding how your R package uses additional R packages:
+The `DESCRIPTION` file contains the R package's metadata (and was automatically created alongside the R package). The `DESCRIPTION` file lets you easily track version numbers, authorship, and additional R packages that your R package uses. There are two fields in `DESCRIPTION` that do most of the communication regarding how your R package uses additional R packages:
 
 1. `Imports`: Packages here must be installed in order for your package to work. As a result, any package listed in `Imports` will be installed alongside your package. Packages in `Imports` help build the foundation of your package.
 
 2. `Suggests`: Packages here enhance your package but are not required for your package to work. You might use suggested packages for enhanced plotting, additional data sets, or more. Packages in `Suggests` can add finishing touches to your package, but they are not part of your package's foundation -- they are like a home's paint color, not its framing.
 
-Other fields used to communicate how your R package uses additional R packages are `Depends`, `LinkingTo`, and `Enhances`. The difference between `Depends` and `Imports` is subtle -- the general advice is to use `Imports` instead of `Depends`.
+Other fields used to communicate how your R package uses additional R packages are `Depends`, `LinkingTo`, and `Enhances`. The difference between `Depends` and `Imports` is subtle -- the general advice is to use `Imports` instead of `Depends`. For more information about these fields, see Package Dependencies ([external link](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-Dependencies)).
 
 Editing the package, title, author, and description fields of this package yield a `DESCRIPTION` file that looks like
 ```{}
@@ -431,11 +470,11 @@ Imports:
     stats
 ```
 
-We will talk about some of the remaining parts of `DESCRIPTION` later.
+We will talk about some of the remaining parts of `DESCRIPTION` later. 
 
 ### `NAMESPACE` {#namespace}
 
-While the `DESCRIPTION` file communicates what packages your package *uses*, the `NAMESPACE` file communicates *how* your package uses these packages. More specifically, the `NAMESPACE` file controls which functions your package exports (making them available to others when your package is installed) and what functions from what packages must be available for your exported functions to work. The `NAMESPACE` file is automatically updated while running `devtools::document()` and should not be edited by hand (in fact, there is a warning in the `NAMESPACE` file to warn against editing the file by hand).
+While the `DESCRIPTION` file communicates which other packages your package *uses*, the `NAMESPACE` file communicates *how* your package uses these packages. More specifically, the `NAMESPACE` file controls which functions your package exports (making them available to others when your package is installed) and which packages from which functions must be available for your exported functions to work. The `NAMESPACE` file is automatically updated while running `devtools::document()` and should not be edited by hand (in fact, there is a warning in the `NAMESPACE` file to warn against editing the file by hand). This illustrates another advantage of using roxygen comments and `devtools::document`: documentation for a function from the `.R` file is used to generate `.Rd` documentation and the `NAMESPACE` imports and exports, so they all remain consistent.
 
 In `river_median()`, if you called `median` using `stats::median`, your `NAMESPACE` file will look like
 ```{r}
@@ -487,7 +526,7 @@ The tests folder should look like
 knitr::include_graphics("images/newrpack_files4.PNG")
 ```
 
-Tests are generally written on a function-by-function basis. Tests for a function should be contained in an R script titled `test-function_name`. Luckily, `usethis::use_test()` creates an R script for you with the proper name! To start testing `river_means()`, run
+Tests are generally written on a function-by-function basis. Tests for a function should be contained in an R script titled `test-function_name`. Luckily, `usethis::use_test()` creates an R script for you with the proper name! To start setting up tests for `river_means()`, run
 ```{r}
 usethis::use_test("river_means")
 ```
@@ -502,10 +541,9 @@ Your `testthat` folder should look like
 knitr::include_graphics("images/newrpack_files5.PNG")
 ```
 
-Tests can be fairly detailed and cover many components of a function (such as input types, output types, function output, etc.). The tests in testthat are prefixed with `expect_`. Here we write a simple test that calculates whether our function, `river_means()`, yields output that we would expect if we calculated the means "by hand":
+Tests can be fairly detailed and cover many components of a function (such as input types, output types, function output, etc.). The tests in testthat are prefixed with `expect_`. Here we write a simple test that calculates whether our function, `river_means()`, yields output that we would expect if we calculated the means "by hand". Copy and paste this into `test-river_means.R`:
 ```{r, eval = TRUE}
-library(testthat) # testthat is installed with devtools but we must load it
-testthat::test_that("the mean length is calculated correctly in a test case", {
+test_that("the mean length is calculated correctly in a test case", {
   
   # calculate values required for the test for length
 
@@ -522,6 +560,18 @@ testthat::test_that("the mean length is calculated correctly in a test case", {
   ## check that the function and "by hand" output matches
   expect_equal(river_means_length, raw_means_length)
 })
+```
+
+You should then see a "Run Tests" button in the editor window. Clicking on that button runs the tests and prints the results in the "Build" tab of the environment window, which should look like
+```{}
+==> Testing R file using 'testthat'
+
+i Loading cRPRW
+
+== Testing test-river_means.R ==================================================
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ] Done!
+
+Test complete
 ```
 
 If you have many tests, the `devtools::test()` function runs all of the tests in the `testthat` folder:
@@ -582,11 +632,7 @@ usethis::use_gpl_license()
 
 Vignettes act as high-level user guides for your package. They are the glue that binds together several components of your package to illustrate how the package can be used to solve a particular problem. Vignettes tend to be R Markdown documents. Though we cover R Markdown documents in more detail later, for now we note that they that interweave text and R code to create reproducible documents. You can recognize whether a document is an R markdown documents by the `.Rmd` extension that R documents have.
 
-The ggplot2 ([external link](https://ggplot2.tidyverse.org/)) package is a popular package for visualizing data. After installing ggplot2
-```{r}
-install.packages("ggplot2")
-```
-you can view its available vignettes by running
+The ggplot2 ([external link](https://ggplot2.tidyverse.org/)) package is a popular package for visualizing data. After installing ggplot2 (you can check to see if it is already installed by running `"ggplot2" %in% installed.packages()`), you can view its available vignettes by running
 ```{r}
 vignette(package = "ggplot2")
 ```
@@ -621,7 +667,7 @@ use_vignette("river-statistics", "River Statistics")
 
 does a few things. It alters your `DESCRIPTION` file, most notably adding the knitr ([external link](https://yihui.org/knitr/)) and rmarkdown packages to the `Suggests` field.  It also creates a vignette folder at the root of your package and adds to that folder an rmarkdown vignette named `river-statistics.Rmd` (notice the `.Rmd` extension) whose title is "River Statistics".
 
-While we won't create a vignette for our package during the workshop, I have added a vignette to the RPRW package. To view it (after installation), run
+While we won't create a vignette for our package during the workshop, I have added a vignette to the RPRW package. To view it (after installation, which we discuss later), run
 ```{r}
 vignette("river-statistics", "RPRW")
 ```
@@ -647,7 +693,11 @@ After `devtools::check()` identifies zero errors (and hopefully zero warnings an
 devtools::install()
 ```
 
-After installing RPRW, you can use `library(RPRW)` to load it like you do for any other R package.
+After installing RPRW, you can use `library(RPRW)` to load it as you do for any other R package. To uninstall, you can run
+```{r}
+remove.packages("RPRW")
+```
+
 
 #### Exercises {#ex-set5}
 
@@ -660,6 +710,19 @@ Congratulations on building an R package! If this was your first one, then an ex
 ```{r, eval = TRUE, echo = FALSE, out.width = "50%", fig.align='center'}
 knitr::include_graphics("images/well_done.jpg")
 ```
+
+### A Recap
+
+Here is a table that walks through the tools we discussed today, step-by-step (omitting the `devtools::` and `usethis::` prefixes):
+```{r, results = "asis", eval = TRUE}
+rpack_table <- data.frame(
+  Task = c("Creation", "Add Function", "Add Package", "Load Package", "Add Data", "Documentation", "Testing (Setup)", "Testing (Create)", "Testing (Perform)", "License (GPL-3)", "Vignette", "Check", "Install"),
+  Command = c("create_package()", "use_r()", "use_package()", "load_all()", "use_data()", "document()", "use_testthat()", "use_test()", "test()", "use_gpl_license()", "use_vignette()", "check()", "install()")
+)
+knitr::kable(rpack_table)
+```
+
+
 
 ## Debugging {#debugging}
 
@@ -691,7 +754,7 @@ We now know that the error occurs in Line 4 of `river_means()` (the `rowMeans(ne
 
 ### `browser()` {#browser}
 
-In my early stages of debugging, I would save my arguments to a function in the global environment and then run through each line of the function returning the error, effectively "recreating" the environment in which the error occurred. Perhaps some of you have done this too. The bad news is that this approach is often error-prone and inefficient. The good news is that there is a better way -- `browser()`. Inserting `browser()` into your code and then running it lets you interactively step into the function, starting at wherever `browser()` is located. No more saving arguments to the global environment and running code line-by-line! Let's try this out with `river_means()`:
+In my early stages of debugging, I would save my arguments to a function in the global environment and then run through each line of the function returning the error, effectively "recreating" the environment in which the error occurred. Perhaps some of you have done this too. The bad news is that this approach is often error-prone and inefficient. The good news is that there is a better way -- `browser()`. Inserting `browser()` into your code and then running it lets you interactively step into the function, starting at wherever `browser()` is located. No more saving arguments to the global environment and running code line-by-line! Let's try this out with by changing the body of `river_means()` to be:
 
 ```{r}
 river_means <- function(data, pattern) {
@@ -702,15 +765,16 @@ river_means <- function(data, pattern) {
 }
 ```
 
-After using `devtools::load_all()` and running `river_means()`, you will step into the function before the first line of code. For example,
+After using `devtools::load_all()`, caling `river_means()` will let you step into the function before the first line of code. For example,
 ```{r}
 river_means(river, "R")
 ```
 
 opens a new file in the editor (upper left-hand) window that looks like
 ```{r, eval = TRUE, echo = FALSE, out.width = "75%"}
-knitr::include_graphics("images/newrpack_files7.PNG")
+knitr::include_graphics("images/newrpack_files7_2.PNG")
 ```
+which highlights the most recently executed line in the file, as seen above. The Environment tab shows objects in the function's current environment (in this case, the argument values and any objects the function defines).
 
 You will also see a few buttons in the R console (lower left-hand) window:
 ```{r, eval = TRUE, echo = FALSE, out.width = "75%"}
@@ -761,10 +825,11 @@ Well this seems weird -- `new_data` does not look like a data frame. Let's inspe
 str(new_data)
 ```
 
-`new_data` is in fact not a data frame, but rather it is a numeric vector. Because `rowMeans()` requires an array of two or more dimensions (e.g. a matrix or data frame), the next line of code, `rowMeans()`, fails. Pressing `n` again returns the error and removes you from the interactive mode:
+`new_data` is in fact not a data frame, but rather it is a numeric vector. Because `rowMeans()` requires an array of two or more dimensions (e.g. a matrix or data frame), the next line of code, `rowMeans()`, fails. Pressing `n` again runs
 ```{r, eval = TRUE}
 rowMeans(new_data)
 ```
+and returns the error while removing you from the interactive mode.
 
 This is a good example of one of the reasons debugging can be so challenging: often, an error occurs because code from a few lines back runs in an unintended way (even though it runs successfully). Note that a similar error occurs when running `river_medians(river, "R")` because `apply()` requires an array of two or more dimensions.
 
