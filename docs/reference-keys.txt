@@ -56,13 +56,9 @@ git-github
 cloning-a-github-repository-in-rstudio
 gitignore
 ci
+reprex
 style
 add-tips
 ex-set14
 thank-you
-your-compendia
 exercise-solutions
-sharing-your-book
-publishing
-pages
-metadata-for-sharing

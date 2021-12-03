@@ -213,7 +213,7 @@ I finished my PhD in statistics at Oregon State University in 2020. I now work i
 \section*{Acknowledgements}\label{acknowledgements}}
 \addcontentsline{toc}{section}{Acknowledgements}
 
-I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me create and give this workshop. A special thanks to for providing feedback after the first version of the workshop that significantly improved future versions.
+I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me create and give this workshop. A special thanks to Scott Bohning for providing feedback after the first version of the workshop that significantly improved future versions.
 
 \hypertarget{getting-started}{%
 \section*{Getting Started}\label{getting-started}}
@@ -234,25 +234,21 @@ In this workshop we will build an R package named RPRW (\textbf{R} \textbf{P}ack
 
 If you don't want to build RPRW now and just want to look at the finished product, you can download in its entirety by running
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}
-  \DataTypeTok{repo =} \StringTok{"michaeldumelle/cRPRW"}\NormalTok{,}
-  \DataTypeTok{ref =} \StringTok{"main"}\NormalTok{,}
-  \DataTypeTok{build_vignettes =} \OtherTok{TRUE}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+devtools::install_github(
+  repo = "michaeldumelle/cRPRW",
+  ref = "main",
+  build_vignettes = TRUE
+)
+\end{verbatim}
 
 Notice that it has a ``c'' (short for ``companion'') prefix to RPRW to avoid conflicts with the version you build yourself today.
 
 Then you can load cRPRW by running
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(cRPRW)}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+library(cRPRW)
+\end{verbatim}
 
 Now that we have devtools installed and have talked about RPRW, let's get started building this R package!
 
@@ -521,11 +517,9 @@ Paste this code into your version of \texttt{river\_means.R} and click the save 
 
 Now that we have written \texttt{river\_means()}, it is natural to want to try it out. Though we wrote our function in \texttt{river\_means.R}, to use it interactively we must tell R that it is an object we want to use. If you were not making an R package, you may store \texttt{river\_means()} by running \texttt{river\_means()} in ``R/river\_means.R'' script, copying and pasting \texttt{river\_means()} into the console and pressing \texttt{Enter}, or by running
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{source}\NormalTok{(}\StringTok{"R/river_means.R"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+source("R/river_means.R")
+\end{verbatim}
 
 These approaches put \texttt{river\_means()} in the global environment (look at the environment tab in the upper-right pane of RStudio). Unfortunately messing around too much in the global environment can easily introduce errors in your functions or have them behave in unexpected ways.
 
@@ -599,7 +593,7 @@ You will see that at the root of your R package (inside ``path\_to\_RPRW\_packag
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{rm}\NormalTok{(river) }\CommentTok{# remove the river data from our global environment}
-\StringTok{`}\DataTypeTok{devtools::load_all()}\StringTok{`} \CommentTok{# load the river data}
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{load_all}\NormalTok{() }\CommentTok{# load the river data}
 \KeywordTok{print}\NormalTok{(river) }\CommentTok{# view the river data}
 \end{Highlighting}
 \end{Shaded}
@@ -1027,16 +1021,12 @@ Tests can be fairly detailed and cover many components of a function (such as in
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-#> Error in test_that("the mean length is calculated correctly in a test case", : could not find function "test_that"
-\end{verbatim}
-
 You should then see a ``Run Tests'' button in the editor window. Clicking on that button runs the tests and prints the results in the ``Build'' tab of the environment window, which should look like
 
 \begin{verbatim}
 ==> Testing R file using 'testthat'
 
-i Loading cRPRW
+i Loading RPRW
 
 == Testing test-river_means.R ==================================================
 [ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ] Done!
@@ -1225,16 +1215,6 @@ Congratulations on building an R package! If this was your first one, then an ex
 \subsection{A Recap}\label{a-recap}}
 
 Here is a table that walks through the tools we discussed today, step-by-step (omitting the \texttt{devtools::} and \texttt{usethis::} prefixes):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rpack_table <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
-  \DataTypeTok{Task =} \KeywordTok{c}\NormalTok{(}\StringTok{"Creation"}\NormalTok{, }\StringTok{"Add Function"}\NormalTok{, }\StringTok{"Add Package"}\NormalTok{, }\StringTok{"Load Package"}\NormalTok{, }\StringTok{"Add Data"}\NormalTok{, }\StringTok{"Documentation"}\NormalTok{, }\StringTok{"Testing (Setup)"}\NormalTok{, }\StringTok{"Testing (Create)"}\NormalTok{, }\StringTok{"Testing (Perform)"}\NormalTok{, }\StringTok{"License (GPL-3)"}\NormalTok{, }\StringTok{"Vignette"}\NormalTok{, }\StringTok{"Check"}\NormalTok{, }\StringTok{"Install"}\NormalTok{),}
-  \DataTypeTok{Command =} \KeywordTok{c}\NormalTok{(}\StringTok{"create_package()"}\NormalTok{, }\StringTok{"use_r()"}\NormalTok{, }\StringTok{"use_package()"}\NormalTok{, }\StringTok{"load_all()"}\NormalTok{, }\StringTok{"use_data()"}\NormalTok{, }\StringTok{"document()"}\NormalTok{, }\StringTok{"use_testthat()"}\NormalTok{, }\StringTok{"use_test()"}\NormalTok{, }\StringTok{"test()"}\NormalTok{, }\StringTok{"use_gpl_license()"}\NormalTok{, }\StringTok{"use_vignette()"}\NormalTok{, }\StringTok{"check()"}\NormalTok{, }\StringTok{"install()"}\NormalTok{)}
-\NormalTok{)}
-\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(rpack_table)}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{tabular}{l|l}
 \hline
@@ -1436,14 +1416,8 @@ Well this seems weird -- \texttt{new\_data} does not look like a data frame. Let
 
 \texttt{new\_data} is in fact not a data frame, but rather it is a numeric vector. Because \texttt{rowMeans()} requires an array of two or more dimensions (e.g.~a matrix or data frame), the next line of code, \texttt{rowMeans()}, fails. Pressing \texttt{n} again runs
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{rowMeans}\NormalTok{(new_data)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{verbatim}
-#> Error in rowMeans(new_data): 'x' must be an array of at least two dimensions
+rowMeans(new_data)
 \end{verbatim}
 
 and returns the error while removing you from the interactive mode.
@@ -1725,7 +1699,7 @@ A compiled PDF of the manuscript is available here (\href{https://github.com/mic
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  There is a folder name within \texttt{inst} that should be avoided -- what is it?
+  There are some folder names within \texttt{inst} that should be avoided -- what are they?
 \end{enumerate}
 
 \hypertarget{citation}{%
@@ -2161,6 +2135,41 @@ Continuous integration (often abbreviated CI) is the process of performing autom
 
 You will notice that this code created a new folder at the root of our package named \texttt{.github}. The .github folder may be hidden so you may need to enable the viewing of hidden files to look through its contents on your machine (in the files pane of R studio click more and check ``show hidden files''. Then every time you push to GitHub, GitHub actions will simulate \texttt{devtools::check()} on several operating systems (Windows, Mac, Linux) and return the results. To view this approach implemented for the RPRW package, visit this (\href{https://github.com/michaeldumelle/RPRW/actions}{external link}). Another option for continuous integration is Travis CI (\href{https://travis-ci.org/}{external link}).
 
+\hypertarget{reprex}{%
+\section{Reproducible Examples}\label{reprex}}
+
+If you want to solicit help regarding your code from others, it is helpful if your code is a reprex. A reprex is a reproducible example. Creating a reprex gives others the ability to look at and run your code with the intent of solving the problem you have. Conversations about code are more productive with
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  code that actually runs (the code should work on your machine as intended)
+\item
+  code that I don't have to run (I should be able to see your output without actually having to run the code)
+\item
+  code that I can easily run (I should be able to run the code on my machine and obtain the same results as you)
+  To accomplish all three above, the code should
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Be run in a new R session
+\item
+  Load all necessary packages
+\item
+  Create all necessary objects
+\item
+  Be self-contained (don't use anything form outside the reprex)
+\item
+  Contain the code as well as the output
+\item
+  Run properly on both our machines
+\end{itemize}
+
+How do you ensure your example is a reprex (satisfies the above properties)? Use the reprex package! See here (\href{https://reprex.tidyverse.org/}{external link}) for more information about reprex and here (\href{https://cran.r-project.org/web/packages/reprex/vignettes/reprex-dos-and-donts.html}{external link}) and for some do's and don'ts of a reprex. Finally, see here (\href{https://www.youtube.com/watch?v=5gqksthQ0cM}{external link}) for a video introduction to reprex with Jenny Bryan, the reprex maintainer.
+
 \hypertarget{style}{%
 \section{Code Style}\label{style}}
 
@@ -2226,9 +2235,6 @@ The lintr (\href{https://github.com/jimhester/lintr}{external link}) package per
 Thank you so much for attending this workshop! I do genuinely appreciate you taking some time out of your day to take this journey with me, and I hope that you got something useful out of this workshop.
 
 \begin{center}\includegraphics[width=0.5\linewidth]{images/thank_you} \end{center}
-
-\hypertarget{your-compendia}{%
-\chapter{Turning An R Package into a Reproducible Research Compendia}\label{your-compendia}}
 
 \hypertarget{exercise-solutions}{%
 \chapter{Exercise Solutions}\label{exercise-solutions}}
@@ -2557,10 +2563,10 @@ Answer 2.2.1.1
 This is for you to answer! To me, another benefit is leveraging a structure that facilitates reproducibility.
 
 \textbf{Exercise 2.4.1.1} (\protect\hyperlink{ex-set9}{internal link})
-There is a folder name within \texttt{inst} that should be avoided -- what is it?
+1. There are some folder names within \texttt{inst} that should be avoided -- what are they?
 
 Answer 2.4.1.1
-You should not name a folder in \texttt{inst} named \texttt{doc}. The package building process automatically creates a folder named \texttt{doc} upon installation -- so putting a \texttt{doc} folder in \texttt{inst} creates conflicts. For those that use GitHub, \texttt{inst/doc} is automatically placed in \texttt{gitignore}.
+You should not name a folder in \texttt{inst} called \texttt{build}, \texttt{data}, \texttt{demo}, \texttt{doc}, \texttt{docs}, \texttt{exec}, \texttt{help},\texttt{html}, \texttt{inst}, \texttt{libs}, \texttt{Meta}, \texttt{man}, \texttt{po}, \texttt{R}, \texttt{src}, \texttt{tests}, \texttt{tools}, or \texttt{vignettes}. The package building process automatically creates these folders upon installation -- so also putting them in \texttt{inst} creates conflicts. For those that use GitHub, \texttt{inst/doc} is automatically placed in \texttt{gitignore}.
 
 \textbf{Exercise 2.6.1.1} (\protect\hyperlink{ex-set10}{internal link})
 Run \texttt{?devtools::build} to look at some additional arguments -- which seem useful to you?
@@ -2696,40 +2702,6 @@ Answer 3.7.1.1
 #> 15 Red         discharge   852
 #> 16 Canadian    discharge   174
 \end{verbatim}
-
-\hypertarget{sharing-your-book}{%
-\chapter{Sharing your book}\label{sharing-your-book}}
-
-\hypertarget{publishing}{%
-\section{Publishing}\label{publishing}}
-
-HTML books can be published online, see: \url{https://bookdown.org/yihui/bookdown/publishing.html}
-
-\hypertarget{pages}{%
-\section{404 pages}\label{pages}}
-
-By default, users will be directed to a 404 page if they try to access a webpage that cannot be found. If you'd like to customize your 404 page instead of using the default, you may add either a \texttt{\_404.Rmd} or \texttt{\_404.md} file to your project root and use code and/or Markdown syntax.
-
-\hypertarget{metadata-for-sharing}{%
-\section{Metadata for sharing}\label{metadata-for-sharing}}
-
-Bookdown HTML books will provide HTML metadata for social sharing on platforms like Twitter, Facebook, and LinkedIn, using information you provide in the \texttt{index.Rmd} YAML. To setup, set the \texttt{url} for your book and the path to your \texttt{cover-image} file. Your book's \texttt{title} and \texttt{description} are also used.
-
-This \texttt{gitbook} uses the same social sharing data across all chapters in your book- all links shared will look the same.
-
-Specify your book's source repository on GitHub using the \texttt{edit} key under the configuration options in the \texttt{\_output.yml} file, which allows users to suggest an edit by linking to a chapter's source file.
-
-Read more about the features of this output format here:
-
-\url{https://pkgs.rstudio.com/bookdown/reference/gitbook.html}
-
-Or use:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{?bookdown}\OperatorTok{::}\NormalTok{gitbook}
-\end{Highlighting}
-\end{Shaded}
 
   \bibliography{book.bib,packages.bib}
 

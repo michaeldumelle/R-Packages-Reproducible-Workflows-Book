@@ -79,7 +79,7 @@ I finished my PhD in statistics at Oregon State University in 2020. I now work i
 
 ## Acknowledgements {-}
 
-I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me create and give this workshop. A special thanks to for providing feedback after the first version of the workshop that significantly improved future versions.
+I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me create and give this workshop. A special thanks to Scott Bohning for providing feedback after the first version of the workshop that significantly improved future versions.
 
 ## Getting Started {#getting-started -}
 
@@ -94,7 +94,7 @@ The devtools package contains tools to make developing R packages easier, and we
 In this workshop we will build an R package named RPRW (**R** **P**ackages for **R**eproducible **W**orkflows) designed to quantify properties of rivers in North America. Then we will turn RPRW into a research compendium, a standard by which to organize a body of work.  
 
 If you don't want to build RPRW now and just want to look at the finished product, you can download in its entirety by running
-```{r}
+```{}
 devtools::install_github(
   repo = "michaeldumelle/cRPRW",
   ref = "main",
@@ -105,7 +105,7 @@ devtools::install_github(
 Notice that it has a "c" (short for "companion") prefix to RPRW to avoid conflicts with the version you build yourself today.
 
 Then you can load cRPRW by running
-```{r}
+```{}
 library(cRPRW)
 ```
 

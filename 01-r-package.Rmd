@@ -176,7 +176,7 @@ Paste this code into your version of `river_means.R` and click the save icon (or
 ### `devtools::load_all()` {#load-all}
 
 Now that we have written `river_means()`, it is natural to want to try it out. Though we wrote our function in `river_means.R`, to use it interactively we must tell R that it is an object we want to use. If you were not making an R package, you may store `river_means()` by running `river_means()` in "R/river_means.R" script, copying and pasting `river_means()` into the console and pressing `Enter`, or by running
-```{r}
+```
 source("R/river_means.R")
 ```
 
@@ -221,7 +221,7 @@ usethis::use_data(river)
 You will see that at the root of your R package (inside "path_to_RPRW_package/RPRW"), there is now a folder called `data`. In `data`, there is a file called `river.rda`. `river_rda` contains the `river` data (in a compressed format built for R objects) and can now be loaded alongside your functions when running `devtools::load_all()`. For illustration, let's remove `river` from our global environment and then load it using `devtools::load_all()`:
 ```{r}
 rm(river) # remove the river data from our global environment
-`devtools::load_all()` # load the river data
+devtools::load_all() # load the river data
 print(river) # view the river data
 ```
 
@@ -542,7 +542,7 @@ knitr::include_graphics("images/newrpack_files5.PNG")
 ```
 
 Tests can be fairly detailed and cover many components of a function (such as input types, output types, function output, etc.). The tests in testthat are prefixed with `expect_`. Here we write a simple test that calculates whether our function, `river_means()`, yields output that we would expect if we calculated the means "by hand". Copy and paste this into `test-river_means.R`:
-```{r, eval = TRUE}
+```{r}
 test_that("the mean length is calculated correctly in a test case", {
   
   # calculate values required for the test for length
@@ -566,7 +566,7 @@ You should then see a "Run Tests" button in the editor window. Clicking on that 
 ```{}
 ==> Testing R file using 'testthat'
 
-i Loading cRPRW
+i Loading RPRW
 
 == Testing test-river_means.R ==================================================
 [ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ] Done!
@@ -714,7 +714,7 @@ knitr::include_graphics("images/well_done.jpg")
 ### A Recap
 
 Here is a table that walks through the tools we discussed today, step-by-step (omitting the `devtools::` and `usethis::` prefixes):
-```{r, results = "asis", eval = TRUE}
+```{r, results = "asis", eval = TRUE, echo = FALSE}
 rpack_table <- data.frame(
   Task = c("Creation", "Add Function", "Add Package", "Load Package", "Add Data", "Documentation", "Testing (Setup)", "Testing (Create)", "Testing (Perform)", "License (GPL-3)", "Vignette", "Check", "Install"),
   Command = c("create_package()", "use_r()", "use_package()", "load_all()", "use_data()", "document()", "use_testthat()", "use_test()", "test()", "use_gpl_license()", "use_vignette()", "check()", "install()")
@@ -826,7 +826,7 @@ str(new_data)
 ```
 
 `new_data` is in fact not a data frame, but rather it is a numeric vector. Because `rowMeans()` requires an array of two or more dimensions (e.g. a matrix or data frame), the next line of code, `rowMeans()`, fails. Pressing `n` again runs
-```{r, eval = TRUE}
+```{}
 rowMeans(new_data)
 ```
 and returns the error while removing you from the interactive mode.

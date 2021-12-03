@@ -177,6 +177,24 @@ use_github_action(name = "check-standard")
 
 You will notice that this code created a new folder at the root of our package named `.github`. The .github folder may be hidden so you may need to enable the viewing of hidden files to look through its contents on your machine (in the files pane of R studio click more and check "show hidden files". Then every time you push to GitHub, GitHub actions will simulate `devtools::check()` on several operating systems (Windows, Mac, Linux) and return the results. To view this approach implemented for the RPRW package, visit this ([external link](https://github.com/michaeldumelle/RPRW/actions)).  Another option for continuous integration is Travis CI ([external link](https://travis-ci.org/)).
 
+## Reproducible Examples {#reprex}
+
+If you want to solicit help regarding your code from others, it is helpful if your code is a reprex. A reprex is a reproducible example. Creating a reprex gives others the ability to look at and run your code with the intent of solving the problem you have. Conversations about code are more productive with
+
+1. code that actually runs (the code should work on your machine as intended)
+2. code that I don't have to run (I should be able to see your output without actually having to run the code)
+3. code that I can easily run (I should be able to run the code on my machine and obtain the same results as you)
+To accomplish all three above, the code should
+
+* Be run in a new R session
+* Load all necessary packages
+* Create all necessary objects
+* Be self-contained (don't use anything form outside the reprex)
+* Contain the code as well as the output
+* Run properly on both our machines
+
+How do you ensure your example is a reprex (satisfies the above properties)? Use the reprex package! See here ([external link](https://reprex.tidyverse.org/)) for more information about reprex and here ([external link](https://cran.r-project.org/web/packages/reprex/vignettes/reprex-dos-and-donts.html)) and for some do's and don'ts of a reprex. Finally, see here ([external link](https://www.youtube.com/watch?v=5gqksthQ0cM)) for a video introduction to reprex with Jenny Bryan, the reprex maintainer.
+
 ## Code Style {#style}
 
 The tidyverse style guide ([external link](https://style.tidyverse.org/)) provides a set of code-writing guidelines that help make your code as easy to read as possible. The tidyverse style guide claims "Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread."

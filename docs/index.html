@@ -225,24 +225,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.2" data-path="extensions.html"><a href="extensions.html#gitignore"><i class="fa fa-check"></i><b>3.4.2</b> <code>.gitignore</code></a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="extensions.html"><a href="extensions.html#ci"><i class="fa fa-check"></i><b>3.5</b> Continuous Integration</a></li>
-<li class="chapter" data-level="3.6" data-path="extensions.html"><a href="extensions.html#style"><i class="fa fa-check"></i><b>3.6</b> Code Style</a></li>
-<li class="chapter" data-level="3.7" data-path="extensions.html"><a href="extensions.html#add-tips"><i class="fa fa-check"></i><b>3.7</b> Additional Tips</a><ul>
-<li class="chapter" data-level="3.7.1" data-path="extensions.html"><a href="extensions.html#ex-set14"><i class="fa fa-check"></i><b>3.7.1</b> Exercises</a></li>
+<li class="chapter" data-level="3.6" data-path="extensions.html"><a href="extensions.html#reprex"><i class="fa fa-check"></i><b>3.6</b> Reproducible Examples</a></li>
+<li class="chapter" data-level="3.7" data-path="extensions.html"><a href="extensions.html#style"><i class="fa fa-check"></i><b>3.7</b> Code Style</a></li>
+<li class="chapter" data-level="3.8" data-path="extensions.html"><a href="extensions.html#add-tips"><i class="fa fa-check"></i><b>3.8</b> Additional Tips</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="extensions.html"><a href="extensions.html#ex-set14"><i class="fa fa-check"></i><b>3.8.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="3.8" data-path="extensions.html"><a href="extensions.html#thank-you"><i class="fa fa-check"></i><b>3.8</b> Thank you!</a></li>
+<li class="chapter" data-level="3.9" data-path="extensions.html"><a href="extensions.html#thank-you"><i class="fa fa-check"></i><b>3.9</b> Thank you!</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="your-compendia.html"><a href="your-compendia.html"><i class="fa fa-check"></i><b>4</b> Turning An R Package into a Reproducible Research Compendia</a></li>
-<li class="chapter" data-level="5" data-path="exercise-solutions.html"><a href="exercise-solutions.html"><i class="fa fa-check"></i><b>5</b> Exercise Solutions</a><ul>
+<li class="chapter" data-level="4" data-path="exercise-solutions.html"><a href="exercise-solutions.html"><i class="fa fa-check"></i><b>4</b> Exercise Solutions</a><ul>
 <li class="chapter" data-level="" data-path="exercise-solutions.html"><a href="exercise-solutions.html#building-an-r-package"><i class="fa fa-check"></i>Building an R Package</a></li>
 <li class="chapter" data-level="" data-path="exercise-solutions.html"><a href="exercise-solutions.html#making-an-r-package-a-research-compendium"><i class="fa fa-check"></i>Making an R Package a Research Compendium</a></li>
 <li class="chapter" data-level="" data-path="exercise-solutions.html"><a href="exercise-solutions.html#extensions-1"><i class="fa fa-check"></i>Extensions</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="chapter" data-level="6" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>6</b> Sharing your book</a><ul>
-<li class="chapter" data-level="6.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>6.1</b> Publishing</a></li>
-<li class="chapter" data-level="6.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>6.2</b> 404 pages</a></li>
-<li class="chapter" data-level="6.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>6.3</b> Metadata for sharing</a></li>
-</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -313,7 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="acknowledgements" class="section level2 unnumbered">
 <h2>Acknowledgements</h2>
-<p>I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me create and give this workshop. A special thanks to for providing feedback after the first version of the workshop that significantly improved future versions.</p>
+<p>I would like to thank Charlotte Wickham, Hadley Wickham, Jenny Bryan, and Yihui Xie for the immense impact their work has had on my programming journey. Much of this workshop draws from heavily their inspiration. I would also like to thank everyone who helped me create and give this workshop. A special thanks to Scott Bohning for providing feedback after the first version of the workshop that significantly improved future versions.</p>
 </div>
 <div id="getting-started" class="section level2 unnumbered">
 <h2>Getting Started</h2>
@@ -323,14 +318,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The devtools package contains tools to make developing R packages easier, and we will use functions in devtools frequently throughout this workshop. devtools is closely linked to the usethis (<a href="https://usethis.r-lib.org/">external link</a>) package, which is installed alongside devtools. The usethis package contains tools that make package development less tedious and more structured.</p>
 <p>In this workshop we will build an R package named RPRW (<strong>R</strong> <strong>P</strong>ackages for <strong>R</strong>eproducible <strong>W</strong>orkflows) designed to quantify properties of rivers in North America. Then we will turn RPRW into a research compendium, a standard by which to organize a body of work.</p>
 <p>If you don’t want to build RPRW now and just want to look at the finished product, you can download in its entirety by running</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(</span>
-<span id="cb4-2"><a href="index.html#cb4-2"></a>  <span class="dt">repo =</span> <span class="st">&quot;michaeldumelle/cRPRW&quot;</span>,</span>
-<span id="cb4-3"><a href="index.html#cb4-3"></a>  <span class="dt">ref =</span> <span class="st">&quot;main&quot;</span>,</span>
-<span id="cb4-4"><a href="index.html#cb4-4"></a>  <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span></span>
-<span id="cb4-5"><a href="index.html#cb4-5"></a>)</span></code></pre></div>
+<pre><code>devtools::install_github(
+  repo = &quot;michaeldumelle/cRPRW&quot;,
+  ref = &quot;main&quot;,
+  build_vignettes = TRUE
+)</code></pre>
 <p>Notice that it has a “c” (short for “companion”) prefix to RPRW to avoid conflicts with the version you build yourself today.</p>
 <p>Then you can load cRPRW by running</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="index.html#cb5-1"></a><span class="kw">library</span>(cRPRW)</span></code></pre></div>
+<pre><code>library(cRPRW)</code></pre>
 <p>Now that we have devtools installed and have talked about RPRW, let’s get started building this R package!</p>
 <p><img src="images/coding.jpg" width="50%" style="display: block; margin: auto;" /></p>
 

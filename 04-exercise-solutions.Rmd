@@ -223,10 +223,10 @@ Answer 2.2.1.1
 This is for you to answer! To me, another benefit is leveraging a structure that facilitates reproducibility.
 
 **Exercise 2.4.1.1** ([internal link](#ex-set9))
-There is a folder name within `inst` that should be avoided -- what is it?
+1. There are some folder names within `inst` that should be avoided -- what are they?
 
 Answer 2.4.1.1
-You should not name a folder in `inst` named `doc`. The package building process automatically creates a folder named `doc` upon installation -- so putting a `doc` folder in `inst` creates conflicts. For those that use GitHub, `inst/doc` is automatically placed in `gitignore`.
+You should not name a folder in `inst` called `build`, `data`, `demo`, `doc`, `docs`, `exec`, `help`,`html`, `inst`, `libs`, `Meta`, `man`, `po`, `R`, `src`, `tests`, `tools`, or `vignettes`. The package building process automatically creates these folders upon installation -- so also putting them in `inst` creates conflicts. For those that use GitHub, `inst/doc` is automatically placed in `gitignore`.
 
 **Exercise 2.6.1.1** ([internal link](#ex-set10))
 Run `?devtools::build` to look at some additional arguments -- which seem useful to you?

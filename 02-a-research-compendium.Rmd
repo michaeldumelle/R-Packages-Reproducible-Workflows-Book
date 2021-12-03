@@ -95,7 +95,7 @@ A compiled PDF of the manuscript is available here ([external link](https://gith
 
 ### Exercises {#ex-set9}
 
-1. There is a folder name within `inst` that should be avoided -- what is it?
+1. There are some folder names within `inst` that should be avoided -- what are they?
 
 ### Adding a Citation {#citation}
 
